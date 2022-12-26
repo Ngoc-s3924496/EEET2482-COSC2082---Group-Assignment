@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-
+#include "Member.h"
 using std::cout;
 using std::cin;
 using std::endl;
@@ -30,191 +30,6 @@ bool checkExist(vector<string> stringlist, string element);
 // location
 string locations[3] = {"HANOI", "HUE", "SAIGON"};
 
-// Class prototype
-class User;
-
-class Admin;
-
-class Member;
-
-class House;
-
-class User {
-public:
-    string id{};
-    string username{};
-    string password{};
-};
-
-class Member : public User {
-private:
-    static std::map<string, string> accounts;
-    string fullName{};
-    string phoneNumber{};
-    // Implement house class
-    // string in 2 below maps are House ID
-    std::map<string, House> myHouse{};
-    std::map<string, House> occupiedHouse{};
-    int creditPoint{};
-    double occupiedRating{};
-    std::vector<Member> pendingRequests{};
-    // string in 2 below maps are Member ID
-    std::map<string, double> ownerScore{};
-    std::map<string, string> ownerComments{};
-public:
-    // allow Admin to access private attribute
-    friend Admin;
-
-    //Constructor
-    Member() = default;
-
-    static bool login(string &username, string &password) {
-        for (auto &i: Member::accounts) {
-            if (i.first == username && i.second == password) {
-                cout << "Login successfully !" << std::endl;
-                return true;
-            }
-        }
-        cout << "Invalid username or password!" << std::endl;
-        register_account();
-        return false;
-    }
-
-    static void register_account() {
-        string username;
-        cout << "Enter username: ";
-        std::getline(std::cin, username);
-        string password;
-        cout << "Enter password: ";
-        std::getline(std::cin, password);
-        accounts[username] = password;
-        cout << "Register successfully!";
-    }
-
-    void showInfo() {
-        // print basic information
-        cout << "Full name: " << this->fullName << std::endl;
-        cout << "Phone number: " << this->phoneNumber << std::endl;
-        cout << "Credit point: " << this->creditPoint << std::endl;
-        cout << "Occupied rating: " << this->occupiedRating << std::endl;
-
-        // print all pending requests
-        cout << "Pending requests: ";
-        for (auto &j: this->pendingRequests) {
-            cout << j.fullName << " ";
-        }
-
-        // average score
-        cout << "Average score: " << this->avgScore() << std::endl;
-
-        // print comments
-        cout << "Comments on member: ";
-        for (auto &x: this->ownerComments) {
-            // x.first = name of commenters, x.second = comments
-            std::cout << x.first << " " << x.second << "\n";
-        }
-        // new line
-        cout << std::endl;
-
-        // add them function de xem thong tin house
-    }
-
-    void listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) {
-
-    }
-
-    void listHouse(string &start, string &end, double &consumingPoint) {
-
-    }
-
-    void unlistHouse() {
-
-    }
-
-    void viewRequest() {
-        for (auto &i: pendingRequests) {
-            cout << i.fullName << " ";
-        }
-    }
-
-    void acceptRequest() {
-        cout << "Enter request id: ";
-        string id;
-        cin >> id;
-        for (auto &i: pendingRequests) {
-            if (i.id == id) {
-                cout << "Accept successfully!" << endl;
-
-                // add the current at the back
-                pendingRequests.push_back(i);
-
-                // delete all other request if accept the last
-                pendingRequests.erase(pendingRequests.begin(), pendingRequests.end() - 1);
-                return;
-            }
-        }
-        cout << "No id found!" << endl;
-    }
-
-    void rateOccupier() {
-        cout << "Enter a score for " << pendingRequests.at(0).fullName << " : ";
-        int score{};
-        cin >> score;
-
-        // update score
-        pendingRequests.at(0).ownerScore[this->id] = score;
-    }
-
-    double avgScore() {
-        double tmp{};
-        for (auto &i: ownerScore) {
-            tmp += i.second;
-        }
-        return tmp / ownerScore.size();
-    }
-
-    static void searchHouse() {
-        cout << "Enter location: ";
-        string location;
-        cin >> location;
-        for (auto &i: locations) {
-            if (i == location) {
-                // list house with location
-                return;
-            }
-        }
-        cout << "Invalid location!";
-    }
-
-    void makeRequest() {
-        cout << "Enter house id: ";
-        string house_id;
-        cin >> house_id;
-        // check if house_id is valid
-
-        // if valid
-        // store occupiedHouse with id and its corresponding value in class House
-
-    }
-
-    void viewStatusRequestedHouse() {
-
-    };
-
-    void ratingHouse() {
-        cout << "Enter score for house " << this->occupiedHouse.first << " : ";
-        double score;
-        cin >> score;
-
-        // update score of house
-        this->occupiedHouse.second.score = score;
-    }
-
-    const string &getFullName() const {
-        return fullName;
-    }
-
-};
 
 class House {
 protected:
@@ -229,6 +44,7 @@ protected:
     std::vector<House> listingHouse;
     std::vector<Member> requestsList;
 public:
+    House() = default;
     House(const string &houseId, const string &address, const string& location, const string &description,
           bool occupationStatus, double houseRatingScore, const vector<Member> &occupiers,
           const std::map<string, string> &occupiersComments, const vector<House> &listingHouse,
@@ -356,7 +172,7 @@ void pageStart() {
     cout << "Enter your action: ";
     cin >> input;
     vector<string> inputList = {"1", "2", "3", "4"};
-    while (checkExist(inputList, input) == false) {
+    while (!checkExist(inputList, input)) {
         cout << "Invalid input" << endl;
         cout << "Enter your action: ";
         cin >> input;
