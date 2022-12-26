@@ -12,6 +12,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+const string locations[3] = {"HANOI", "HUE", "SAIGON"};
 
 class House {
 protected:
