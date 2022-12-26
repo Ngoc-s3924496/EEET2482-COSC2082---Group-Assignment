@@ -6,10 +6,13 @@
 #define MEMBER_H
 
 #include <iostream>
+#include <map>
 #include "House.h"
+#include "User.h"
 using std::string;
 using std::cout;
-
+using std::cin;
+using std::endl;
 class Member : public User {
 private:
     static std::map<string, string> accounts;

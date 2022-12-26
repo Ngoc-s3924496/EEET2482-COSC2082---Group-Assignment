@@ -3,6 +3,7 @@
 //
 
 #include "Member.h"
+
     string locations[3] = {"HANOI", "HUE", "SAIGON"};
     //Constructor
     Member::Member() = default;
