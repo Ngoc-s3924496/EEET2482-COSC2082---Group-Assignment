@@ -29,7 +29,7 @@ public:
     static void add_members(Member &member);
 
     // check if username is available
-    bool check_admin(string &username);
+    bool check_admin(string &username, string &password);
 
     static void showMember();
 

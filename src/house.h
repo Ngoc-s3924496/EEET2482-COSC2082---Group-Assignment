@@ -21,11 +21,19 @@ protected:
     string address;
     string location;
     string description;
+
+    // If house is occupied or not
     bool occupationStatus;
+
+    // list of last occupiers
     std::vector<Member> occupiers;
+
+    // Scores that the previous occupiers give
     std::vector<double> occupiersScores;
+
+    // Comments of previous occupiers
     std::map<string, string> occupiersComments;
-    std::vector<House> listingHouse;
+
     std::vector<Member> requestsList;
 public:
     friend class Member;

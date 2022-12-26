@@ -7,7 +7,7 @@
     Member::Member() = default;
 
     Member::Member(string id, string fullName, string username,string password, string phoneNumber,
-        House myHouse, double occupierRatings, int creditPoint, std::vector<House> pendingRequests,
+        House myHouse, std::vector<double> occupierRatings, int creditPoint, std::vector<House> pendingRequests,
         std::map<string,string> ownerComments) {
         this->id = id;
         this->fullName = fullName;
@@ -45,13 +45,25 @@
         this->password = password;
         cout << "Register successfully!";
     }
-
+    double Member::avgScore(std::vector <double> &occupierRatings) {
+        double avgScore {};
+        if (occupierRatings.empty()) {
+            return 0;
+        }
+        else if (occupierRatings.size() == 1) {
+            return occupierRatings.at(0);
+        }
+        for (auto &i : occupierRatings) {
+             avgScore += i;
+        }
+        return avgScore / occupierRatings.size();
+    }
     void Member::showInfo() {
         // print basic information
         cout << "Full name: " << this->fullName << std::endl;
         cout << "Phone number: " << this->phoneNumber << std::endl;
         cout << "Credit point: " << this->creditPoint << std::endl;
-        cout << "Occupied rating: " << this->occupierRatings << std::endl;
+        cout << "Occupier rating: " << this->avgScore(occupierRatings) << std::endl;
 
         // print all pending requests
         cout << "Pending requests: ";
@@ -61,9 +73,6 @@
             cout << j.location << " ";
             cout << j.description << " ";
         }
-
-        // average score
-        cout << "Average score: " << this->avgScore() << std::endl;
 
         // print comments
         cout << "Comments on member: ";
@@ -101,18 +110,22 @@
     void Member::rateOccupier() {
     }
 
-    double Member::avgScore() {
-    }
-
     void Member::searchHouse() {
         cout << "Enter location: ";
         string location;
         std::cin >> location;
-        for (auto &i: locations) {
+        // check if location is valid
+        for (auto &i : locations) {
             if (i == location) {
-                // list house with location
-                for (auto &j : House)
-                    return;
+                // list of house
+                for (auto &j : listingHouse) {
+                    // print house with that location
+                    if (j.location == location) {
+                        cout << j.houseID << " " << j.address << " " << j.location << std::endl;
+                        cout << "  '" << j.description << "'" << endl;
+                    }
+                }
+                return;
             }
         }
         cout << "Invalid location!";
@@ -123,23 +136,34 @@
         string house_id;
         cin >> house_id;
         // check if house_id is valid
-
-        // if valid
-        // store occupiedHouse with id and its corresponding value in class House
-
+        for (auto &j : listingHouse) {
+            if (j.houseID == house_id) {
+                // assign this house
+                pendingRequests.push_back(j);
+                return;
+            }
+        }
+        cout << "Invalid house id!" << endl;
     }
 
     void Member::viewStatusRequestedHouse() {
+        for (auto &i : pendingRequests) {
+            // if no one request this house
+            if (i.occupiers.empty()) {
+                continue;
+            }
 
+            // if at least one people request this house -> the newest rent will be at last
+            if (i.occupiers.at(i.occupiers.size() - 1) == this) {
+                cout << "You have successfully rent this house!" << endl;
+                return;
+            }
+        }
+        cout << "Your requested house is still pending or not allocated!" << endl;
+        cout << "Please try again later." << endl;
     };
 
     void Member::ratingHouse() {
-        cout << "Enter score for house " << this -> rentHouse.at(rentHouse.size() - 1).houseID << ": ";
-        double score;
-        cin >> score;
-
-        // update score of house
-        this -> rentHouse.at(rentHouse.size() - 1).occupiersScores.push_back(score);
     }
 
     const string & Member::getFullName() const {
