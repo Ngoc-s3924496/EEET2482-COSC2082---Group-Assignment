@@ -177,6 +177,30 @@ src/Member.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/build.make CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Member.cpp.s
 .PHONY : src/Member.cpp.s
 
+src/house.o: src/house.cpp.o
+.PHONY : src/house.o
+
+# target to build an object file
+src/house.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/build.make CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.o
+.PHONY : src/house.cpp.o
+
+src/house.i: src/house.cpp.i
+.PHONY : src/house.i
+
+# target to preprocess a source file
+src/house.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/build.make CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.i
+.PHONY : src/house.cpp.i
+
+src/house.s: src/house.cpp.s
+.PHONY : src/house.s
+
+# target to generate assembly for a file
+src/house.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/build.make CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.s
+.PHONY : src/house.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -216,6 +240,9 @@ help:
 	@echo "... src/Member.o"
 	@echo "... src/Member.i"
 	@echo "... src/Member.s"
+	@echo "... src/house.o"
+	@echo "... src/house.i"
+	@echo "... src/house.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

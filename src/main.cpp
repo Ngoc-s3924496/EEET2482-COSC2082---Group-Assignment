@@ -29,66 +29,6 @@ void lineBreak();
 
 bool checkExist(vector<string> stringlist, string element);
 
-
-//class House {
-//protected:
-//    string houseID;
-//    string address;
-//    string location;
-//    string description;
-//    bool occupationStatus;
-//    double houseRatingScore;
-//    std::vector<Member> occupiers;
-//    std::map<string, string> occupiersComments;
-//    std::vector<House> listingHouse;
-//    std::vector<Member> requestsList;
-//public:
-//    House() = default;
-//    House(const string &houseId, const string &address, const string& location, const string &description,
-//          bool occupationStatus, double houseRatingScore, const vector<Member> &occupiers,
-//          const std::map<string, string> &occupiersComments, const vector<House> &listingHouse,
-//          const vector<Member> &requestsList) : houseID(houseId), address(address),
-//                                                description(description), occupationStatus(occupationStatus),
-//                                                houseRatingScore(houseRatingScore), occupiers(occupiers),
-//                                                occupiersComments(occupiersComments), listingHouse(listingHouse),
-//                                                requestsList(requestsList) {
-//        for (string loc : locations) {
-//            if (loc == location) {
-//                this->location = location;
-//            } else {
-//                std::cerr << "Invalid house location" << endl;
-//            }
-//        }
-//    }
-//
-//    void showFullDemo() {
-//        cout << "House Information - Full Version" << endl;
-//        cout << "House ID: " << houseID << endl;
-//        cout << "Address: " << address << endl;
-//        cout << "Location: " << location << endl;
-//        cout << "Description: " << description << endl;
-//        if (occupationStatus) {
-//            cout << "House Status: occupied by " << occupiers.back().getFullName() << " - " << occupiers.back().id
-//                 << endl;
-//        } else {
-//            cout << "House Status: empty" << endl;
-//        }
-//        cout << "House Rating Score: " << houseRatingScore << endl;
-//    }
-//
-//    void showDemoInfo() {
-//        cout << "House Information - Guest Version" << endl;
-//        cout << "House ID: " << houseID << endl;
-//        cout << "Location: " << location << endl;
-//        cout << "Approximate House Rating Score: " << (int) houseRatingScore - 2 << " ~ " << (int) houseRatingScore + 2
-//             << endl;
-//    }
-//
-//};
-
-
-
-
 int main() {
     // Call constructor for classes
     cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;

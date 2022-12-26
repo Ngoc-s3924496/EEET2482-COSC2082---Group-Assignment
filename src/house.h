@@ -1,4 +1,3 @@
-
 #ifndef HOUSE_H
 #define HOUSE_H
 
@@ -7,42 +6,44 @@
 #include <vector>
 #include "Member.h"
 
-
 using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
+using std::vector;
 
 const string locations[3] = {"HANOI", "HUE", "SAIGON"};
 
 class House {
 protected:
     string houseID;
+    string startDate;
+    string endDate;
     string address;
     string location;
     string description;
-
-    // If house is occupied or not
-    bool occupationStatus;
-
-    // list of last occupiers
+    std::vector<double> houseRatings;
+    bool status;
     std::vector<Member> occupiers;
-
-    // Scores that the previous occupiers give
-    std::vector<double> occupiersScores;
-
-    // Comments of previous occupiers
-    std::map<string, string> occupiersComments;
-
-    std::vector<Member> requestsList;
+    std::vector<Member> requestList;
+    std::map<string, string> occupierComment;
 public:
     friend class Member;
     friend class Admin;
-
     House();
+    House(const string &houseId, const string &startDate, const string &endDate, const string &address,
+          const string &location, const string &description, const std::vector<double> &houseRatings, bool status,
+          const vector <Member> &occupiers, const vector <Member> &requestList,
+          const std::map<string, string> &occupierComment);
+
+
     void showFullHouse();
+
     void showDemoHouse();
+
     double avgScore();
+
+
 };
 
 
