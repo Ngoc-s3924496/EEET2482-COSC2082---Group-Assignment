@@ -18,8 +18,6 @@ class Member : public User {
 private:
     string fullName{};
     string phoneNumber{};
-    string username {};
-    string password {};
     House myHouse{};
     std::vector <House> rentHouse{};
     static std::vector<House> listingHouse;
