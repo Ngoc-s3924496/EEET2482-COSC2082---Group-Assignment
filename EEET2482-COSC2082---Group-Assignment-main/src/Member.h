@@ -5,14 +5,16 @@
 #ifndef MEMBER_H
 #define MEMBER_H
 
-#include <iostream>
-#include <map>
+#include<iostream>
+#include<map>
+#include<vector>
 #include "House.h"
 #include "User.h"
 using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
+using std::vector;
 class Member: public User {
 public:
     // allow Admin to access private attribute

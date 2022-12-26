@@ -1,9 +1,9 @@
 #ifndef HOUSE_H
 #define HOUSE_H
 
-#include <iostream>
-#include <map>
-#include <vector>
+#include<iostream>
+#include<map>
+#include<vector>
 #include "Member.h"
 
 using std::string;

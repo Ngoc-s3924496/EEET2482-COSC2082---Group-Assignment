@@ -19,7 +19,7 @@ House::House() = default;
 // Constructor full
 House::House(string houseId, string startDate, string endDate, string address,
              string location, string description, vector<double> houseRatings, bool status,
-             vector <Member> occupiers, vector <Member> requestList,
+             vector <Member*> occupiers, vector <Member*> requestList,
              std::map<string, string> occupierComment) : houseID(houseId), startDate(startDate),
                                                                 endDate(endDate),
                                                                 address(address),
@@ -54,7 +54,7 @@ void House::showFullHouse() {
     cout << "Location: " << location << endl;
     cout << "Description: " << description << endl;
     if (status) {
-        cout << "House Status: occupied by " << occupiers.back().getFullName() << " - " << occupiers.back().id
+        cout << "House Status: occupied by " << occupiers.back()->getFullName() << " - " << occupiers.back()->id
              << endl;
     } else {
         cout << "House Status: empty" << endl;
