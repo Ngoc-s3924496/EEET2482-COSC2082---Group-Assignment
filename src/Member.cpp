@@ -63,9 +63,6 @@
         }
         return avgScore / occupierRatings.size();
     }
-    const string & Member::getFullName() const {
-        return fullName;
-    }
     void Member::showInfo() {
         // print basic information
         cout << "Full name: " << this->fullName << std::endl;
@@ -190,5 +187,81 @@
         }
         cout << "Thank you for using!" << endl;
     }
+
+const string &Member::getFullName() const {
+    return fullName;
+}
+
+void Member::setFullName(const string &fullName) {
+    Member::fullName = fullName;
+}
+
+const string &Member::getPhoneNumber() const {
+    return phoneNumber;
+}
+
+void Member::setPhoneNumber(const string &phoneNumber) {
+    Member::phoneNumber = phoneNumber;
+}
+
+const House &Member::getMyHouse() const {
+    return myHouse;
+}
+
+void Member::setMyHouse(const House &myHouse) {
+    Member::myHouse = myHouse;
+}
+
+const House &Member::getRentHouse() const {
+    return rentHouse;
+}
+
+void Member::setRentHouse(const House &rentHouse) {
+    Member::rentHouse = rentHouse;
+}
+
+const vector<House> &Member::getListingHouse() {
+    return listingHouse;
+}
+
+void Member::setListingHouse(const vector<House> &listingHouse) {
+    for (auto &House : listingHouse) {
+        Member::listingHouse.push_back(House);
+    }
+}
+
+int Member::getCreditPoint() const {
+    return creditPoint;
+}
+
+void Member::setCreditPoint(int creditPoint) {
+    Member::creditPoint = creditPoint;
+}
+
+const vector<double> &Member::getOccupierRatings() const {
+    return occupierRatings;
+}
+
+void Member::setOccupierRatings(const vector<double> &occupierRatings) {
+    Member::occupierRatings = occupierRatings;
+}
+
+const vector<House> &Member::getPendingRequests() const {
+    return pendingRequests;
+}
+
+void Member::setPendingRequests(const vector<House> &pendingRequests) {
+    for (auto &i : pendingRequests) {
+        this->pendingRequests.push_back(i);
+    }
+}
+
+const map<string, string> &Member::getOwnerComments() const {
+    return ownerComments;
+}
+
+void Member::setOwnerComments(const map<string, string> &ownerComments) {
+    Member::ownerComments = ownerComments;
+}
 
 

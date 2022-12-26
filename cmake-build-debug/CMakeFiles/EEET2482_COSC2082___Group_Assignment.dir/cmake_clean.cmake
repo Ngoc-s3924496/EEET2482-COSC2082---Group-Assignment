@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Admin.cpp.o"
   "CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Admin.cpp.o.d"
+  "CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.o"
+  "CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.o.d"
   "CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Member.cpp.o"
   "CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Member.cpp.o.d"
   "CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.o"

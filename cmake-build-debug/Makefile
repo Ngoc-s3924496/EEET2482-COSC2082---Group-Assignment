@@ -153,6 +153,30 @@ src/Admin.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/build.make CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Admin.cpp.s
 .PHONY : src/Admin.cpp.s
 
+src/Data.o: src/Data.cpp.o
+.PHONY : src/Data.o
+
+# target to build an object file
+src/Data.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/build.make CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.o
+.PHONY : src/Data.cpp.o
+
+src/Data.i: src/Data.cpp.i
+.PHONY : src/Data.i
+
+# target to preprocess a source file
+src/Data.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/build.make CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.i
+.PHONY : src/Data.cpp.i
+
+src/Data.s: src/Data.cpp.s
+.PHONY : src/Data.s
+
+# target to generate assembly for a file
+src/Data.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/build.make CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.s
+.PHONY : src/Data.cpp.s
+
 src/Member.o: src/Member.cpp.o
 .PHONY : src/Member.o
 
@@ -237,6 +261,9 @@ help:
 	@echo "... src/Admin.o"
 	@echo "... src/Admin.i"
 	@echo "... src/Admin.s"
+	@echo "... src/Data.o"
+	@echo "... src/Data.i"
+	@echo "... src/Data.s"
 	@echo "... src/Member.o"
 	@echo "... src/Member.i"
 	@echo "... src/Member.s"
