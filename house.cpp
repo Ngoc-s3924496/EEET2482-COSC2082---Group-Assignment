@@ -14,8 +14,6 @@ using std::cin;
 using std::endl;
 using std::cerr;
 
-const string locations[3] = {"HANOI", "HUE", "SAIGON"};
-
 // Constructor
 House::House() = default;
 
