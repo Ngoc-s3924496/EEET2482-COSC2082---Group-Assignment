@@ -8,14 +8,23 @@ using std::vector;
 using std::stoi;
 
 void pageStart();
+
 void pageGuest();
+
 void pageMember();
+
 void pageAdmin();
+
 void pageEnd();
+
 void goBackGuest();
+
 void goBackMember();
+
 void goBackAdmin();
+
 void lineBreak();
+
 bool checkExist(vector<string> stringlist, string element);
 
 // location
@@ -23,36 +32,44 @@ string locations[3] = {"HANOI", "HUE", "SAIGON"};
 
 // Class prototype
 class User;
+
 class Admin;
+
 class Member;
+
+class House;
 
 class User {
 public:
-    string id {};
-    string username {};
-    string password {};
+    string id{};
+    string username{};
+    string password{};
 };
-class Member: public User {
+
+class Member : public User {
 private:
     static std::map<string, string> accounts;
-    string fullName {};
-    string phoneNumber {};
+    string fullName{};
+    string phoneNumber{};
     // Implement house class
-    std::map <house_id, House> myHouse {};
-    std::map <house_id, House> occupiedHouse {};
-    int creditPoint {};
-    double occupiedRating {};
-    std::vector<Member> pendingRequests {};
-    std::map<string, double> ownerScore {};
-    std::map<string, string> ownerComments {};
+    // string in 2 below maps are House ID
+    std::map<string, House> myHouse{};
+    std::map<string, House> occupiedHouse{};
+    int creditPoint{};
+    double occupiedRating{};
+    std::vector<Member> pendingRequests{};
+    // string in 2 below maps are Member ID
+    std::map<string, double> ownerScore{};
+    std::map<string, string> ownerComments{};
 public:
     // allow Admin to access private attribute
     friend Admin;
 
     //Constructor
     Member() = default;
+
     static bool login(string &username, string &password) {
-        for (auto &i : Member::accounts) {
+        for (auto &i: Member::accounts) {
             if (i.first == username && i.second == password) {
                 cout << "Login successfully !" << std::endl;
                 return true;
@@ -62,13 +79,14 @@ public:
         register_account();
         return false;
     }
+
     static void register_account() {
         string username;
         cout << "Enter username: ";
-        std::getline(std::cin,username);
+        std::getline(std::cin, username);
         string password;
         cout << "Enter password: ";
-        std::getline(std::cin,password);
+        std::getline(std::cin, password);
         accounts[username] = password;
         cout << "Register successfully!";
     }
@@ -82,7 +100,7 @@ public:
 
         // print all pending requests
         cout << "Pending requests: ";
-        for (auto &j : this->pendingRequests) {
+        for (auto &j: this->pendingRequests) {
             cout << j.fullName << " ";
         }
 
@@ -91,16 +109,16 @@ public:
 
         // print comments
         cout << "Comments on member: ";
-        for(auto & x : this->ownerComments)
-        {
+        for (auto &x: this->ownerComments) {
             // x.first = name of commenters, x.second = comments
-            std::cout << x.first << " " << x.second<< "\n";
+            std::cout << x.first << " " << x.second << "\n";
         }
         // new line
         cout << std::endl;
 
         // add them function de xem thong tin house
     }
+
     void listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) {
 
     }
@@ -112,8 +130,9 @@ public:
     void unlistHouse() {
 
     }
+
     void viewRequest() {
-        for(auto &i : pendingRequests) {
+        for (auto &i: pendingRequests) {
             cout << i.fullName << " ";
         }
     }
@@ -122,7 +141,7 @@ public:
         cout << "Enter request id: ";
         string id;
         cin >> id;
-        for (auto &i : pendingRequests) {
+        for (auto &i: pendingRequests) {
             if (i.id == id) {
                 cout << "Accept successfully!" << endl;
 
@@ -139,15 +158,16 @@ public:
 
     void rateOccupier() {
         cout << "Enter a score for " << pendingRequests.at(0).fullName << " : ";
-        int score {};
+        int score{};
         cin >> score;
 
         // update score
         pendingRequests.at(0).ownerScore[this->id] = score;
     }
-    double avgScore () {
-        double tmp {};
-        for (auto &i : ownerScore) {
+
+    double avgScore() {
+        double tmp{};
+        for (auto &i: ownerScore) {
             tmp += i.second;
         }
         return tmp / ownerScore.size();
@@ -157,7 +177,7 @@ public:
         cout << "Enter location: ";
         string location;
         cin >> location;
-        for (auto &i : locations) {
+        for (auto &i: locations) {
             if (i == location) {
                 // list house with location
                 return;
@@ -165,6 +185,7 @@ public:
         }
         cout << "Invalid location!";
     }
+
     void makeRequest() {
         cout << "Enter house id: ";
         string house_id;
@@ -175,11 +196,12 @@ public:
         // store occupiedHouse with id and its corresponding value in class House
 
     }
-    void viewStatusRequestedHouse () {
+
+    void viewStatusRequestedHouse() {
 
     };
 
-    void ratingHouse () {
+    void ratingHouse() {
         cout << "Enter score for house " << this->occupiedHouse.first << " : ";
         double score;
         cin >> score;
@@ -188,22 +210,81 @@ public:
         this->occupiedHouse.second.score = score;
     }
 
+    const string &getFullName() const {
+        return fullName;
+    }
 
 };
-class Admin: public User {
+
+class House {
+protected:
+    string houseID;
+    string address;
+    string location;
+    string description;
+    bool occupationStatus;
+    double houseRatingScore;
+    std::vector<Member> occupiers;
+    std::map<string, string> occupiersComments;
+    std::vector<House> listingHouse;
+    std::vector<Member> requestsList;
+public:
+    House(const string &houseId, const string &address, const string& location, const string &description,
+          bool occupationStatus, double houseRatingScore, const vector<Member> &occupiers,
+          const std::map<string, string> &occupiersComments, const vector<House> &listingHouse,
+          const vector<Member> &requestsList) : houseID(houseId), address(address),
+                                                description(description), occupationStatus(occupationStatus),
+                                                houseRatingScore(houseRatingScore), occupiers(occupiers),
+                                                occupiersComments(occupiersComments), listingHouse(listingHouse),
+                                                requestsList(requestsList) {
+        for (string loc : locations) {
+            if (loc == location) {
+                this->location = location;
+            } else {
+                std::cerr << "Invalid house location" << endl;
+            }
+        }
+    }
+
+    void showFullDemo() {
+        cout << "House Information - Full Version" << endl;
+        cout << "House ID: " << houseID << endl;
+        cout << "Address: " << address << endl;
+        cout << "Location: " << location << endl;
+        cout << "Description: " << description << endl;
+        if (occupationStatus) {
+            cout << "House Status: occupied by " << occupiers.back().getFullName() << " - " << occupiers.back().id
+                 << endl;
+        } else {
+            cout << "House Status: empty" << endl;
+        }
+        cout << "House Rating Score: " << houseRatingScore << endl;
+    }
+
+    void showDemoInfo() {
+        cout << "House Information - Guest Version" << endl;
+        cout << "House ID: " << houseID << endl;
+        cout << "Location: " << location << endl;
+        cout << "Approximate House Rating Score: " << (int) houseRatingScore - 2 << " ~ " << (int) houseRatingScore + 2
+             << endl;
+    }
+
+};
+
+class Admin : public User {
 private:
     // predefined admins
-    std::vector<string> admins {"Quoc","Quan", "Thach", "Ngoc"};
+    std::vector<string> admins{"Quoc", "Quan", "Thach", "Ngoc"};
 
     // members vector array
     static std::vector<Member> members;
 
     // admin password
-    string password {"admin"};
+    string password{"admin"};
 public:
 
     // get password
-    std::string getPassword () {
+    std::string getPassword() {
         return this->password;
     }
 
@@ -213,22 +294,23 @@ public:
     }
 
     // check if username is available
-    bool check_admin (string &username) {
-        for (auto &i : admins) {
+    bool check_admin(string &username) {
+        for (auto &i: admins) {
             if (i == username) {
                 return true;
             }
         }
         return false;
     }
+
     static void showMember() {
         // enter member name
         std::cout << "Enter a member name: ";
-        std::string member_name {};
-        std::getline(std::cin,member_name);
+        std::string member_name{};
+        std::getline(std::cin, member_name);
 
         // find member
-        for (auto &i : Admin::members) {
+        for (auto &i: Admin::members) {
             // if found
             if (member_name == i.fullName) {
                 cout << "Member found!" << std::endl;
@@ -238,7 +320,8 @@ public:
         }
         cout << "Invalid member name!" << std::endl;
     }
-    void showHouses () {
+
+    void showHouses() {
 
     }
 };
@@ -259,7 +342,7 @@ int main() {
     return 0;
 }
 
-void pageStart(){
+void pageStart() {
     string input;
     cout << "Hello fellow travelers!" << endl;
     cout << "Welcome to" << endl;
@@ -273,14 +356,14 @@ void pageStart(){
     cout << "Enter your action: ";
     cin >> input;
     vector<string> inputList = {"1", "2", "3", "4"};
-    while (checkExist(inputList, input) == false){
+    while (checkExist(inputList, input) == false) {
         cout << "Invalid input" << endl;
         cout << "Enter your action: ";
         cin >> input;
     }
     lineBreak();
     int intInput = stoi(input);
-    switch (intInput){
+    switch (intInput) {
         case 1:
             pageGuest();
             break;
@@ -296,7 +379,7 @@ void pageStart(){
     }
 }
 
-void pageGuest(){
+void pageGuest() {
     cout << "Welcome guest!" << endl;
     cout << "[1] View available houses" << endl;
     cout << "[2] Register as a member" << endl;
@@ -306,14 +389,14 @@ void pageGuest(){
     cout << "Enter your action: ";
     cin >> input;
     vector<string> inputList = {"1", "2", "3", "4"};
-    while (checkExist(inputList, input) == false){
+    while (checkExist(inputList, input) == false) {
         cout << "Invalid input" << endl;
         cout << "Enter your action: ";
         cin >> input;
     }
     lineBreak();
     int intInput = stoi(input);
-    switch (intInput){
+    switch (intInput) {
         case 1:
             // Guest view house function
             goBackGuest();
@@ -331,7 +414,7 @@ void pageGuest(){
     }
 }
 
-void pageMember(){
+void pageMember() {
     string username;
     string password;
     cout << "Enter your username: ";
@@ -341,7 +424,7 @@ void pageMember(){
 
     // Check member username and password
     // Change Test value to Admin predefined attribute
-    if (username.compare("Test") != 0 && password.compare("Test") != 0){
+    if (username.compare("Test") != 0 && password.compare("Test") != 0) {
         string input;
         cout << "Wrong username or password" << endl;
         cout << "[1] Go back" << endl;
@@ -350,14 +433,14 @@ void pageMember(){
         cout << "Enter your action: ";
         cin >> input;
         vector<string> inputList = {"1", "2", "3"};
-        while (checkExist(inputList, input) == false){
+        while (checkExist(inputList, input) == false) {
             cout << "Invalid input" << endl;
             cout << "Enter your action: ";
             cin >> input;
         }
         lineBreak();
         int intInput = stoi(input);
-        switch (intInput){
+        switch (intInput) {
             case 1:
                 pageStart();
                 break;
@@ -368,9 +451,7 @@ void pageMember(){
                 pageEnd();
                 break;
         }
-    }
-
-    else{
+    } else {
         cout << "Hello 'Member name'!" << endl;
         cout << "[1] Show account info" << endl;
         cout << "[2] List house for occupation" << endl;
@@ -388,14 +469,14 @@ void pageMember(){
         cout << "Enter your action: ";
         cin >> input;
         vector<string> inputList = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-        while (checkExist(inputList, input) == false){
+        while (checkExist(inputList, input) == false) {
             cout << "Invalid input" << endl;
             cout << "Enter your action: ";
             cin >> input;
         }
         lineBreak();
         int intInput = stoi(input);
-        switch (intInput){
+        switch (intInput) {
             case 1:
                 // showinfo() function
                 goBackMember();
@@ -446,7 +527,7 @@ void pageMember(){
     }
 }
 
-void pageAdmin(){
+void pageAdmin() {
     string username;
     string password;
     cout << "Enter admin username: ";
@@ -455,7 +536,7 @@ void pageAdmin(){
     cin >> password;
     Admin admin = Admin();
     // Change Test value to Admin predefined attribute
-    if (password != admin.getPassword() || !admin.check_admin(username)){
+    if (password != admin.getPassword() || !admin.check_admin(username)) {
         string input;
         cout << "Wrong username or password" << endl;
         cout << "[1] Go back" << endl;
@@ -464,14 +545,14 @@ void pageAdmin(){
         cout << "Enter your action: ";
         cin >> input;
         vector<string> inputList = {"1", "2", "3"};
-        while (!checkExist(inputList, input)){
+        while (!checkExist(inputList, input)) {
             cout << "Invalid input" << endl;
             cout << "Enter your action: ";
             cin >> input;
         }
         lineBreak();
         int intInput = stoi(input);
-        switch (intInput){
+        switch (intInput) {
             case 1:
                 pageStart();
                 break;
@@ -482,9 +563,7 @@ void pageAdmin(){
                 pageEnd();
                 break;
         }
-    }
-
-    else{
+    } else {
         cout << "Welcome admin!" << endl;
         string input;
         cout << "[1] Show houses information" << endl;
@@ -494,14 +573,14 @@ void pageAdmin(){
         cout << "Enter your action: ";
         cin >> input;
         vector<string> inputList = {"1", "2", "3", "4"};
-        while (!checkExist(inputList, input)){
+        while (!checkExist(inputList, input)) {
             cout << "Invalid input" << endl;
             cout << "Enter your action: ";
             cin >> input;
         }
         lineBreak();
         int intInput = stoi(input);
-        switch (intInput){
+        switch (intInput) {
             case 1:
                 // Admin view house function
                 admin.showHouses();
@@ -522,26 +601,26 @@ void pageAdmin(){
     }
 }
 
-void pageEnd(){
+void pageEnd() {
     cout << "Thank you for using this program" << endl;
     cout << "See you next time!" << endl;
 }
 
-void goBackGuest(){
+void goBackGuest() {
     string input;
     cout << "[1] Go back" << endl;
     cout << "[2] End program" << endl;
     cout << "Enter your action: ";
     cin >> input;
     vector<string> inputList = {"1", "2"};
-    while (checkExist(inputList, input) == false){
+    while (checkExist(inputList, input) == false) {
         cout << "Invalid input" << endl;
         cout << "Enter your action: ";
         cin >> input;
     }
     lineBreak();
     int intInput = stoi(input);
-    switch (intInput){
+    switch (intInput) {
         case 1:
             pageGuest();
             break;
@@ -551,21 +630,21 @@ void goBackGuest(){
     }
 }
 
-void goBackMember(){
+void goBackMember() {
     string input;
     cout << "[1] Go back" << endl;
     cout << "[2] End program" << endl;
     cout << "Enter your action: ";
     cin >> input;
     vector<string> inputList = {"1", "2"};
-    while (checkExist(inputList, input) == false){
+    while (checkExist(inputList, input) == false) {
         cout << "Invalid input" << endl;
         cout << "Enter your action: ";
         cin >> input;
     }
     lineBreak();
     int intInput = stoi(input);
-    switch (intInput){
+    switch (intInput) {
         case 1:
             pageMember();
             break;
@@ -575,21 +654,21 @@ void goBackMember(){
     }
 }
 
-void goBackAdmin(){
+void goBackAdmin() {
     string input;
     cout << "[1] Go back" << endl;
     cout << "[2] End program" << endl;
     cout << "Enter your action: ";
     cin >> input;
     vector<string> inputList = {"1", "2"};
-    while (checkExist(inputList, input) == false){
+    while (checkExist(inputList, input) == false) {
         cout << "Invalid input" << endl;
         cout << "Enter your action: ";
         cin >> input;
     }
     lineBreak();
     int intInput = stoi(input);
-    switch (intInput){
+    switch (intInput) {
         case 1:
             pageAdmin();
             break;
@@ -599,13 +678,13 @@ void goBackAdmin(){
     }
 }
 
-void lineBreak(){
+void lineBreak() {
     cout << endl << endl;
 }
 
-bool checkExist(vector<string> stringlist, string element){
-    for (string elementList : stringlist){
-        if (elementList.compare(element) == 0){
+bool checkExist(vector<string> stringlist, string element) {
+    for (string elementList: stringlist) {
+        if (elementList.compare(element) == 0) {
             return true;
         }
     }
