@@ -21,7 +21,7 @@ private:
     // Implement house class
     // string in 2 below maps are House ID
     House myHouse{};
-    vector <House> occupiedHouse{};
+    std::vector <House> occupiedHouse{};
     int creditPoint{};
     double occupiedRating{};
     std::vector<Member> pendingRequests{};

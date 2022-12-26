@@ -3,8 +3,6 @@
 //
 
 #include "Member.h"
-
-    string locations[3] = {"HANOI", "HUE", "SAIGON"};
     //Constructor
     Member::Member() = default;
 
@@ -143,16 +141,14 @@
     };
 
     void Member::ratingHouse() {
-        cout << "Enter score for house " << this -> occupiedHouse.houseId << ": ";
+        cout << "Enter score for house " << this -> occupiedHouse.at(occupiedHouse.size() - 1).houseID << ": ";
         double score;
         cin >> score;
 
         // update score of house
-        this->occupiedHouse.houseRatingScore = score;
+        this -> occupiedHouse.at(occupiedHouse.size() - 1).houseID = score;
     }
 
     const string & Member::getFullName() const {
         return fullName;
     }
-
-};

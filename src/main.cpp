@@ -1,5 +1,7 @@
 #include<bits/stdc++.h>
 #include "Member.h"
+#include "User.h"
+#include "House.h"
 using std::cout;
 using std::cin;
 using std::endl;
@@ -27,120 +29,64 @@ void lineBreak();
 
 bool checkExist(vector<string> stringlist, string element);
 
-// location
-string locations[3] = {"HANOI", "HUE", "SAIGON"};
+
+//class House {
+//protected:
+//    string houseID;
+//    string address;
+//    string location;
+//    string description;
+//    bool occupationStatus;
+//    double houseRatingScore;
+//    std::vector<Member> occupiers;
+//    std::map<string, string> occupiersComments;
+//    std::vector<House> listingHouse;
+//    std::vector<Member> requestsList;
+//public:
+//    House() = default;
+//    House(const string &houseId, const string &address, const string& location, const string &description,
+//          bool occupationStatus, double houseRatingScore, const vector<Member> &occupiers,
+//          const std::map<string, string> &occupiersComments, const vector<House> &listingHouse,
+//          const vector<Member> &requestsList) : houseID(houseId), address(address),
+//                                                description(description), occupationStatus(occupationStatus),
+//                                                houseRatingScore(houseRatingScore), occupiers(occupiers),
+//                                                occupiersComments(occupiersComments), listingHouse(listingHouse),
+//                                                requestsList(requestsList) {
+//        for (string loc : locations) {
+//            if (loc == location) {
+//                this->location = location;
+//            } else {
+//                std::cerr << "Invalid house location" << endl;
+//            }
+//        }
+//    }
+//
+//    void showFullDemo() {
+//        cout << "House Information - Full Version" << endl;
+//        cout << "House ID: " << houseID << endl;
+//        cout << "Address: " << address << endl;
+//        cout << "Location: " << location << endl;
+//        cout << "Description: " << description << endl;
+//        if (occupationStatus) {
+//            cout << "House Status: occupied by " << occupiers.back().getFullName() << " - " << occupiers.back().id
+//                 << endl;
+//        } else {
+//            cout << "House Status: empty" << endl;
+//        }
+//        cout << "House Rating Score: " << houseRatingScore << endl;
+//    }
+//
+//    void showDemoInfo() {
+//        cout << "House Information - Guest Version" << endl;
+//        cout << "House ID: " << houseID << endl;
+//        cout << "Location: " << location << endl;
+//        cout << "Approximate House Rating Score: " << (int) houseRatingScore - 2 << " ~ " << (int) houseRatingScore + 2
+//             << endl;
+//    }
+//
+//};
 
 
-class House {
-protected:
-    string houseID;
-    string address;
-    string location;
-    string description;
-    bool occupationStatus;
-    double houseRatingScore;
-    std::vector<Member> occupiers;
-    std::map<string, string> occupiersComments;
-    std::vector<House> listingHouse;
-    std::vector<Member> requestsList;
-public:
-    House() = default;
-    House(const string &houseId, const string &address, const string& location, const string &description,
-          bool occupationStatus, double houseRatingScore, const vector<Member> &occupiers,
-          const std::map<string, string> &occupiersComments, const vector<House> &listingHouse,
-          const vector<Member> &requestsList) : houseID(houseId), address(address),
-                                                description(description), occupationStatus(occupationStatus),
-                                                houseRatingScore(houseRatingScore), occupiers(occupiers),
-                                                occupiersComments(occupiersComments), listingHouse(listingHouse),
-                                                requestsList(requestsList) {
-        for (string loc : locations) {
-            if (loc == location) {
-                this->location = location;
-            } else {
-                std::cerr << "Invalid house location" << endl;
-            }
-        }
-    }
-
-    void showFullDemo() {
-        cout << "House Information - Full Version" << endl;
-        cout << "House ID: " << houseID << endl;
-        cout << "Address: " << address << endl;
-        cout << "Location: " << location << endl;
-        cout << "Description: " << description << endl;
-        if (occupationStatus) {
-            cout << "House Status: occupied by " << occupiers.back().getFullName() << " - " << occupiers.back().id
-                 << endl;
-        } else {
-            cout << "House Status: empty" << endl;
-        }
-        cout << "House Rating Score: " << houseRatingScore << endl;
-    }
-
-    void showDemoInfo() {
-        cout << "House Information - Guest Version" << endl;
-        cout << "House ID: " << houseID << endl;
-        cout << "Location: " << location << endl;
-        cout << "Approximate House Rating Score: " << (int) houseRatingScore - 2 << " ~ " << (int) houseRatingScore + 2
-             << endl;
-    }
-
-};
-
-class Admin : public User {
-private:
-    // predefined admins
-    std::vector<string> admins{"Quoc", "Quan", "Thach", "Ngoc"};
-
-    // members vector array
-    static std::vector<Member> members;
-
-    // admin password
-    string password{"admin"};
-public:
-
-    // get password
-    std::string getPassword() {
-        return this->password;
-    }
-
-    // record new member in admin
-    static void add_members(Member &member) {
-        members.push_back(member);
-    }
-
-    // check if username is available
-    bool check_admin(string &username) {
-        for (auto &i: admins) {
-            if (i == username) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    static void showMember() {
-        // enter member name
-        std::cout << "Enter a member name: ";
-        std::string member_name{};
-        std::getline(std::cin, member_name);
-
-        // find member
-        for (auto &i: Admin::members) {
-            // if found
-            if (member_name == i.fullName) {
-                cout << "Member found!" << std::endl;
-                i.showInfo();
-                return;
-            }
-        }
-        cout << "Invalid member name!" << std::endl;
-    }
-
-    void showHouses() {
-
-    }
-};
 
 
 int main() {

@@ -129,6 +129,30 @@ EEET2482_COSC2082___Group_Assignment/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/build.make CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/build
 .PHONY : EEET2482_COSC2082___Group_Assignment/fast
 
+src/Admin.o: src/Admin.cpp.o
+.PHONY : src/Admin.o
+
+# target to build an object file
+src/Admin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/build.make CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Admin.cpp.o
+.PHONY : src/Admin.cpp.o
+
+src/Admin.i: src/Admin.cpp.i
+.PHONY : src/Admin.i
+
+# target to preprocess a source file
+src/Admin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/build.make CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Admin.cpp.i
+.PHONY : src/Admin.cpp.i
+
+src/Admin.s: src/Admin.cpp.s
+.PHONY : src/Admin.s
+
+# target to generate assembly for a file
+src/Admin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/build.make CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Admin.cpp.s
+.PHONY : src/Admin.cpp.s
+
 src/Member.o: src/Member.cpp.o
 .PHONY : src/Member.o
 
@@ -186,6 +210,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... EEET2482_COSC2082___Group_Assignment"
+	@echo "... src/Admin.o"
+	@echo "... src/Admin.i"
+	@echo "... src/Admin.s"
 	@echo "... src/Member.o"
 	@echo "... src/Member.i"
 	@echo "... src/Member.s"
