@@ -238,7 +238,7 @@ void pageAdmin() {
     cin >> password;
     Admin admin = Admin();
     // Change Test value to Admin predefined attribute
-    if (password != admin.getPassword() || !admin.check_admin(username)) {
+    if (password != admin.getPassword() || !admin.check_admin(username,password)) {
         string input;
         cout << "Wrong username or password" << endl;
         cout << "[1] Go back" << endl;
