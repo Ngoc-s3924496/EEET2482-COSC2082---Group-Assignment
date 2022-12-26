@@ -37,4 +37,4 @@ public:
 };
 
 
-#endif //EEET2482_COSC2082___GROUP_ASSIGNMENT_ADMIN_H
+#endif //ADMIN_H

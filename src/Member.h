@@ -8,6 +8,7 @@
 #include <iostream>
 #include <map>
 #include "House.h"
+#include "Admin.h"
 #include "User.h"
 using std::string;
 using std::cout;
@@ -15,16 +16,13 @@ using std::cin;
 using std::endl;
 class Member : public User {
 private:
-    static std::map<string, string> accounts;
     string fullName{};
     string phoneNumber{};
-    // Implement house class
-    // string in 2 below maps are House ID
     House myHouse{};
-    std::vector <House> occupiedHouse{};
+    std::vector <House> rentHouse{};
     int creditPoint{};
-    double occupiedRating{};
-    std::vector<Member> pendingRequests{};
+    double occupierRatings{};
+    std::vector<House> pendingRequests{};
     // string in 2 below maps are Member ID
     std::map<string, double> ownerScore{}; // adjust later
     std::map<string, string> ownerComments{}; // adjust later
@@ -34,7 +32,24 @@ public:
     friend House;
     //Constructor
     Member();
-
+    Member(string id, string fullName, string username,string password, string phoneNumber,
+           House myHouse, double occupierRatings, int creditPoint, std::vector<House> pendingRequests,
+           std::map<string,string> ownerComments) {
+        this->id = id;
+        this->fullName = fullName;
+        this->username = username;
+        this->phoneNumber = phoneNumber;
+        this->password = password;
+        this->myHouse = myHouse;
+        this->occupierRatings = occupierRatings;
+        this->creditPoint = creditPoint;
+        for (auto &i : pendingRequests) {
+            this->pendingRequests.push_back(i);
+        }
+        for (const auto& [key, value] : ownerComments) {
+            ownerComments[key] = value;
+        }
+    }
     static bool login(string &username, string &password);
 
     static void register_account();
@@ -68,4 +83,4 @@ public:
 };
 
 
-#endif //EEET2482_COSC2082___GROUP_ASSIGNMENT_ESSENSIALS_H
+#endif //MEMBER_H

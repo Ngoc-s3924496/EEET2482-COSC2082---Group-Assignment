@@ -39,4 +39,4 @@ public:
 };
 
 
-#endif //EEET2482_COSC2082_GROUP_ASSIGNMENT_MAIN_HOUSE_H
+#endif //HOUSE_H
