@@ -18,8 +18,11 @@ class Member : public User {
 private:
     string fullName{};
     string phoneNumber{};
+    string username {};
+    string password {};
     House myHouse{};
     std::vector <House> rentHouse{};
+    static std::vector<House> listingHouse;
     int creditPoint{};
     double occupierRatings{};
     std::vector<House> pendingRequests{};
@@ -34,25 +37,10 @@ public:
     Member();
     Member(string id, string fullName, string username,string password, string phoneNumber,
            House myHouse, double occupierRatings, int creditPoint, std::vector<House> pendingRequests,
-           std::map<string,string> ownerComments) {
-        this->id = id;
-        this->fullName = fullName;
-        this->username = username;
-        this->phoneNumber = phoneNumber;
-        this->password = password;
-        this->myHouse = myHouse;
-        this->occupierRatings = occupierRatings;
-        this->creditPoint = creditPoint;
-        for (auto &i : pendingRequests) {
-            this->pendingRequests.push_back(i);
-        }
-        for (const auto& [key, value] : ownerComments) {
-            ownerComments[key] = value;
-        }
-    }
-    static bool login(string &username, string &password);
+           std::map<string,string> ownerComments);
+    bool login(string &username, string &password);
 
-    static void register_account();
+    void register_account();
 
     void showInfo();
 

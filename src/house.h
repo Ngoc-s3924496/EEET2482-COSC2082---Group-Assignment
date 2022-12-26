@@ -7,6 +7,7 @@
 #include <vector>
 #include "Member.h"
 
+
 using std::string;
 using std::cout;
 using std::cin;
@@ -34,8 +35,6 @@ public:
     void showFullHouse();
     void showDemoHouse();
     double avgScore();
-
-
 };
 
 

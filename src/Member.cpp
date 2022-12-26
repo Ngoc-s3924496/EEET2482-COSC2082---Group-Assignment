@@ -6,13 +6,29 @@
     //Constructor
     Member::Member() = default;
 
+    Member::Member(string id, string fullName, string username,string password, string phoneNumber,
+        House myHouse, double occupierRatings, int creditPoint, std::vector<House> pendingRequests,
+        std::map<string,string> ownerComments) {
+        this->id = id;
+        this->fullName = fullName;
+        this->username = username;
+        this->phoneNumber = phoneNumber;
+        this->password = password;
+        this->myHouse = myHouse;
+        this->occupierRatings = occupierRatings;
+        this->creditPoint = creditPoint;
+        for (auto &i : pendingRequests) {
+        this->pendingRequests.push_back(i);
+        }
+        for (const auto& [key, value] : ownerComments) {
+        ownerComments[key] = value;
+        }
+    }
     bool Member::login(string &username, string &password) {
-        for (auto &i: Member::accounts) {
-            if (i.first == username && i.second == password) {
+            if (this->username == username && this->password == password) {
                 cout << "Login successfully !" << std::endl;
                 return true;
             }
-        }
         cout << "Invalid username or password!" << std::endl;
         register_account();
         return false;
@@ -25,7 +41,8 @@
         string password;
         cout << "Enter password: ";
         std::getline(std::cin, password);
-        accounts[username] = password;
+        this->username = username;
+        this->password = password;
         cout << "Register successfully!";
     }
 
@@ -34,12 +51,15 @@
         cout << "Full name: " << this->fullName << std::endl;
         cout << "Phone number: " << this->phoneNumber << std::endl;
         cout << "Credit point: " << this->creditPoint << std::endl;
-        cout << "Occupied rating: " << this->occupiedRating << std::endl;
+        cout << "Occupied rating: " << this->occupierRatings << std::endl;
 
         // print all pending requests
         cout << "Pending requests: ";
         for (auto &j: this->pendingRequests) {
-            cout << j.fullName << " ";
+            cout << j.houseID << " ";
+            cout << j.address << " ";
+            cout << j.location << " ";
+            cout << j.description << " ";
         }
 
         // average score
@@ -71,44 +91,17 @@
 
     void Member::viewRequest() {
         for (auto &i: pendingRequests) {
-            cout << i.fullName << " ";
+            cout << i.houseID << " ";
         }
     }
 
     void Member::acceptRequest() {
-        cout << "Enter request id: ";
-        string id;
-        cin >> id;
-        for (auto &i: pendingRequests) {
-            if (i.id == id) {
-                cout << "Accept successfully!" << endl;
-
-                // add the current at the back
-                pendingRequests.push_back(i);
-
-                // delete all other request if accept the last
-                pendingRequests.erase(pendingRequests.begin(), pendingRequests.end() - 1);
-                return;
-            }
-        }
-        cout << "No id found!" << endl;
     }
 
     void Member::rateOccupier() {
-        cout << "Enter a score for " << pendingRequests.at(0).fullName << " : ";
-        int score{};
-        cin >> score;
-
-        // update score
-        pendingRequests.at(0).ownerScore[this->id] = score;
     }
 
     double Member::avgScore() {
-        double tmp{};
-        for (auto &i: ownerScore) {
-            tmp += i.second;
-        }
-        return tmp / ownerScore.size();
     }
 
     void Member::searchHouse() {
@@ -141,12 +134,12 @@
     };
 
     void Member::ratingHouse() {
-        cout << "Enter score for house " << this -> occupiedHouse.at(occupiedHouse.size() - 1).houseID << ": ";
+        cout << "Enter score for house " << this -> rentHouse.at(rentHouse.size() - 1).houseID << ": ";
         double score;
         cin >> score;
 
         // update score of house
-        this -> occupiedHouse.at(occupiedHouse.size() - 1).houseID = score;
+        this -> rentHouse.at(rentHouse.size() - 1).occupiersScores.push_back(score);
     }
 
     const string & Member::getFullName() const {
