@@ -256,11 +256,11 @@ void Member::setPendingRequests(const vector<House> &pendingRequests) {
     }
 }
 
-const map<string, string> &Member::getOwnerComments() const {
+const std::map<string, string> &Member::getOwnerComments() const {
     return ownerComments;
 }
 
-void Member::setOwnerComments(const map<string, string> &ownerComments) {
+void Member::setOwnerComments(const std::map<string, string> &ownerComments) {
     Member::ownerComments = ownerComments;
 }
 

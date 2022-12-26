@@ -10,7 +10,6 @@
 #include "House.h"
 #include "Admin.h"
 #include "User.h"
-#include "Data.h"
 using std::string;
 using std::cout;
 using std::cin;
@@ -44,7 +43,6 @@ public:
     // allow Admin to access private attribute
     friend Admin;
     friend House;
-    friend Data;
 
     // Getters and setters
     const string &getFullName() const;
@@ -79,9 +77,9 @@ public:
 
     void setPendingRequests(const vector<House> &pendingRequests);
 
-    const map<string, string> &getOwnerComments() const;
+    const std::map<string, string> &getOwnerComments() const;
 
-    void setOwnerComments(const map<string, string> &ownerComments);
+    void setOwnerComments(const std::map<string, string> &ownerComments);
 
 
     //Constructor

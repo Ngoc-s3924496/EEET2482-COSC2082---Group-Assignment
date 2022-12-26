@@ -111,41 +111,26 @@ CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Admin.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Admin.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/src/Admin.cpp -o CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Admin.cpp.s
 
-CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.o: CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/flags.make
-CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.o: /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/src/house.cpp
-CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.o: CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.o -MF CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.o.d -o CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.o -c /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/src/house.cpp
+CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.o: CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/flags.make
+CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.o: /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/src/House.cpp
+CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.o: CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.o -MF CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.o.d -o CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.o -c /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/src/House.cpp
 
-CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/src/house.cpp > CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.i
+CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/src/House.cpp > CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.i
 
-CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/src/house.cpp -o CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.s
-
-CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.o: CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/flags.make
-CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.o: /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/src/Data.cpp
-CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.o: CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.o -MF CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.o.d -o CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.o -c /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/src/Data.cpp
-
-CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/src/Data.cpp > CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.i
-
-CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/src/Data.cpp -o CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.s
+CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/src/House.cpp -o CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.s
 
 # Object files for target EEET2482_COSC2082___Group_Assignment
 EEET2482_COSC2082___Group_Assignment_OBJECTS = \
 "CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/main.cpp.o" \
 "CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Member.cpp.o" \
 "CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Admin.cpp.o" \
-"CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.o" \
-"CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.o"
+"CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.o"
 
 # External object files for target EEET2482_COSC2082___Group_Assignment
 EEET2482_COSC2082___Group_Assignment_EXTERNAL_OBJECTS =
@@ -153,11 +138,10 @@ EEET2482_COSC2082___Group_Assignment_EXTERNAL_OBJECTS =
 EEET2482_COSC2082___Group_Assignment: CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/main.cpp.o
 EEET2482_COSC2082___Group_Assignment: CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Member.cpp.o
 EEET2482_COSC2082___Group_Assignment: CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Admin.cpp.o
-EEET2482_COSC2082___Group_Assignment: CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/house.cpp.o
-EEET2482_COSC2082___Group_Assignment: CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Data.cpp.o
+EEET2482_COSC2082___Group_Assignment: CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/House.cpp.o
 EEET2482_COSC2082___Group_Assignment: CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/build.make
 EEET2482_COSC2082___Group_Assignment: CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable EEET2482_COSC2082___Group_Assignment"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable EEET2482_COSC2082___Group_Assignment"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
