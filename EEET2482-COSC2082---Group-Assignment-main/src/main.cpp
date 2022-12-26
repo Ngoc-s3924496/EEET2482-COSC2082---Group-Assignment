@@ -1,7 +1,10 @@
-#include<bits/stdc++.h>
+#include "iostream"
+#include<vector>
+#include<map>
 #include "Member.h"
 #include "User.h"
 #include "House.h"
+#include "Admin.h"
 using std::cout;
 using std::cin;
 using std::endl;

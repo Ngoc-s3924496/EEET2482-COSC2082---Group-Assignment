@@ -8,23 +8,27 @@
 #include <iostream>
 #include <map>
 #include "House.h"
-#include "Admin.h"
 #include "User.h"
 using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
 class Member: public User {
+public:
+    // allow Admin to access private attribute
+    friend class Admin;
+    friend class House;
+    friend class Data;
 private:
     //user full name and mobile phone
     string fullName{};
     string phoneNumber{};
 
     // The house of user
-    House *myHouse{};
+    House *myHouse;
 
     // Rent house
-    House rentHouse {};
+    House rentHouse;
     // List of available houses
     static std::vector<House> listingHouse;
 
@@ -40,7 +44,6 @@ private:
     // Comments of others on this user
     std::map<string, string> ownerComments{}; // adjust later
 public:
-
     //Constructor
     Member();
     Member(string id, string fullName, string username,string password, string phoneNumber,
@@ -80,10 +83,7 @@ public:
 
     void ratingHouse();
 
-    // allow Admin to access private attribute
-    friend class Admin;
-    friend class House;
-    friend class Data;
+
 };
 
 

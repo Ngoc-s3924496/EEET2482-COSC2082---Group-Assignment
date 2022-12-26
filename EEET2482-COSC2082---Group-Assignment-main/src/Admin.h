@@ -21,12 +21,11 @@ private:
     // admin password
     string password{"admin"};
 public:
-
     // get password
     std::string getPassword();
 
     // record new member in admin
-    static void add_members(Member &member);
+    void add_members(Member &member);
 
     // check if username is available
     bool check_admin(string &username, string &password);

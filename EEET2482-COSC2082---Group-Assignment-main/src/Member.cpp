@@ -160,12 +160,11 @@
             if (i->occupiers.empty()) {
                 continue;
             }
-
             // if at least one people request this house -> the newest rent will be at last
-            // if (i.occupiers.at(i.occupiers.size() - 1) == this) {
-            //     cout << "You have successfully rent this house!" << endl;
-            //     return;
-            // }
+            if (i->occupiers.at(i->occupiers.size() - 1).fullName == this->fullName) {
+                cout << "You have successfully rent this house!" << endl;
+                return;
+            }
         }
         cout << "Your requested house is still pending or not allocated!" << endl;
         cout << "Please try again later." << endl;

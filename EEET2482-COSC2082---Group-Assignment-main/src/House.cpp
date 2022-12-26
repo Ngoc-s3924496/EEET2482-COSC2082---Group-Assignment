@@ -17,10 +17,10 @@ using std::vector;
 House::House() = default;
 
 // Constructor full
-House::House(const string &houseId, const string &startDate, const string &endDate, const string &address,
-             const string &location, const string &description, const std::vector<double> &houseRatings, bool status,
-             const vector <Member*> &occupiers, const vector <Member*> &requestList,
-             const std::map<string, string> &occupierComment) : houseID(houseId), startDate(startDate),
+House::House(string houseId, string startDate, string endDate, string address,
+             string location, string description, vector<double> houseRatings, bool status,
+             vector <Member> occupiers, vector <Member> requestList,
+             std::map<string, string> occupierComment) : houseID(houseId), startDate(startDate),
                                                                 endDate(endDate),
                                                                 address(address),
                                                                 description(description), houseRatings(houseRatings),
@@ -54,7 +54,7 @@ void House::showFullHouse() {
     cout << "Location: " << location << endl;
     cout << "Description: " << description << endl;
     if (status) {
-        cout << "House Status: occupied by " << occupiers.back()->getFullName() << " - " << occupiers.back()->id
+        cout << "House Status: occupied by " << occupiers.back().getFullName() << " - " << occupiers.back().id
              << endl;
     } else {
         cout << "House Status: empty" << endl;
