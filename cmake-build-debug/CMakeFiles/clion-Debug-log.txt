@@ -1,0 +1,4 @@
+C:\Windows\system32\wsl.exe --distribution Ubuntu --exec /bin/bash -c "export CMAKE_COLOR_DIAGNOSTICS=ON && export CLION_IDE=TRUE && export JETBRAINS_IDE=TRUE && cd /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/cmake-build-debug && /usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G 'CodeBlocks - Unix Makefiles' -S /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment -B /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/cmake-build-debug"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/c/Users/huuqu/CODE/RMIT/S.E.D/EEET2482-COSC2082---Group-Assignment/cmake-build-debug

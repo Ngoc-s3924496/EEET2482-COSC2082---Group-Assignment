@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/main.cpp.o CMakeFiles/EEET2482_COSC2082___Group_Assignment.dir/src/Member.cpp.o -o EEET2482_COSC2082___Group_Assignment 
