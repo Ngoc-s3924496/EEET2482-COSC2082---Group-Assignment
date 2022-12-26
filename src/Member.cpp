@@ -30,7 +30,12 @@
                 return true;
             }
         cout << "Invalid username or password!" << std::endl;
-        register_account();
+        cout << "Do you want to register? (Y/N)" << std::endl;
+        string choice;
+        cin >> choice;
+        if (choice == "Y") {
+            register_account();
+        }
         return false;
     }
 
