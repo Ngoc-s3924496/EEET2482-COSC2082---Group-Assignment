@@ -10,18 +10,18 @@
         House myHouse, std::vector<double> occupierRatings, int creditPoint, std::vector<House> pendingRequests,
         std::map<string,string> ownerComments) {
         this->id = id;
-        this->fullName = fullName;
-        this->username = username;
-        this->phoneNumber = phoneNumber;
-        this->password = password;
+        this->fullName = std::move(fullName);
+        this->username = std::move(username);
+        this->phoneNumber = std::move(phoneNumber);
+        this->password = std::move(password);
         this->myHouse = myHouse;
-        this->occupierRatings = occupierRatings;
+        this->occupierRatings = std::move(occupierRatings);
         this->creditPoint = creditPoint;
         for (auto &i : pendingRequests) {
         this->pendingRequests.push_back(i);
         }
         for (const auto& [key, value] : ownerComments) {
-        ownerComments[key] = value;
+            ownerComments[key] = value;
         }
     }
     bool Member::login(string &username, string &password) {
@@ -57,6 +57,9 @@
              avgScore += i;
         }
         return avgScore / occupierRatings.size();
+    }
+    const string & Member::getFullName() const {
+        return fullName;
     }
     void Member::showInfo() {
         // print basic information
@@ -161,11 +164,26 @@
         }
         cout << "Your requested house is still pending or not allocated!" << endl;
         cout << "Please try again later." << endl;
-    };
+    }
 
     void Member::ratingHouse() {
+        cout << "You are renting this house: " << rentHouse.houseId << endl;
+        cout << "Please rate it !" << endl;
+        cout << "Enter a score: ";
+        string score_str;
+        cin >> score_str;
+        rentHouse.houseRatings.push_back(strtod(score_str.c_str(), nullptr));
+        cout << "Do you want to leave a comment (Y/N) ?";
+        string choice;
+        cin >> choice;
+        if (choice == "Y") {
+            cout << "Type here: ";
+            string comment;
+            getline(std::cin,comment);
+            rentHouse.occupierComment[this->fullName] = comment;
+            return;
+        }
+        cout << "Thank you for using!" << endl;
     }
 
-    const string & Member::getFullName() const {
-        return fullName;
-    }
+

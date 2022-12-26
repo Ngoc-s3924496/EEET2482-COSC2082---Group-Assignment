@@ -23,6 +23,8 @@ private:
     // The house of user
     House myHouse{};
 
+    // Rent house
+    House rentHouse {};
     // List of available houses
     static std::vector<House> listingHouse;
 
