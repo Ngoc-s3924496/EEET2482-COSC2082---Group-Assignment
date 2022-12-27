@@ -21,8 +21,8 @@
         for (auto &i : pendingRequests) {
         this->pendingRequests.push_back(i);
         }
-        for (const auto& [key, value] : ownerComments) {
-            ownerComments[key] = value;
+        for (const auto& i : ownerComments) {
+            ownerComments[i.first] = i.second;
         }
     }
     bool Member::login(string &username, string &password) {
