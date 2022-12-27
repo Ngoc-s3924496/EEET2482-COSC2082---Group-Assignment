@@ -1,9 +1,9 @@
 //
-// Created by quanv on 12/27/2022.
+// Created by huuqu on 12/26/2022.
 //
 
-#ifndef EEET2482_COSC2082_GROUP_ASSIGNMENT_MAIN_MEMBER_H
-#define EEET2482_COSC2082_GROUP_ASSIGNMENT_MAIN_MEMBER_H
+#ifndef MEMBER_H
+#define MEMBER_H
 
 #include<iostream>
 #include<map>
@@ -89,4 +89,5 @@ public:
 
 };
 
-#endif //EEET2482_COSC2082_GROUP_ASSIGNMENT_MAIN_MEMBER_H
+
+#endif //MEMBER_H

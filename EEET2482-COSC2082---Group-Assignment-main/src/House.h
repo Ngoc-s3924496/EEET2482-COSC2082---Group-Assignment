@@ -4,7 +4,6 @@
 #include<iostream>
 #include<map>
 #include<vector>
-#include "Member.h"
 
 using std::string;
 using std::cout;
@@ -14,6 +13,7 @@ using std::vector;
 
 const string locations[3] = {"HANOI", "HUE", "SAIGON"};
 
+class Member;
 class House {
 public:
     friend class Member;
@@ -32,7 +32,7 @@ private:
     vector<Member*> requestList;
     std::map<string, string> occupierComment;
 public:
-//    House();
+    House();
     House(string houseId, string startDate, string endDate, string address,
           string location, string description, vector<double> houseRatings, bool status,
           vector<Member*> occupiers, vector<Member*> requestList,

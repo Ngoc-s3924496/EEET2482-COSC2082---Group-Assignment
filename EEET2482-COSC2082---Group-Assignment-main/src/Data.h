@@ -1,5 +1,5 @@
-#ifndef EEET2482_COSC2082_GROUP_ASSIGNMENT_MAIN_DATA_H
-#define EEET2482_COSC2082_GROUP_ASSIGNMENT_MAIN_DATA_H
+#ifndef DATA_H
+#define DATA_H
 
 #include <iostream>
 #include <vector>
@@ -26,7 +26,7 @@ using std::string;
 class Data {
 private:
     vector<Member> userList;
-    vector<House> houseList;
+    vector<HOUSE_H House> houseList;
     std::vector<Member> a;
 public:
     bool is_empty(std::ifstream &file);
@@ -36,4 +36,4 @@ public:
     bool LoadHouseData(string housePath = HOUSE_DATABASE);
 };
 
-#endif //EEET2482_COSC2082_GROUP_ASSIGNMENT_MAIN_DATA_H
+#endif
