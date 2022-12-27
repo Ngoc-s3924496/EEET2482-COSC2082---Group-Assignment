@@ -2,8 +2,8 @@
 // Created by huuqu on 12/26/2022.
 //
 
-#ifndef ADMIN_H
-#define ADMIN_H
+#ifndef EEET2482_COSC2082_GROUP_ASSIGNMENT_MAIN_ADMIN_H
+#define EEET2482_COSC2082_GROUP_ASSIGNMENT_MAIN_ADMIN_H
 
 #include "User.h"
 #include "Member.h"
@@ -36,4 +36,4 @@ public:
 };
 
 
-#endif //ADMIN_H
+#endif //EEET2482_COSC2082_GROUP_ASSIGNMENT_MAIN_ADMIN_H
