@@ -33,7 +33,7 @@ private:
     // Rent house
     House rentHouse;
     // List of available houses
-    static std::vector<House> listingHouse;
+    inline static std::vector<House> listingHouse = {};
 
     // User money
     int creditPoint{};

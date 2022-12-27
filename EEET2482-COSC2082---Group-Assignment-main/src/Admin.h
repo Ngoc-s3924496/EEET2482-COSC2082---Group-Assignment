@@ -16,7 +16,7 @@ private:
     std::vector<string> admins{"Quoc", "Quan", "Thach", "Ngoc"};
 
     // members vector array
-    static std::vector<Member> members;
+    inline static std::vector<Member> members {};
 
     // admin password
     string password{"admin"};
@@ -30,7 +30,7 @@ public:
     // check if username is available
     bool check_admin(string &username, string &password);
 
-    static void showMember();
+    void showMember();
 
     void showHouses();
 };
