@@ -1,10 +1,10 @@
 #ifndef DATA_H
 #define DATA_H
 
-#include<iostream>
-#include<vector>
-#include<fstream>
-#include<map>
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <map>
 #include "Member.h"
 #include "User.h"
 #include "House.h"

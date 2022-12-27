@@ -1,9 +1,5 @@
 #include "House.h"
-#include <iostream>
-#include <map>
-#include <vector>
-
-
+#include "Member.h"
 using std::string;
 using std::cout;
 using std::cin;
@@ -13,8 +9,8 @@ using std::vector;
 
 
 
-// Constructor
-//House::House() = default;
+ //Constructor
+House::House() = default;
 
 // Constructor full
 House::House(string houseId, string startDate, string endDate, string address,
@@ -71,8 +67,3 @@ double House::avgScore() {
     avg = avg / houseRatings.size();
     return avg;
 }
-
-int main() {
-    cout << "Hello";
-}
-

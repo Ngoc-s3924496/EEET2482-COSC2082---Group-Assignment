@@ -511,10 +511,9 @@ bool Data::LoadHouseData(string housePath) {
             }
         }
         // Append a new House object to the local vector
-        House h{houseID, startDate, endDate, address, location, description, houseRatings, status, occupiers, requestList, occupierComment};
-        houseList.push_back(h);
+        houseList.push_back(House(houseID, startDate, endDate, address, location, description, houseRatings, status, occupiers, requestList, occupierComment));
     }
     // Close the file
     openFile.close();
-    return 0;
+    return false;
 }
