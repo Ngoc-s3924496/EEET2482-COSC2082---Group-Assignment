@@ -27,8 +27,8 @@
     }
 
     Member::Member(string id, string fullName, string username,string password, string phoneNumber,
-        House *myHouse, std::vector<double> occupierRatings, int creditPoint, std::vector<House*> pendingRequests,
-        std::map<string,string> ownerComments) {
+        House *myHouse, std::vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
+        map<string,string> ownerComments) {
         this->id = id;
         this->username = username;
         this->password = password;
@@ -43,8 +43,8 @@
     }
 
     Member::Member(string id, string fullName, string username, string password, string phoneNumber,
-        House *myHouse, std::vector<double> occupierRatings, int creditPoint, std::vector<House*> pendingRequests,
-        House *rentHouse, std::map<string,string> ownerComments) {
+        House *myHouse, vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
+        House *rentHouse, map<string,string> ownerComments) {
         this->id = id;
         this->username = username;
         this->password = password;
@@ -62,21 +62,21 @@
     bool Member::login() {
         string username_val;
         cout << "Enter username: ";
-        std::getline(std::cin, username_val);
+        std::getline(cin, username_val);
         string password_val;
         cout << "Enter password: ";
-        std::getline(std::cin, password_val);
+        std::getline(cin, password_val);
         for (auto &i : Data::userList) {
             if (i.username == username_val && i.password == password_val) {
                 // set current member
                 Member::currentMember = &i;
 
-                cout << "Login successfully" << std::endl;
+                cout << "Login successfully" << endl;
                 return true;
             }
         }
-        cout << "Invalid username or password!" << std::endl;
-        cout << "Do you want to register? (Y/N)" << std::endl;
+        cout << "Invalid username or password!" << endl;
+        cout << "Do you want to register? (Y/N)" << endl;
         string choice;
         cin >> choice;
         if (choice == "Y") {
@@ -88,10 +88,10 @@
     bool Member::register_account() {
         string username_val;
         cout << "Enter username: ";
-        std::getline(std::cin, username_val);
+        std::getline(cin, username_val);
         string password_val;
         cout << "Enter password: ";
-        std::getline(std::cin, password_val);
+        std::getline(cin, password_val);
         for (auto &i : Data::userList) {
             if (i.username == username_val) {
                 cout << "This username has already been taken!" << endl;
@@ -103,7 +103,7 @@
         cout << "Register successfully!";
         return true;
     }
-    double Member::avgScore(std::vector <double> &occupierRatings) {
+    double Member::avgScore(vector <double> &occupierRatings) {
         double avgScore {};
         if (occupierRatings.empty()) {
             return 0;
@@ -121,10 +121,10 @@
     }
     void Member::showInfo() {
         // print basic information
-        cout << "Full name: " << currentMember->fullName << std::endl;
-        cout << "Phone number: " << currentMember->phoneNumber << std::endl;
-        cout << "Credit point: " << currentMember->creditPoint << std::endl;
-        cout << "Occupier rating: " << currentMember->avgScore(occupierRatings) << std::endl;
+        cout << "Full name: " << currentMember->fullName << endl;
+        cout << "Phone number: " << currentMember->phoneNumber << endl;
+        cout << "Credit point: " << currentMember->creditPoint << endl;
+        cout << "Occupier rating: " << currentMember->avgScore(occupierRatings) << endl;
 
         // print all pending requests
         cout << "Pending requests: ";
@@ -139,10 +139,10 @@
         cout << "Comments on member: ";
         for (auto &x: currentMember->ownerComments) {
             // x.first = name of commenters, x.second = comments
-            std::cout << x.first << " " << x.second << "\n";
+            cout << x.first << " " << x.second << "\n";
         }
         // new line
-        cout << std::endl;
+        cout << endl;
 
         // add them function de xem thong tin house
     }
@@ -174,7 +174,7 @@
     void Member::searchHouse() {
         cout << "Enter location: ";
         string location;
-        std::cin >> location;
+        cin >> location;
         // check if location is valid
         for (auto &i : locations) {
             if (i == location) {
@@ -182,7 +182,7 @@
                 for (auto &j : currentMember->listingHouse) {
                     // print house with that location
                     if (j.location == location) {
-                        cout << j.houseID << " " << j.address << " " << j.location << std::endl;
+                        cout << j.houseID << " " << j.address << " " << j.location << endl;
                         cout << "  '" << j.description << "'" << endl;
                     }
                 }

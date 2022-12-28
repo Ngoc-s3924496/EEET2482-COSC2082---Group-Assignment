@@ -15,6 +15,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
+using std::map;
 class Member {
 public:
     // allow Admin to access private attribute
@@ -43,23 +44,23 @@ private:
     int creditPoint {};
 
     // User points
-    std::vector<double> occupierRatings {};
+    vector<double> occupierRatings {};
 
     // User requests
-    std::vector<House*> pendingRequests {};
+    vector<House*> pendingRequests {};
 
     // Comments of others on this user
-    std::map<string, string> ownerComments {}; // adjust later
+    map<string, string> ownerComments {}; // adjust later
 public:
     //Constructor
     Member();
     Member(string id, string fullName, string username, string password, string phoneNumber);
     Member(string id, string fullName, string username, string password, string phoneNumber,
-           House *myHouse, std::vector<double> occupierRatings, int creditPoint, std::vector<House*> pendingRequests,
-           std::map<string,string> ownerComments);
+           House *myHouse, vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
+           map<string,string> ownerComments);
     Member(string id, string fullName, string username, string password, string phoneNumber,
-           House *myHouse, std::vector<double> occupierRatings, int creditPoint, std::vector<House*> pendingRequests,
-           House *rentHouse, std::map<string,string> ownerComments);
+           House *myHouse, std::vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
+           House *rentHouse, map<string,string> ownerComments);
 
     // Basic Methods
     // login
