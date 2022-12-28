@@ -15,10 +15,8 @@
 
     // check if username is available
     bool Admin::check_admin(string &username, string &password) {
-        for (auto &i: admins) {
-            if (i == username && password == "admin") {
-                return true;
-            }
+        if (username == "admin" && password == "admin") {
+            return true;
         }
         return false;
     }

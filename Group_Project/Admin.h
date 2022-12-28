@@ -5,15 +5,14 @@
 #ifndef ADMIN_H
 #define ADMIN_H
 
-#include "User.h"
 #include "Member.h"
 #include <iostream>
 #include <vector>
 using std::string;
-class Admin : public User {
+class Admin {
 private:
     // predefined admins
-    std::vector<string> admins{"Quoc", "Quan", "Thach", "Ngoc"};
+    string admin {"admin"};
 
     // members vector array
     inline static std::vector<Member> members {};

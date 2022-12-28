@@ -2,7 +2,6 @@
 #include<vector>
 #include<map>
 #include "Member.h"
-#include "User.h"
 #include "House.h"
 #include "Admin.h"
 #include "Data.h"
@@ -346,7 +345,7 @@ void goBackGuest() {
     cout << "Enter your action: ";
     cin >> input;
     vector<string> inputList = {"1", "2"};
-    while (checkExist(inputList, input) == false) {
+    while (!checkExist(inputList, input)) {
         cout << "Invalid input" << endl;
         cout << "Enter your action: ";
         cin >> input;

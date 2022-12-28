@@ -6,7 +6,6 @@
 #include <fstream>
 #include <map>
 #include "Member.h"
-#include "User.h"
 #include "House.h"
 
 using std::cin;
