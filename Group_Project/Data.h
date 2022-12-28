@@ -27,8 +27,8 @@ class Data {
 public:
     friend class Admin;
 public:
-    vector<Member> userList;
-    vector<House> houseList;
+    inline static vector<Member> userList {};
+    inline static vector<House> houseList {};
 public:
     Data();
     bool is_empty(std::ifstream &file);

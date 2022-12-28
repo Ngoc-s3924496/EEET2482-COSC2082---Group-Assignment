@@ -29,6 +29,7 @@ private:
     string fullName;
     string phoneNumber;
 
+    inline static Member* currentMember {};
     // The house of user
     House *myHouse = nullptr;
 
@@ -62,11 +63,11 @@ public:
 
     // Basic Methods
     // login
-    bool login(string &username, string &password);
+    bool login();
     // calculate average score for the current member
     double avgScore(std::vector <double> &occupierRatings);
     // New user -> register an account
-    void register_account();
+    bool register_account();
     // show inf
     void showInfo();
     const string &getFullName() const ;

@@ -2,9 +2,13 @@
 // Created by huuqu on 12/26/2022.
 //
 
+
+
+// Consider only load one member at a time.
 #include "Member.h"
 #include "Admin.h"
-//#include "House.h"
+#include "Data.h"
+#include <vector>
     //Constructor
     Member::Member() = default;
 
@@ -19,6 +23,7 @@
         this->creditPoint = 500;
         this->pendingRequests = {};
         this->ownerComments = {};
+        Admin::add_members(*this);
     }
 
     Member::Member(string id, string fullName, string username,string password, string phoneNumber,
@@ -34,6 +39,7 @@
         this->creditPoint = creditPoint;
         this->pendingRequests = pendingRequests;
         this->ownerComments = ownerComments;
+        Admin::add_members(*this);
     }
 
     Member::Member(string id, string fullName, string username, string password, string phoneNumber,
@@ -50,13 +56,25 @@
         this->pendingRequests = pendingRequests;
         this->rentHouse = rentHouse;
         this->ownerComments = ownerComments;
+        Admin::add_members(*this);
     }
 
-    bool Member::login(string &username, string &password) {
-            if (this->username == username && this->password == password) {
-                cout << "Login successfully !" << std::endl;
+    bool Member::login() {
+        string username_val;
+        cout << "Enter username: ";
+        std::getline(std::cin, username_val);
+        string password_val;
+        cout << "Enter password: ";
+        std::getline(std::cin, password_val);
+        for (auto &i : Data::userList) {
+            if (i.username == username_val && i.password == password_val) {
+                // set current member
+                Member::currentMember = &i;
+
+                cout << "Login successfully" << std::endl;
                 return true;
             }
+        }
         cout << "Invalid username or password!" << std::endl;
         cout << "Do you want to register? (Y/N)" << std::endl;
         string choice;
@@ -67,16 +85,23 @@
         return false;
     }
 
-    void Member::register_account() {
-        string username;
+    bool Member::register_account() {
+        string username_val;
         cout << "Enter username: ";
-        std::getline(std::cin, username);
-        string password;
+        std::getline(std::cin, username_val);
+        string password_val;
         cout << "Enter password: ";
-        std::getline(std::cin, password);
-        this->username = username;
-        this->password = password;
+        std::getline(std::cin, password_val);
+        for (auto &i : Data::userList) {
+            if (i.username == username_val) {
+                cout << "This username has already been taken!" << endl;
+                return false;
+            }
+        }
+        currentMember->username = username_val;
+        currentMember->password = password_val;
         cout << "Register successfully!";
+        return true;
     }
     double Member::avgScore(std::vector <double> &occupierRatings) {
         double avgScore {};
@@ -92,18 +117,18 @@
         return avgScore / occupierRatings.size();
     }
     const string & Member::getFullName() const {
-        return fullName;
+        return currentMember->fullName;
     }
     void Member::showInfo() {
         // print basic information
-        cout << "Full name: " << this->fullName << std::endl;
-        cout << "Phone number: " << this->phoneNumber << std::endl;
-        cout << "Credit point: " << this->creditPoint << std::endl;
-        cout << "Occupier rating: " << this->avgScore(occupierRatings) << std::endl;
+        cout << "Full name: " << currentMember->fullName << std::endl;
+        cout << "Phone number: " << currentMember->phoneNumber << std::endl;
+        cout << "Credit point: " << currentMember->creditPoint << std::endl;
+        cout << "Occupier rating: " << currentMember->avgScore(occupierRatings) << std::endl;
 
         // print all pending requests
         cout << "Pending requests: ";
-        for (auto &j: this->pendingRequests) {
+        for (auto &j: currentMember->pendingRequests) {
             cout << j->houseID << " ";
             cout << j->address << " ";
             cout << j->location << " ";
@@ -112,7 +137,7 @@
 
         // print comments
         cout << "Comments on member: ";
-        for (auto &x: this->ownerComments) {
+        for (auto &x: currentMember->ownerComments) {
             // x.first = name of commenters, x.second = comments
             std::cout << x.first << " " << x.second << "\n";
         }
@@ -135,7 +160,7 @@
     }
 
     void Member::viewRequest() {
-        for (auto &i: pendingRequests) {
+        for (auto &i: currentMember->pendingRequests) {
             cout << i->houseID << " ";
         }
     }
@@ -154,7 +179,7 @@
         for (auto &i : locations) {
             if (i == location) {
                 // list of house
-                for (auto &j : listingHouse) {
+                for (auto &j : currentMember->listingHouse) {
                     // print house with that location
                     if (j.location == location) {
                         cout << j.houseID << " " << j.address << " " << j.location << std::endl;
@@ -172,10 +197,10 @@
         string house_id;
         cin >> house_id;
         // check if house_id is valid
-        for (auto &j : listingHouse) {
+        for (auto &j : currentMember->listingHouse) {
             if (j.houseID == house_id) {
                 // assign this house
-                pendingRequests.push_back(&j);
+                currentMember->pendingRequests.push_back(&j);
                 return;
             }
         }
@@ -183,13 +208,13 @@
     }
 
     void Member::viewStatusRequestedHouse() {
-        for (auto &i : pendingRequests) {
+        for (auto &i : currentMember->pendingRequests) {
             // if no one request this house
             if (i->occupiers.empty()) {
                 continue;
             }
             // if at least one people request this house -> the newest rent will be at last
-            if (i->occupiers.at(i->occupiers.size() - 1)->fullName == this->fullName) {
+            if (i->occupiers.at(i->occupiers.size() - 1)->fullName == currentMember->fullName) {
                 cout << "You have successfully rent this house!" << endl;
                 return;
             }
@@ -199,12 +224,12 @@
     }
 
     void Member::ratingHouse() {
-        cout << "You are renting this house: " << rentHouse->houseID << endl;
+        cout << "You are renting this house: " << currentMember->rentHouse->houseID << endl;
         cout << "Please rate it !" << endl;
         cout << "Enter a score: ";
         string score_str;
         cin >> score_str;
-        rentHouse->houseRatings.push_back(strtod(score_str.c_str(), nullptr));
+        currentMember->rentHouse->houseRatings.push_back(strtod(score_str.c_str(), nullptr));
         cout << "Do you want to leave a comment (Y/N) ?";
         string choice;
         cin >> choice;
@@ -212,7 +237,7 @@
             cout << "Type here: ";
             string comment;
             getline(std::cin,comment);
-            rentHouse->occupierComment[this->fullName] = comment;
+            currentMember->rentHouse->occupierComment[this->fullName] = comment;
             return;
         }
         cout << "Thank you for using!" << endl;

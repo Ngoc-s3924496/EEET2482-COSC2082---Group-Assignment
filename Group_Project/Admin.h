@@ -24,7 +24,7 @@ public:
     std::string getPassword();
 
     // record new member in admin
-    void add_members(Member &member);
+    static void add_members(Member &member);
 
     // check if username is available
     bool check_admin(string &username, string &password);
