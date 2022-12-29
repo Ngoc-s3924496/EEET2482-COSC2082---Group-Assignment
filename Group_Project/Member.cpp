@@ -121,7 +121,7 @@
         cout << "Full name: " << currentMember->fullName << endl;
         cout << "Phone number: " << currentMember->phoneNumber << endl;
         cout << "Credit point: " << currentMember->creditPoint << endl;
-        cout << "Occupier rating: " << currentMember->avgScore(occupierRatings) << endl;
+        cout << "Occupier rating: " << currentMember->avgScore(currentMember->occupierRatings) << endl;
 
         // print all pending requests
         cout << "Pending requests: ";
