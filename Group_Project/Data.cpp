@@ -367,7 +367,9 @@ bool Data::saveHouseData(House house, string path) {
     return 1;
 }
 
-bool Data::LoadUserData(string memberPath) {
+
+
+bool Data::preloadUserData(string memberPath) {
     fstream openFile;
     string line;
 
@@ -387,15 +389,10 @@ bool Data::LoadUserData(string memberPath) {
         // Declare the variables
         string id, fullName, userName, password, phoneNumber, houseID, readString, creditPoints, keyValueString, key, value;
         bool notEndOfString = true;
-        // Aggregation Relationship between House class and Member class
-        House *myHouse = nullptr;
-        House *rentHouse = nullptr;
         vector<double> occupierRatings {};
-        // Aggregation Relationship between House class and Member class
-        vector<House*> pendingRequests {};
         map<string, string> ownerComment {};
         
-        // Load the member id, full name, username, password, phone number to the declared variables
+        // Load the member id into local variable
         id = line.substr(0, line.find(','));
         line.erase(0, line.find(',') + 1);
         // Load the full name into local variable
@@ -414,13 +411,6 @@ bool Data::LoadUserData(string memberPath) {
         // Load the House object into the local variable
         houseID = line.substr(0, line.find(','));
         line.erase(0, line.find(',') + 1);
-        // Check the house from the house list to validate the House
-        for (int i = 0; i < houseList.size(); i++) {
-            if (houseID == houseList[i].houseID) {
-                *myHouse = houseList[i];
-                break;
-            }
-        }
         
         // Load the occupier ratings into the local vector
         readString = line.substr(0, line.find(','));
@@ -449,42 +439,12 @@ bool Data::LoadUserData(string memberPath) {
         // Load the pending request into the local vector
         readString = line.substr(0, line.find(','));
         line.erase(0, line.find(',') + 1);
-        while (true) {
-            if (readString == "none") {
-                break;
-            }
-            // If there is still a semicolon, which means there are still values
-            if (readString.find("; ") < readString.length()) {
-                houseID = readString.substr(0, readString.find("; "));
-                // Validate the House by comparing the id with the data in the house list
-                for (int i = 0; i < houseList.size(); i++) {
-                    if (houseID == houseList[i].houseID) {
-                        pendingRequests.push_back(&houseList[i]);
-                        break;
-                    }
-                }
-                readString.erase(0, readString.find("; ") + 2);
-            } else {
-                houseID = readString;
-                for (int i = 0; i < houseList.size(); i++) {
-                    if (houseID == houseList[i].houseID) {
-                        pendingRequests.push_back(&houseList[i]);
-                        break;
-                    }
-                }
-                break;
-            }
-        }
+
 
         // Load the rent house into the local variable
         readString = line.substr(0, line.find(','));
         line.erase(0, line.find(',') + 1);
-        for (int i = 0; i < houseList.size(); i++) {
-            if (houseID == houseList[i].houseID) {
-                *rentHouse = houseList[i];
-                break;
-            }
-        }
+
 
         // Load the owner comments into the local map
         readString = line;
@@ -515,14 +475,14 @@ bool Data::LoadUserData(string memberPath) {
         }
 
         // Append a loaded user into the local vector
-        userList.push_back(Member(id, fullName, userName, password, phoneNumber, myHouse, occupierRatings, stoi(creditPoints), pendingRequests, rentHouse, ownerComment));
+        userList.push_back(Member(id, fullName, userName, password, phoneNumber, occupierRatings, stoi(creditPoints), ownerComment));
     }
     // Close the file
     openFile.close();
     return 1;
 }
 
-bool Data::LoadHouseData(string housePath) {
+bool Data::preloadHouseData(string housePath) {
     // Open the file for reading
     fstream openFile;
     openFile.open(housePath, std::ios::in);
@@ -541,9 +501,6 @@ bool Data::LoadHouseData(string housePath) {
         string houseID, startDate, endDate, address, location, description, consumingPoints, minOccupierRating, readString, memberID, key, value, keyValueString;
         vector<double> houseRatings;
         bool status = false;
-        // Aggregation relationship between Member class and House class
-        vector<Member*> occupiers; 
-        vector<Member*> requestList;
         map<string, string> occupierComment;
 
         // Load the house id, start date, end date, address, location, description into local variables
@@ -622,61 +579,10 @@ bool Data::LoadHouseData(string housePath) {
         // Load the occupiers into a local vector
         readString = line.substr(0, line.find(','));
         line.erase(0, line.find(',') + 1);
-        while (true) {
-            if (readString == "none") {
-                break;
-            }
-            // If there is still a semicolon, which means there are still values
-            if (readString.find("; ") < readString.length()) {
-                memberID = readString.substr(0, readString.find("; "));
-                // Validate the House object comparing the id with the houses from the house list
-                for (int i = 0; i < userList.size(); i++) {
-                    if (memberID == userList[i].id) {
-                        occupiers.push_back(&userList[i]);
-                        break;
-                    }
-                }
-                readString.erase(0, readString.find("; ") + 2);
-            } else {
-                memberID = readString;
-                for (int i = 0; i < userList.size(); i++) {
-                    if (memberID == userList[i].id) {
-                        occupiers.push_back(&userList[i]);
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-
+        
         // Load the request list into a local vector
         readString = line.substr(0, line.find(','));
         line.erase(0, line.find(',') + 1);
-        while (true) {
-            if (readString == "none") {
-                break;
-            }
-            // If there is still a semicolon, which means there are still values
-            if (readString.find("; ") < readString.length()) {
-                memberID = readString.substr(0, readString.find("; "));
-                for (int i = 0; i < userList.size(); i++) {
-                    if (memberID == userList[i].id) {
-                        requestList.push_back(&userList[i]);
-                        break;
-                    }
-                }
-                readString.erase(0, readString.find("; ") + 2);
-            } else {
-                memberID = readString;
-                for (int i = 0; i < userList.size(); i++) {
-                    if (memberID == userList[i].id) {
-                        requestList.push_back(&userList[i]);
-                        break;
-                    }
-                }
-                break;
-            }
-        }
 
         // Load the occupier comments into a local map
         readString = line.substr(0, line.find(','));
@@ -707,7 +613,230 @@ bool Data::LoadHouseData(string housePath) {
         }
 
         // Append a new House object to the local vector
-        houseList.push_back(House(houseID, startDate, endDate, address, location, description, stod(consumingPoints), stod(minOccupierRating), houseRatings, status, occupiers, requestList, occupierComment));
+        houseList.push_back(House(houseID, startDate, endDate, address, location, description, stod(consumingPoints), stod(minOccupierRating), houseRatings, status, occupierComment));
+    }
+    // Close the file
+    openFile.close();
+    return 1;
+}
+
+
+bool Data::loadUserData(string memberPath) {
+    // Data::preloadHouseData();
+    fstream openFile;
+    string line;
+
+    // Open the member file for reading
+    openFile.open(memberPath, std::ios::in);
+    // Check the file whether it can be opened
+    if (!openFile) {
+        cerr << "Cannot open file Member!" << endl;
+        return -1;
+    }
+
+    // Skip the title of the database
+    getline(openFile, line);
+
+    // Read through each line of the file until it reaches the end of the file
+    while (getline(openFile, line)) {
+        // Declare the variables
+        string id, houseID, readString;
+        // Aggregation Relationship between House class and Member class
+        House *myHouse = nullptr;
+        House *rentHouse = nullptr;
+        // Aggregation Relationship between House class and Member class
+        vector<House*> pendingRequests {};
+        
+        // Load the member id to local variable
+        id = line.substr(0, line.find(','));
+        // Erase the unnecessary clauses in the data string
+        line.erase(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+
+        // Load the House object into the local variable
+        houseID = line.substr(0, line.find(','));
+        line.erase(0, line.find(',') + 1);
+        // Check the house from the house list to validate the House
+        for (int i = 0; i < houseList.size(); i++) {
+            if (houseID == houseList[i].houseID) {
+                myHouse = &houseList[i];
+                break;
+            }
+        }
+
+        // Erase the unnecessary clauses in the data string
+        line.erase(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+
+        // Load the pending request into the local vector
+        readString = line.substr(0, line.find(','));
+        line.erase(0, line.find(',') + 1);
+        while (true) {
+            if (readString == "none") {
+                break;
+            }
+            // If there is still a semicolon, which means there are still values
+            if (readString.find("; ") < readString.length()) {
+                houseID = readString.substr(0, readString.find("; "));
+                // Validate the House by comparing the id with the data in the house list
+                for (int i = 0; i < houseList.size(); i++) {
+                    if (houseID == houseList[i].houseID) {
+                        pendingRequests.push_back(&houseList[i]);
+                        break;
+                    }
+                }
+                readString.erase(0, readString.find("; ") + 2);
+            } else {
+                houseID = readString;
+                for (int i = 0; i < houseList.size(); i++) {
+                    if (houseID == houseList[i].houseID) {
+                        pendingRequests.push_back(&houseList[i]);
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        // Load the rent house into the local variable
+        houseID = line.substr(0, line.find(','));
+        line.erase(0, line.find(',') + 1);
+        if (houseID != "none") {
+            for (int i = 0; i < houseList.size(); i++) {
+                if (houseID == houseList[i].houseID) {
+                    rentHouse = &houseList[i];
+                    break;
+                }
+            }
+        }
+        
+
+        // Load the owner comments into the local map
+        readString = line.substr(0, line.find(','));
+        line.erase(0, line.find(',') + 1);
+
+        // Find the wanted member in the user list and modify it
+        for (Member &member: userList) {
+            if (id == member.id) {
+                // Add the myHouse and rentHouse (House object), pending request to its attribute
+                member.myHouse = myHouse;
+                member.pendingRequests = pendingRequests;
+                member.rentHouse = rentHouse;
+                break;
+            }
+        }
+    }
+    // Close the file
+    openFile.close();
+    return 1;
+}
+
+bool Data::loadHouseData(string housePath) {
+    // Open the file for reading
+    fstream openFile;
+    openFile.open(housePath, std::ios::in);
+    string line;
+    // Check the file whether it can be opened
+    if (!openFile) {
+        cerr << "Cannot open file House!" << endl;
+        return -1;
+    }
+
+    // Skip the title of the database
+    getline(openFile, line);
+
+    // Read through each line of the file until it reaches the end of the file
+    while (getline(openFile, line)) {
+        string houseID, readString, memberUsername;
+        // Aggregation relationship between Member class and House class
+        vector<Member*> occupiers; 
+        vector<Member*> requestList;
+
+        // Load the house id
+        houseID = line.substr(0, line.find(','));
+        // Erase the unnecessary clauses of the data string
+        line.erase(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+
+        // Load the request list into a local vector
+        readString = line.substr(0, line.find(','));
+        line.erase(0, line.find(',') + 1);
+        while (true) {
+            if (readString == "none") {
+                break;
+            }
+            // If there is still a semicolon, which means there are still values
+            if (readString.find("; ") < readString.length()) {
+                memberUsername = readString.substr(0, readString.find("; "));
+                for (int i = 0; i < userList.size(); i++) {
+                    if (memberUsername == userList[i].username) {
+                        requestList.push_back(&userList[i]);
+                        break;
+                    }
+                }
+                readString.erase(0, readString.find("; ") + 2);
+            } else {
+                memberUsername = readString;
+                for (int i = 0; i < userList.size(); i++) {
+                    if (memberUsername == userList[i].username) {
+                        requestList.push_back(&userList[i]);
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        // Load the occupiers into a local vector
+        readString = line.substr(0, line.find(','));
+        line.erase(0, line.find(',') + 1);
+        while (true) {
+            if (readString == "none") {
+                break;
+            }
+            // If there is still a semicolon, which means there are still values
+            if (readString.find("; ") < readString.length()) {
+                memberUsername = readString.substr(0, readString.find("; "));
+                // Validate the House object comparing the id with the houses from the house list
+                for (int i = 0; i < userList.size(); i++) {
+                    if (memberUsername == userList[i].username) {
+                        occupiers.push_back(&userList[i]);
+                        break;
+                    }
+                }
+                readString.erase(0, readString.find("; ") + 2);
+            } else {
+                memberUsername = readString;
+                for (int i = 0; i < userList.size(); i++) {
+                    if (memberUsername == userList[i].username) {
+                        occupiers.push_back(&userList[i]);
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        // Find the wanted House object and modify it
+        for (House &house: houseList) {
+            if (houseID == house.houseID) {
+                // Add the occupiers list and request list to the House object attributes
+                house.occupiers = occupiers;
+                house.requestList = requestList;
+                break;
+            }
+        }
     }
     // Close the file
     openFile.close();

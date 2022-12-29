@@ -1,4 +1,4 @@
-ID,Full Name,Username,Password,Phone Number,Owned House,Occupied Ratings,Credit Points,Pending Requests,Rent House,Comment List
+ID,Full Name,Username,Password,Phone Number,Owned House,Occupier Ratings,Credit Points,Pending Requests,Rent House,Comment List
 M001,Hoang Tuan Gia Huy,s3912345,Rmit@3912345,0932761567,H001,7; 8.6; 6.8,500,H004,none,s3912345: Good; s3912346: Clean and tidy; s3912349: Great person; s3912350: Clean person
 M002,Pham Dinh Duc Huy,s3912346,Rmit@3912346,0981127809,H002,6; -1,300,none,H005,s3912352: Responsible; s3912353: Untidy
 M003,Vo Ha Khanh Linh,s3912347,Rmit@3912347,0902680705,H003,7; 9.1,1000,H001; H008; H009,none,s3912352: Thoughful person; s3912353: Caring person; s3912354: Funny person

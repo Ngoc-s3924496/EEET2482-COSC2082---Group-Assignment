@@ -11,18 +11,16 @@
         string username_val;
         string password_val;
         cout << "Enter admin username: ";
-        getline(cin,username_val);
+        cin >> username_val;
         cout << "Enter admin password: ";
-        getline(cin,password_val);
+        cin >> password_val;
         if (username_val == "admin" && password_val == "admin") {
             Admin::isLoggedIn = true;
             return true;
         }
         return false;
     }
-    void Admin::logout() {
-        Admin::isLoggedIn = false;
-    }
+
     void Admin::showMember() {
         if(Data::userList.empty()) {
             cout << "No data found!" << endl;

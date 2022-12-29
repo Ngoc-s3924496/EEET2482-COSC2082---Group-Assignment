@@ -28,8 +28,7 @@ public:
     friend class Admin;
     friend class Member;
     friend class House;
-    friend class Guest;
-private:
+public:
     inline static vector<Member> userList {};
     inline static vector<House> houseList {};
 public:
@@ -37,8 +36,10 @@ public:
     static bool is_empty(std::ifstream &file);
     static bool saveUserData(Member member, string path = MEMBER_DATABASE);
     static bool saveHouseData(House house, string path = HOUSE_DATABASE);
-    static bool LoadUserData(string memberPath = MEMBER_DATABASE);
-    static bool LoadHouseData(string housePath = HOUSE_DATABASE);
+    static bool loadUserData(string memberPath = MEMBER_DATABASE);
+    static bool loadHouseData(string housePath = HOUSE_DATABASE);
+    static bool preloadUserData(string memberPath = MEMBER_DATABASE);
+    static bool preloadHouseData(string housePath = HOUSE_DATABASE);
 };
 
 #endif

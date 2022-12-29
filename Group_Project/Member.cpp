@@ -8,37 +8,23 @@
 #include "Member.h"
 #include "Admin.h"
 #include "Data.h"
-#include <cstring>
+#include <string.h>
 #include <iomanip>
 #include <vector>
     //Constructor
     Member::Member() = default;
 
-    Member::Member(string id, string fullName, string username,string password, string phoneNumber) {
+    Member::Member(string id, string fullName, string username, string password, string phoneNumber,
+                   vector<double> occupierRatings, int creditPoint, map<string,string> ownerComments) {
         this->id = id;
         this->username = username;
         this->password = password;
         this->fullName = std::move(fullName);
         this->phoneNumber = std::move(phoneNumber);
         this->myHouse = nullptr;
-        this->occupierRatings = {};
-        this->creditPoint = 500;
-        this->pendingRequests = {};
-        this->ownerComments = {};
-    }
-
-    Member::Member(string id, string fullName, string username,string password, string phoneNumber,
-        House *myHouse, std::vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
-        map<string,string> ownerComments) {
-        this->id = id;
-        this->username = username;
-        this->password = password;
-        this->fullName = std::move(fullName);
-        this->phoneNumber = std::move(phoneNumber);
-        this->myHouse = myHouse;
-        this->occupierRatings = std::move(occupierRatings);
+        this->occupierRatings = occupierRatings;
         this->creditPoint = creditPoint;
-        this->pendingRequests = pendingRequests;
+        this->pendingRequests = {};
         this->ownerComments = ownerComments;
     }
 
@@ -59,6 +45,7 @@
     }
 
     bool Member::login() {
+        cin.ignore();
         string username_val;
         cout << "Enter username: ";
         std::getline(cin, username_val);
@@ -78,21 +65,15 @@
         cout << "Invalid username or password!" << endl;
         cout << "Do you want to register? (Y)" << endl;
         string choice;
-        getline(cin, choice);
+        cin >> choice;
         if (choice == "Y" || choice == "y") {
             return register_account();
         }
         isLoggedIn = false;
         return false;
     }
-    void Member::logout() {
-        Data::saveUserData(*Member::currentMember);
-        Data::LoadUserData();
-        Member::isLoggedIn = false;
-        delete currentMember;
-    }
+
     bool Member::register_account() {
-        cout << "Registering..." << endl;
         string username_val;
         cout << "Enter username: ";
         std::getline(cin, username_val);
@@ -105,20 +86,12 @@
                 return false;
             }
         }
-        cout << "Register successfully!" << endl;
-        currentMember = new Member();
-        currentMember->id = "1";
-        currentMember->fullName = "A B C";
-        currentMember->phoneNumber = "0123";
         currentMember->username = username_val;
         currentMember->password = password_val;
-        currentMember->creditPoint = 500;
+        cout << "Register successfully!";
         isLoggedIn = true;
-        Data::saveUserData(*Member::currentMember);
-        Data::LoadUserData();
         return true;
     }
-
     double Member::avgScore(vector <double> &occupierRatings) {
         double avgScore {};
         if (occupierRatings.empty()) {
@@ -136,60 +109,45 @@
         return this->fullName;
     }
     void Member::showInfo() {
-        // print basic information
-        cout << "Full name: " << this->fullName << endl;
-        cout << "Phone number: " << this->phoneNumber << endl;
-        cout << "Credit point: " << this->creditPoint << endl;
-        cout << "Occupier rating: " << std::setprecision(2) << std::fixed << this->avgScore(this->occupierRatings) << endl;
+        if (this != nullptr) {
+            // print basic information
+            cout << "Full name: " << this->fullName << endl;
+            cout << "Phone number: " << this->phoneNumber << endl;
+            cout << "Credit point: " << this->creditPoint << endl;
+            cout << "Occupier rating: " << this->avgScore(this->occupierRatings) << endl;
 
-        // print all pending requests
-        cout << "Pending requests: ";
-        if (this-> pendingRequests.empty()) {
-            cout << "No request found!" << endl;
-        }
-        else {
-            for (auto &j: this->pendingRequests) {
-                cout << j->houseID << " ";
-                cout << j->address << " ";
-                cout << j->location << " ";
-                cout << j->description << " ";
+            // print all pending requests
+            cout << "Pending requests: " << endl;
+            if (this-> pendingRequests.empty()) {
+                cout << "No request found!" << endl;
             }
-        }
-        // print comments
-        cout << "Comments on this member: " << endl;
-        for (auto &x: this->ownerComments) {
-            // x.first = name of commenters, x.second = comments
-            for (auto &i : Data::userList) {
-                if (i.username == x.first) {
-                    cout << std::setw(10) << x.first << "-" << i.fullName << " comments: " << x.second << endl;
+            else {
+                for (auto &j: this->pendingRequests) {
+                    cout << j->houseID << " ";
+                    cout << j->address << " ";
+                    cout << j->location << " ";
+                    cout << j->description << " " << endl;
                 }
             }
-        }
-        // new line
-        cout << endl;
+            // print comments
+            cout << "Comments on member: " << endl;
+            for (auto &x: this->ownerComments) {
+                // x.first = name of commenters, x.second = comments
+                for (auto &i : Data::userList) {
+                    if (i.username == x.first) {
+                        cout << std::setw(10) << x.first << "-" << i.fullName << " comments: " << x.second << "\n";
+                    }
+                }
+            }
+            // new line
+            cout << endl;
 
-        cout << "Do you want to change your profile? (Y): ";
-        string choice {};
-        getline(cin, choice);
-        if (choice == "Y" || choice == "y") {
-            this->makeProfile();
+            // add them function de xem thong tin house
+        } else {
+            cout << "There is no user to be shown" << endl;
         }
     }
-    void Member::makeProfile() {
-        string data;
 
-        cout << "Enter full name: ";
-        getline(cin,data);
-        this->fullName = data;
-
-        cout << "Enter phone number: ";
-        getline(cin,data);
-        this->phoneNumber = data;
-
-        cout << "Update data successfully!";
-        Data::saveUserData(*this);
-        Data::LoadUserData();
-    }
     void Member::listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) {
 
     }
@@ -217,7 +175,7 @@
     void Member::searchHouse() {
         cout << "Enter location: ";
         string location;
-        getline(cin,location);
+        cin >> location;
         // check if location is valid
         for (auto &i : locations) {
             if (strcasecmp(i.c_str(),location.c_str()) == 0) {
@@ -245,21 +203,15 @@
         }
         for (auto &i : Member::listingHouse) {
             cout << std::setw(10) << i.houseID << " " << i.address << " " << i.location << endl;
-            cout << std::setw(15) << i.minOccupierRating << endl;
         }
         cout << "Enter house id: ";
         string house_id;
-        getline(cin,house_id);
+        cin >> house_id;
         // check if house_id is valid
         for (auto &j : Member::listingHouse) {
             if (j.houseID == house_id) {
-                if (this->avgScore(this->occupierRatings) >= j.minOccupierRating) {
-                    // assign this house
-                    this->pendingRequests.push_back(&j);
-                    cout << "Request successfully!" << endl;
-                    return;
-                }
-                cout << "Not enough points!" << endl;
+                // assign this house
+                this->pendingRequests.push_back(&j);
                 return;
             }
         }
@@ -281,6 +233,7 @@
         cout << "Your requested house is still pending or not allocated!" << endl;
         cout << "Please try again later." << endl;
     }
+
     void Member::ratingHouse() {
         if (this->rentHouse == nullptr) {
             cout << "You have not rent any house!" << endl;
@@ -290,11 +243,11 @@
         cout << "Please rate it !" << endl;
         cout << "Enter a score: ";
         string score_str;
-        getline(cin, score_str);
+        cin >> score_str;
         this->rentHouse->houseRatings.push_back(strtod(score_str.c_str(), nullptr));
         cout << "Do you want to leave a comment (Y/N) ?";
         string choice;
-        getline(cin, choice);
+        cin >> choice;
         if (choice == "Y") {
             cout << "Type here: ";
             string comment;

@@ -21,7 +21,7 @@ public:
 
     // check if username is available
     static bool login();
-    static void logout();
+
     static void showMember();
 
     static void showHouses();

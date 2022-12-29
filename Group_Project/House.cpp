@@ -1,6 +1,5 @@
 #include "House.h"
 #include "Member.h"
-#include <iomanip>
 using std::string;
 using std::cout;
 using std::cin;
@@ -14,24 +13,24 @@ using std::vector;
 House::House() = default;
 
 House::House(string houseId, string startDate, string endDate, string address,
-             string location, string description, double consumingPoints, double minOccupierRating) : houseID(houseId), startDate(startDate),
+             string location, string description, double consumingPoints, double minOccupierRating, 
+             vector<double> houseRatings, bool status, std::map<string, string> occupierComment) : houseID(houseId), startDate(startDate),
                                                                 endDate(endDate),
                                                                 address(address),
                                                                 description(description),
                                                                 consumingPoints(consumingPoints),
-                                                                minOccupierRating(minOccupierRating) {
-    this->houseRatings = {};
-    this->status = false;
+                                                                minOccupierRating(minOccupierRating),
+                                                                houseRatings(houseRatings), status(status),
+                                                                occupierComment(occupierComment) {
     this->occupiers = {};
     this->requestList = {};
-    this->occupierComment = {};
     // Check if location is valid or not
     for (const string& loc: locations) {
         if (location == loc) {
             this->location = location;
         }
     }
-    if (this->location.empty()) {
+    if (this->location == "") {
             cerr << "Invalid location" << endl;
     }
 };
@@ -69,26 +68,30 @@ void House::showDemoHouse() {
 
 // Show the full version of the house for Admin / Member viewing
 void House::showFullHouse() {
-    cout << "House Information - Full Version" << endl;
-    cout << "House ID: " << houseID << endl;
-    cout << "Address: " << address << endl;
-    cout << "Location: " << location << endl;
-    cout << "Description: " << description << endl;
-    cout << "Consuming Points: " << consumingPoints << endl;
-    cout << "Minimum Occupier Rating: " << minOccupierRating << endl;
-    if (status) {
-        if (this->occupiers.empty()) {
-            cout << "Empty" << endl;
-        }
-        else {
-            cout << "House Status: occupied by " << occupiers.at(occupiers.size() - 1)->getFullName() << " - " << occupiers.back()->id
-                 << endl;
-        }
+    if (this != nullptr) {
+        cout << "House Information - Full Version" << endl;
+        cout << "House ID: " << houseID << endl;
+        cout << "Address: " << address << endl;
+        cout << "Location: " << location << endl;
+        cout << "Description: " << description << endl;
+        cout << "Consuming Points: " << consumingPoints << endl;
+        cout << "Minimum Occupier Rating: " << minOccupierRating << endl;
+        if (status) {
+            if (this->occupiers.empty()) {
+                cout << "Nobody has rented this house" << endl;
+            }
+            else {
+                cout << "House Status: Occupied by " << occupiers.at(occupiers.size() - 1)->getFullName() << " - " << occupiers.back()->id
+                    << endl;
+            }
 
+        } else {
+            cout << "House Status: Empty" << endl;
+        }
+        cout << "House Rating Score: " << this->avgScore() << endl;
     } else {
-        cout << "House Status: empty" << endl;
+        cout << "There is no house to be shown" << endl;
     }
-    cout << "House Rating Score: " << std::setprecision(2) << std::fixed << this->avgScore() << endl << endl;
 }
 
 // Calculate house-rating score ( avg rating ) for this house.
