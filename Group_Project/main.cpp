@@ -483,7 +483,7 @@ void goBackMember() {
     cout << "Enter your action: ";
     cin >> input;
     vector<string> inputList = {"1", "2"};
-    while (checkExist(inputList, input) == false) {
+    while (!checkExist(inputList, input)) {
         cout << "Invalid input" << endl;
         cout << "Enter your action: ";
         cin >> input;
