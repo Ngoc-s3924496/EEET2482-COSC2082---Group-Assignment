@@ -89,13 +89,11 @@ public:
     // Quoc
     void searchHouse();
 
-    void makeRequest();
+    bool makeRequest();
 
     void viewStatusRequestedHouse() ;
 
-    void ratingHouse();
-
-
+    bool ratingHouse();
 };
 
 

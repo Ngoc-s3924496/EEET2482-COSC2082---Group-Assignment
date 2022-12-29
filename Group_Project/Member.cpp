@@ -206,13 +206,14 @@
         cout << "Invalid location!" <<endl;
     }
 
-    void Member::makeRequest() {
+    bool Member::makeRequest() {
         if (Member::listingHouse.empty()) {
             cout << "There is currently no available house!" << endl;
-            return;
+            return false;
         }
         for (auto &i : Member::listingHouse) {
             cout << std::setw(10) << i.houseID << " " << i.address << " " << i.location << endl;
+            cout << std::setw(15) << i.minOccupierRatings << endl;
         }
         cout << "Enter house id: ";
         string house_id;
@@ -220,9 +221,14 @@
         // check if house_id is valid
         for (auto &j : Member::listingHouse) {
             if (j.houseID == house_id) {
-                // assign this house
-                this->pendingRequests.push_back(&j);
-                return;
+                if (this->avgScore(this->occupierRatings) >= j.minOccupierRatings) {
+                    // assign this house
+                    this->pendingRequests.push_back(&j);
+                    cout << "Request successfully!" << endl;
+                    return true;
+                }
+                cout << "Not enough points!" << endl;
+                return false;
             }
         }
         cout << "Invalid house id!" << endl;
@@ -243,11 +249,10 @@
         cout << "Your requested house is still pending or not allocated!" << endl;
         cout << "Please try again later." << endl;
     }
-
-    void Member::ratingHouse() {
+    bool Member::ratingHouse() {
         if (this->rentHouse == nullptr) {
             cout << "You have not rent any house!" << endl;
-            return;
+            return false;
         }
         cout << "You are renting this house: " << this->rentHouse->houseID << endl;
         cout << "Please rate it !" << endl;
@@ -263,9 +268,10 @@
             string comment;
             getline(std::cin,comment);
             this->rentHouse->occupierComment[this->fullName] = comment;
-            return;
+            return true;
         }
         cout << "Thank you for using!" << endl;
+        return false;
     }
 
 
