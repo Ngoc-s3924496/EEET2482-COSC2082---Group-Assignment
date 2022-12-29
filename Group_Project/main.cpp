@@ -4,6 +4,7 @@
 #include "Member.h"
 #include "House.h"
 #include "Admin.h"
+#include "Guest.h"
 #include "Data.h"
 using std::cout;
 using std::cin;
@@ -33,9 +34,8 @@ void lineBreak();
 
 bool checkExist(vector<string> stringlist, string element);
 int main() {
-    Data data = Data();
-    data.LoadUserData();
-    data.LoadHouseData();
+    Data::LoadUserData();
+    Data::LoadHouseData();
     // Call constructor for classes
     cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;
     cout << "VACATION HOUSE EXCHANGE APPLICATION" << endl;
@@ -117,13 +117,14 @@ void pageGuest() {
     cout << "Welcome guest!" << endl;
     cout << "[1] View available houses" << endl;
     cout << "[2] Register as a member" << endl;
-    cout << "[3] Go back" << endl;
-    cout << "[4] End program" << endl;
+    cout << "[3] Login" << endl;
+    cout << "[4] Go back" << endl;
+    cout << "[5] End program" << endl;
     string input;
     cout << "Enter your action: ";
     getline(cin, input);
-    vector<string> inputList = {"1", "2", "3", "4"};
-    while (checkExist(inputList, input) == false) {
+    vector<string> inputList = {"1", "2", "3", "4", "5"};
+    while (!checkExist(inputList, input)) {
         cout << "Invalid input" << endl;
         cout << "Enter your action: ";
         getline(cin, input);
@@ -133,16 +134,21 @@ void pageGuest() {
     switch (intInput) {
         case 1:
             // Guest view house function
+            Guest::showHouse();
             goBackGuest();
             break;
         case 2:
             // Guest registration function
+            Guest::register_account();
             goBackGuest();
             break;
         case 3:
-            pageStart();
+            pageMember();
             break;
         case 4:
+            pageStart();
+            break;
+        case 5:
             pageEnd();
             break;
     }
@@ -466,6 +472,8 @@ void pageAdmin() {
 }
 
 void pageEnd() {
+    Data::saveUserData(*Member::currentMember);
+
     cout << "Thank you for using this program" << endl;
     cout << "See you next time!" << endl;
 }

@@ -1,5 +1,6 @@
 #include "House.h"
 #include "Member.h"
+#include <iomanip>
 using std::string;
 using std::cout;
 using std::cin;
@@ -30,7 +31,7 @@ House::House(string houseId, string startDate, string endDate, string address,
             this->location = location;
         }
     }
-    if (this->location == "") {
+    if (this->location.empty()) {
             cerr << "Invalid location" << endl;
     }
 };
@@ -87,7 +88,7 @@ void House::showFullHouse() {
     } else {
         cout << "House Status: empty" << endl;
     }
-    cout << "House Rating Score: " << this->avgScore() << endl;
+    cout << "House Rating Score: " << std::setprecision(2) << std::fixed << this->avgScore() << endl << endl;
 }
 
 // Calculate house-rating score ( avg rating ) for this house.

@@ -38,7 +38,7 @@ private:
     House *rentHouse = nullptr;
 
     // List of available houses
-    inline static std::vector<House> listingHouse;
+    inline static std::vector<House> listingHouse {};
 
     // User money
     int creditPoint {};
@@ -50,7 +50,7 @@ private:
     vector<House*> pendingRequests {};
 
     // Comments of others on this user
-    map<string, string> ownerComments; // adjust later
+    map<string, string> ownerComments {}; // adjust later
 public:
     //Constructor
     Member();
@@ -66,6 +66,7 @@ public:
     // login
     static bool login();
     static void logout();
+    void makeProfile();
     // calculate average score for the current member
     double avgScore(std::vector <double> &occupierRatings);
     // New user -> register an account

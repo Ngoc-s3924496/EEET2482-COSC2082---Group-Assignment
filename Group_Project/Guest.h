@@ -5,10 +5,12 @@
 #ifndef GUEST_H
 #define GUEST_H
 
+#include "Member.h"
 
 class Guest {
 public:
-    bool register_account;
+    static bool register_account ();
+    static void showHouse();
 };
 
 

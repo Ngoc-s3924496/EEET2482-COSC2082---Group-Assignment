@@ -86,9 +86,13 @@
         return false;
     }
     void Member::logout() {
+        Data::saveUserData(*Member::currentMember);
+        Data::LoadUserData();
         Member::isLoggedIn = false;
+        delete currentMember;
     }
     bool Member::register_account() {
+        cout << "Registering..." << endl;
         string username_val;
         cout << "Enter username: ";
         std::getline(cin, username_val);
@@ -101,12 +105,17 @@
                 return false;
             }
         }
+        cout << "Register successfully!" << endl;
+        currentMember = new Member();
         currentMember->username = username_val;
         currentMember->password = password_val;
-        cout << "Register successfully!";
+        currentMember->creditPoint = 500;
         isLoggedIn = true;
+        Data::saveUserData(*Member::currentMember);
+        Data::LoadUserData();
         return true;
     }
+
     double Member::avgScore(vector <double> &occupierRatings) {
         double avgScore {};
         if (occupierRatings.empty()) {
@@ -156,9 +165,28 @@
         // new line
         cout << endl;
 
-        // add them function de xem thong tin house
+        cout << "Do you want to change your profile? (Y): ";
+        string choice {};
+        getline(cin, choice);
+        if (choice == "Y" || choice == "y") {
+            this->makeProfile();
+        }
     }
+    void Member::makeProfile() {
+        string data;
 
+        cout << "Enter full name: ";
+        getline(cin,data);
+        this->fullName = data;
+
+        cout << "Enter phone number: ";
+        getline(cin,data);
+        this->phoneNumber = data;
+
+        cout << "Update data successfully!";
+        Data::saveUserData(*this);
+        Data::LoadUserData();
+    }
     void Member::listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) {
 
     }

@@ -28,16 +28,17 @@ public:
     friend class Admin;
     friend class Member;
     friend class House;
+    friend class Guest;
 private:
     inline static vector<Member> userList {};
     inline static vector<House> houseList {};
 public:
     Data();
-    bool is_empty(std::ifstream &file);
-    bool saveUserData(Member member, string path = MEMBER_DATABASE);
-    bool saveHouseData(House house, string path = HOUSE_DATABASE);
-    bool LoadUserData(string memberPath = MEMBER_DATABASE);
-    bool LoadHouseData(string housePath = HOUSE_DATABASE);
+    static bool is_empty(std::ifstream &file);
+    static bool saveUserData(Member member, string path = MEMBER_DATABASE);
+    static bool saveHouseData(House house, string path = HOUSE_DATABASE);
+    static bool LoadUserData(string memberPath = MEMBER_DATABASE);
+    static bool LoadHouseData(string housePath = HOUSE_DATABASE);
 };
 
 #endif
