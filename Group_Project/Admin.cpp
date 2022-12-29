@@ -25,6 +25,7 @@
         // enter member name
         std::cout << "Enter a member name: ";
         std::string member_name{};
+        cin.ignore();
         std::getline(std::cin, member_name);
 
         // find member
