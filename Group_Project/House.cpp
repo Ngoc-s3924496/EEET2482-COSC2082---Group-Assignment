@@ -13,10 +13,12 @@ using std::vector;
 House::House() = default;
 
 House::House(string houseId, string startDate, string endDate, string address,
-             string location, string description) : houseID(houseId), startDate(startDate),
+             string location, string description, double consumingPoints, double minOccupierRating) : houseID(houseId), startDate(startDate),
                                                                 endDate(endDate),
                                                                 address(address),
-                                                                description(description) {
+                                                                description(description),
+                                                                consumingPoints(consumingPoints),
+                                                                minOccupierRating(minOccupierRating) {
     this->houseRatings = {};
     this->status = false;
     this->occupiers = {};
@@ -35,12 +37,13 @@ House::House(string houseId, string startDate, string endDate, string address,
 
 // Constructor full
 House::House(string houseId, string startDate, string endDate, string address,
-             string location, string description, vector<double> houseRatings, bool status,
+             string location, string description, double consumingPoints, double minOccupierRating, vector<double> houseRatings, bool status,
              vector <Member*> occupiers, vector <Member*> requestList,
              std::map<string, string> occupierComment) : houseID(houseId), startDate(startDate),
                                                                 endDate(endDate),
-                                                                address(address),
-                                                                description(description), houseRatings(houseRatings),
+                                                                address(address), description(description), 
+                                                                consumingPoints(consumingPoints), minOccupierRating(minOccupierRating), 
+                                                                houseRatings(houseRatings),
                                                                 status(status), occupiers(occupiers),
                                                                 requestList(requestList),
                                                                 occupierComment(occupierComment) {
@@ -70,6 +73,8 @@ void House::showFullHouse() {
     cout << "Address: " << address << endl;
     cout << "Location: " << location << endl;
     cout << "Description: " << description << endl;
+    cout << "Consuming Points: " << consumingPoints << endl;
+    cout << "Minimum Occupier Rating: " << minOccupierRating << endl;
     if (status) {
         if (this->occupiers.empty()) {
             cout << "Empty" << endl;

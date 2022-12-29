@@ -26,6 +26,7 @@ private:
     string address;
     string location;
     string description;
+    double consumingPoints, minOccupierRating;
     vector<double> houseRatings;
     bool status;
     vector<Member*> occupiers;
@@ -34,9 +35,9 @@ private:
 public:
     House();
     House(string houseId, string startDate, string endDate, string address,
-          string location, string description);
+          string location, string description, double consumingPoints, double minOccupierRating);
     House(string houseId, string startDate, string endDate, string address,
-          string location, string description, vector<double> houseRatings, bool status,
+          string location, string description, double consumingPoints, double minOccupierRating, vector<double> houseRatings, bool status,
           vector<Member*> occupiers, vector<Member*> requestList,
           std::map<string, string> occupierComment);
 
