@@ -107,6 +107,9 @@
         }
         cout << "Register successfully!" << endl;
         currentMember = new Member();
+        currentMember->id = "1";
+        currentMember->fullName = "A B C";
+        currentMember->phoneNumber = "0123";
         currentMember->username = username_val;
         currentMember->password = password_val;
         currentMember->creditPoint = 500;
