@@ -34,6 +34,9 @@ void lineBreak();
 bool checkExist(vector<string> stringlist, string element);
 
 int main() {
+    Data data = Data();
+    data.LoadUserData();
+    data.LoadHouseData();
     // Call constructor for classes
     cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;
     cout << "VACATION HOUSE EXCHANGE APPLICATION" << endl;

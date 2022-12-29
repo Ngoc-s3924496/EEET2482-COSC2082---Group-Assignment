@@ -114,27 +114,31 @@
         return avgScore / occupierRatings.size();
     }
     const string & Member::getFullName() const {
-        return currentMember->fullName;
+        return this->fullName;
     }
     void Member::showInfo() {
         // print basic information
-        cout << "Full name: " << currentMember->fullName << endl;
-        cout << "Phone number: " << currentMember->phoneNumber << endl;
-        cout << "Credit point: " << currentMember->creditPoint << endl;
-        cout << "Occupier rating: " << currentMember->avgScore(currentMember->occupierRatings) << endl;
+        cout << "Full name: " << this->fullName << endl;
+        cout << "Phone number: " << this->phoneNumber << endl;
+        cout << "Credit point: " << this->creditPoint << endl;
+        cout << "Occupier rating: " << this->avgScore(this->occupierRatings) << endl;
 
         // print all pending requests
         cout << "Pending requests: ";
-        for (auto &j: currentMember->pendingRequests) {
-            cout << j->houseID << " ";
-            cout << j->address << " ";
-            cout << j->location << " ";
-            cout << j->description << " ";
+        if (this-> pendingRequests.size() == 0) {
+            cout << "No request found!" << endl;
         }
-
+        else {
+            for (auto &j: this->pendingRequests) {
+                cout << j->houseID << " ";
+                cout << j->address << " ";
+                cout << j->location << " ";
+                cout << j->description << " ";
+            }
+        }
         // print comments
         cout << "Comments on member: ";
-        for (auto &x: currentMember->ownerComments) {
+        for (auto &x: this->ownerComments) {
             // x.first = name of commenters, x.second = comments
             cout << x.first << " " << x.second << "\n";
         }
@@ -157,7 +161,7 @@
     }
 
     void Member::viewRequest() {
-        for (auto &i: currentMember->pendingRequests) {
+        for (auto &i: this->pendingRequests) {
             cout << i->houseID << " ";
         }
     }
@@ -176,7 +180,7 @@
         for (auto &i : locations) {
             if (i == location) {
                 // list of house
-                for (auto &j : currentMember->listingHouse) {
+                for (auto &j : this->listingHouse) {
                     // print house with that location
                     if (j.location == location) {
                         cout << j.houseID << " " << j.address << " " << j.location << endl;
@@ -194,10 +198,10 @@
         string house_id;
         cin >> house_id;
         // check if house_id is valid
-        for (auto &j : currentMember->listingHouse) {
+        for (auto &j : this->listingHouse) {
             if (j.houseID == house_id) {
                 // assign this house
-                currentMember->pendingRequests.push_back(&j);
+                this->pendingRequests.push_back(&j);
                 return;
             }
         }
@@ -205,13 +209,13 @@
     }
 
     void Member::viewStatusRequestedHouse() {
-        for (auto &i : currentMember->pendingRequests) {
+        for (auto &i : this->pendingRequests) {
             // if no one request this house
             if (i->occupiers.empty()) {
                 continue;
             }
             // if at least one people request this house -> the newest rent will be at last
-            if (i->occupiers.at(i->occupiers.size() - 1)->fullName == currentMember->fullName) {
+            if (i->occupiers.at(i->occupiers.size() - 1)->fullName == this->fullName) {
                 cout << "You have successfully rent this house!" << endl;
                 return;
             }
@@ -221,12 +225,12 @@
     }
 
     void Member::ratingHouse() {
-        cout << "You are renting this house: " << currentMember->rentHouse->houseID << endl;
+        cout << "You are renting this house: " << this->rentHouse->houseID << endl;
         cout << "Please rate it !" << endl;
         cout << "Enter a score: ";
         string score_str;
         cin >> score_str;
-        currentMember->rentHouse->houseRatings.push_back(strtod(score_str.c_str(), nullptr));
+        this->rentHouse->houseRatings.push_back(strtod(score_str.c_str(), nullptr));
         cout << "Do you want to leave a comment (Y/N) ?";
         string choice;
         cin >> choice;
@@ -234,7 +238,7 @@
             cout << "Type here: ";
             string comment;
             getline(std::cin,comment);
-            currentMember->rentHouse->occupierComment[this->fullName] = comment;
+            this->rentHouse->occupierComment[this->fullName] = comment;
             return;
         }
         cout << "Thank you for using!" << endl;

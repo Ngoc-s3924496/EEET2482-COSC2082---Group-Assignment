@@ -19,28 +19,14 @@
     }
 
     void Admin::showMember() {
-//        // enter member name
-//        std::cout << "Enter a member name: ";
-//        std::string member_name{};
-//        cin.ignore();
-//        std::getline(std::cin, member_name);
-
         if(Data::userList.empty()) {
             cout << "No data found!" << endl;
             return;
         }
         // find member
         for (auto &i: Data::userList) {
-//            // if found
-//            if (member_name == i.getFullName()) {
-//                cout << "Member found!" << std::endl;
-//                i.showInfo();
-//                return;
-//            }
-
-                i.showInfo();
+            i.showInfo();
         }
-//        cout << "Invalid member name!" << std::endl;
     }
 
     void Admin::showHouses() {
