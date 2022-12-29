@@ -50,7 +50,7 @@ private:
     vector<House*> pendingRequests {};
 
     // Comments of others on this user
-    map<string, string> ownerComments {}; // adjust later
+    map<string, string> ownerComments; // adjust later
 public:
     //Constructor
     Member();
@@ -65,6 +65,7 @@ public:
     // Basic Methods
     // login
     static bool login();
+    static void logout();
     // calculate average score for the current member
     double avgScore(std::vector <double> &occupierRatings);
     // New user -> register an account

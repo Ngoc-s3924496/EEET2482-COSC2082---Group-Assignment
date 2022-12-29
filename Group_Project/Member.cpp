@@ -8,7 +8,7 @@
 #include "Member.h"
 #include "Admin.h"
 #include "Data.h"
-#include <string.h>
+#include <cstring>
 #include <iomanip>
 #include <vector>
     //Constructor
@@ -85,7 +85,9 @@
         isLoggedIn = false;
         return false;
     }
-
+    void Member::logout() {
+        Member::isLoggedIn = false;
+    }
     bool Member::register_account() {
         string username_val;
         cout << "Enter username: ";
@@ -126,7 +128,7 @@
         cout << "Full name: " << this->fullName << endl;
         cout << "Phone number: " << this->phoneNumber << endl;
         cout << "Credit point: " << this->creditPoint << endl;
-        cout << "Occupier rating: " << this->avgScore(this->occupierRatings) << endl;
+        cout << "Occupier rating: " << std::setprecision(2) << std::fixed << this->avgScore(this->occupierRatings) << endl;
 
         // print all pending requests
         cout << "Pending requests: ";
@@ -142,12 +144,12 @@
             }
         }
         // print comments
-        cout << "Comments on member: " << endl;
+        cout << "Comments on this member: " << endl;
         for (auto &x: this->ownerComments) {
             // x.first = name of commenters, x.second = comments
             for (auto &i : Data::userList) {
                 if (i.username == x.first) {
-                    cout << std::setw(10) << x.first << "-" << i.fullName << " comments: " << x.second << "\n";
+                    cout << std::setw(10) << x.first << "-" << i.fullName << " comments: " << x.second << endl;
                 }
             }
         }
@@ -212,7 +214,7 @@
         }
         for (auto &i : Member::listingHouse) {
             cout << std::setw(10) << i.houseID << " " << i.address << " " << i.location << endl;
-            cout << std::setw(15) << i.minOccupierRatings << endl;
+            cout << std::setw(15) << i.minOccupierRating << endl;
         }
         cout << "Enter house id: ";
         string house_id;
@@ -220,7 +222,7 @@
         // check if house_id is valid
         for (auto &j : Member::listingHouse) {
             if (j.houseID == house_id) {
-                if (this->avgScore(this->occupierRatings) >= j.minOccupierRatings) {
+                if (this->avgScore(this->occupierRatings) >= j.minOccupierRating) {
                     // assign this house
                     this->pendingRequests.push_back(&j);
                     cout << "Request successfully!" << endl;

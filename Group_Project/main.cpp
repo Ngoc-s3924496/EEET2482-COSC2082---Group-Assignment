@@ -192,12 +192,13 @@ void pageMember() {
             cout << "[8] Make request" << endl;
             cout << "[9] View status of house request" << endl;
             cout << "[10] Rate house" << endl;
-            cout << "[11] Go back" << endl;
-            cout << "[12] End program" << endl;
+            cout << "[11] Logout" << endl;
+            cout << "[12] Go back" << endl;
+            cout << "[13] End program" << endl;
             string input;
             cout << "Enter your action: ";
             getline(cin, input);
-            vector<string> inputList = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+            vector<string> inputList = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12","13"};
             while (!checkExist(inputList, input)) {
                 cout << "Invalid input" << endl;
                 cout << "Enter your action: ";
@@ -252,9 +253,13 @@ void pageMember() {
                     goBackMember();
                     break;
                 case 11:
+                    Member::logout();
                     pageStart();
                     break;
                 case 12:
+                    pageStart();
+                    break;
+                case 13:
                     pageEnd();
                     break;
             }
@@ -272,12 +277,13 @@ void pageMember() {
         cout << "[8] Make request" << endl;
         cout << "[9] View status of house request" << endl;
         cout << "[10] Rate house" << endl;
-        cout << "[11] Go back" << endl;
-        cout << "[12] End program" << endl;
+        cout << "[11] Logout" << endl;
+        cout << "[12] Go back" << endl;
+        cout << "[13] End program" << endl;
         string input;
         cout << "Enter your action: ";
         getline(cin, input);
-        vector<string> inputList = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+        vector<string> inputList = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12","13"};
         while (!checkExist(inputList, input)) {
             cout << "Invalid input" << endl;
             cout << "Enter your action: ";
@@ -332,9 +338,13 @@ void pageMember() {
                 goBackMember();
                 break;
             case 11:
+                Member::logout();
                 pageStart();
                 break;
             case 12:
+                pageStart();
+                break;
+            case 13:
                 pageEnd();
                 break;
         }
@@ -377,11 +387,12 @@ void pageAdmin() {
             string input;
             cout << "[1] Show houses information" << endl;
             cout << "[2] Show members information" << endl;
-            cout << "[3] Go back" << endl;
-            cout << "[4] End program" << endl;
+            cout << "[3] Logout" << endl;
+            cout << "[4] Go back" << endl;
+            cout << "[5] End program" << endl;
             cout << "Enter your action: ";
             getline(cin, input);
-            vector<string> inputList = {"1", "2", "3", "4"};
+            vector<string> inputList = {"1", "2", "3", "4", "5"};
             while (!checkExist(inputList, input)) {
                 cout << "Invalid input" << endl;
                 cout << "Enter your action: ";
@@ -401,9 +412,12 @@ void pageAdmin() {
                     goBackAdmin();
                     break;
                 case 3:
+                    Admin::logout();
+                    pageStart();
+                case 4:
                     pageStart();
                     break;
-                case 4:
+                case 5:
                     pageEnd();
                     break;
             }
@@ -414,11 +428,12 @@ void pageAdmin() {
         string input;
         cout << "[1] Show houses information" << endl;
         cout << "[2] Show members information" << endl;
-        cout << "[3] Go back" << endl;
-        cout << "[4] End program" << endl;
+        cout << "[3] Logout" << endl;
+        cout << "[4] Go back" << endl;
+        cout << "[5] End program" << endl;
         cout << "Enter your action: ";
         getline(cin, input);
-        vector<string> inputList = {"1", "2", "3", "4"};
+        vector<string> inputList = {"1", "2", "3", "4", "5"};
         while (!checkExist(inputList, input)) {
             cout << "Invalid input" << endl;
             cout << "Enter your action: ";
@@ -438,9 +453,12 @@ void pageAdmin() {
                 goBackAdmin();
                 break;
             case 3:
+                Admin::logout();
+                pageStart();
+            case 4:
                 pageStart();
                 break;
-            case 4:
+            case 5:
                 pageEnd();
                 break;
         }
