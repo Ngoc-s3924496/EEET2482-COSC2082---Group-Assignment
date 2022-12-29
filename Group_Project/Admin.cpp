@@ -4,14 +4,10 @@
 
 #include "Admin.h"
 #include "Data.h"
+#include "House.h"
     // get password
     std::string Admin::getPassword() {
         return this->password;
-    }
-
-    // record new member in admin
-    void Admin::add_members(Member &member) {
-        members.push_back(member);
     }
 
     // check if username is available
@@ -29,19 +25,23 @@
 //        cin.ignore();
 //        std::getline(std::cin, member_name);
 
+        if(Data::userList.empty()) {
+            cout << "No data found!" << endl;
+            return;
+        }
         // find member
-        for (auto &i: Admin::members) {
+        for (auto &i: Data::userList) {
 //            // if found
 //            if (member_name == i.getFullName()) {
 //                cout << "Member found!" << std::endl;
 //                i.showInfo();
 //                return;
 //            }
+
                 i.showInfo();
         }
 //        cout << "Invalid member name!" << std::endl;
     }
 
     void Admin::showHouses() {
-
     }

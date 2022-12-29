@@ -14,17 +14,11 @@ private:
     // predefined admins
     string admin {"admin"};
 
-    // members vector array
-    inline static std::vector<Member> members {};
-
     // admin password
     string password{"admin"};
 public:
     // get password
     std::string getPassword();
-
-    // record new member in admin
-    static void add_members(Member &member);
 
     // check if username is available
     bool check_admin(string &username, string &password);

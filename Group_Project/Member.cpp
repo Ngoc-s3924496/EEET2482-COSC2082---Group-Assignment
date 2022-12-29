@@ -23,7 +23,6 @@
         this->creditPoint = 500;
         this->pendingRequests = {};
         this->ownerComments = {};
-        Admin::add_members(*this);
     }
 
     Member::Member(string id, string fullName, string username,string password, string phoneNumber,
@@ -39,7 +38,6 @@
         this->creditPoint = creditPoint;
         this->pendingRequests = pendingRequests;
         this->ownerComments = ownerComments;
-        Admin::add_members(*this);
     }
 
     Member::Member(string id, string fullName, string username, string password, string phoneNumber,
@@ -56,7 +54,6 @@
         this->pendingRequests = pendingRequests;
         this->rentHouse = rentHouse;
         this->ownerComments = ownerComments;
-        Admin::add_members(*this);
     }
 
     bool Member::login() {
