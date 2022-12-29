@@ -22,20 +22,21 @@
     }
 
     void Admin::showMember() {
-        // enter member name
-        std::cout << "Enter a member name: ";
-        std::string member_name{};
-        cin.ignore();
-        std::getline(std::cin, member_name);
+//        // enter member name
+//        std::cout << "Enter a member name: ";
+//        std::string member_name{};
+//        cin.ignore();
+//        std::getline(std::cin, member_name);
 
         // find member
         for (auto &i: Admin::members) {
-            // if found
-            if (member_name == i.getFullName()) {
-                cout << "Member found!" << std::endl;
+//            // if found
+//            if (member_name == i.getFullName()) {
+//                cout << "Member found!" << std::endl;
+//                i.showInfo();
+//                return;
+//            }
                 i.showInfo();
-                return;
-            }
         }
         cout << "Invalid member name!" << std::endl;
     }
