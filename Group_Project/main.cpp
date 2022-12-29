@@ -50,32 +50,6 @@ int main() {
     return 0;
 }
 
-// int main() {
-//     House h1("123", "1/1/2022", "2/2/2023", "Nothing to show", "SAIGON", "Nothing to show here");
-//     Member m1("abc", "Anonymous", "noname123", "123123123", "0123123345");
-
-//     Data *data = new Data();
-//     if(data->LoadHouseData()) {
-//         cout << "Load successfully";
-//         for (House house: data->houseList) {
-//             house.showFullHouse();
-//         }
-//     }
-
-//     // string test ="ID,Full Name,Username,Password,Phone Number,Owned House,Occupied Ratings,Credit Points,Pending Requests,Rent House,Comment List";
-//     // cout << test.length();
-//     // string numStr = test.substr(0, test.find("; "));
-//     // double num = stoi(numStr);
-//     // cout << num + 1 << endl;
-//     // test.erase(0, test.find("; ") + 2);
-//     // cout << test.find("; ");
-//     // numStr = test.substr(0, test.find(","));
-//     // test.erase(0, test.find(",") + 1);
-//     // num = stod(numStr);
-//     // cout << num << endl;
-//     // cout << test;
-// }
-
 void pageStart() {
     string input;
     cout << "Hello fellow travelers!" << endl;
