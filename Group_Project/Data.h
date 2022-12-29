@@ -26,7 +26,9 @@ using std::stoi;
 class Data {
 public:
     friend class Admin;
-public:
+    friend class Member;
+    friend class House;
+private:
     inline static vector<Member> userList {};
     inline static vector<House> houseList {};
 public:
