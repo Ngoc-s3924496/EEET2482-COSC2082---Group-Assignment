@@ -22,15 +22,15 @@ public:
     friend class Admin;
     friend class House;
     friend class Data;
-private:
-    string id;
-    string username;
-    string password;
-    //user full name and mobile phone
-    string fullName;
-    string phoneNumber;
-
     inline static Member* currentMember {};
+    inline static bool isLoggedIn {};
+private:
+    string id {};
+    string username {};
+    string password {};
+    //user full name and mobile phone
+    string fullName {};
+    string phoneNumber {};
     // The house of user
     House *myHouse = nullptr;
 
@@ -64,11 +64,11 @@ public:
 
     // Basic Methods
     // login
-    bool login();
+    static bool login();
     // calculate average score for the current member
     double avgScore(std::vector <double> &occupierRatings);
     // New user -> register an account
-    bool register_account();
+    static bool register_account();
     // show inf
     void showInfo();
     const string &getFullName() const ;

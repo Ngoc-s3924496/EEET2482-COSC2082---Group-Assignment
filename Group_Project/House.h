@@ -48,4 +48,4 @@ public:
     double avgScore();
 };
 
-#endif //HOUSE_H
+#endif //HOUSE_H1

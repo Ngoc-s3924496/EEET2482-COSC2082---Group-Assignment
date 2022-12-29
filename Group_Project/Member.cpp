@@ -8,6 +8,8 @@
 #include "Member.h"
 #include "Admin.h"
 #include "Data.h"
+#include <string.h>
+#include <iomanip>
 #include <vector>
     //Constructor
     Member::Member() = default;
@@ -57,6 +59,7 @@
     }
 
     bool Member::login() {
+        cin.ignore();
         string username_val;
         cout << "Enter username: ";
         std::getline(cin, username_val);
@@ -69,16 +72,18 @@
                 Member::currentMember = &i;
 
                 cout << "Login successfully" << endl;
+                isLoggedIn = true;
                 return true;
             }
         }
         cout << "Invalid username or password!" << endl;
-        cout << "Do you want to register? (Y/N)" << endl;
+        cout << "Do you want to register? (Y)" << endl;
         string choice;
         cin >> choice;
-        if (choice == "Y") {
-            register_account();
+        if (choice == "Y" || choice == "y") {
+            return register_account();
         }
+        isLoggedIn = false;
         return false;
     }
 
@@ -98,6 +103,7 @@
         currentMember->username = username_val;
         currentMember->password = password_val;
         cout << "Register successfully!";
+        isLoggedIn = true;
         return true;
     }
     double Member::avgScore(vector <double> &occupierRatings) {
@@ -137,10 +143,16 @@
             }
         }
         // print comments
-        cout << "Comments on member: ";
+        cout << "Comments on member: " << endl;
         for (auto &x: this->ownerComments) {
             // x.first = name of commenters, x.second = comments
-            cout << x.first << " " << x.second << "\n";
+//            for (auto &i : Data::userList) {
+////                if (i.id == x.first) {
+////                    cout << x.first << "-" << i.fullName << " " << x.second << "\n";
+////                }
+//                cout << i.id << endl;
+//            }
+            cout << std::setw(10) <<x.first << ": " << " " << x.second << "\n";
         }
         // new line
         cout << endl;
@@ -178,11 +190,14 @@
         cin >> location;
         // check if location is valid
         for (auto &i : locations) {
-            if (i == location) {
+            if (strcasecmp(i.c_str(),location.c_str()) == 0) {
                 // list of house
-                for (auto &j : this->listingHouse) {
+                if (Member::listingHouse.empty()) {
+                    cout << "No house available in " << i  << "!" << endl;
+                }
+                for (auto &j : Member::listingHouse) {
                     // print house with that location
-                    if (j.location == location) {
+                    if (strcasecmp(j.location.c_str(),location.c_str()) == 0) {
                         cout << j.houseID << " " << j.address << " " << j.location << endl;
                         cout << "  '" << j.description << "'" << endl;
                     }
@@ -190,10 +205,17 @@
                 return;
             }
         }
-        cout << "Invalid location!";
+        cout << "Invalid location!" <<endl;
     }
 
     void Member::makeRequest() {
+        if (Member::listingHouse.empty()) {
+            cout << "There is currently no available house!" << endl;
+            return;
+        }
+        for (auto &i : this->listingHouse) {
+            cout << std::setw(10) << i.houseID << " " << i.address << " " << i.location << endl;
+        }
         cout << "Enter house id: ";
         string house_id;
         cin >> house_id;
@@ -225,6 +247,10 @@
     }
 
     void Member::ratingHouse() {
+        if (this->rentHouse == nullptr) {
+            cout << "You have not rent any house!" << endl;
+            return;
+        }
         cout << "You are renting this house: " << this->rentHouse->houseID << endl;
         cout << "Please rate it !" << endl;
         cout << "Enter a score: ";
