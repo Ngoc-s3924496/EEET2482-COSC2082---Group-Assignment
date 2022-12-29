@@ -342,41 +342,73 @@ void pageMember() {
 }
 
 void pageAdmin() {
-    string username;
-    string password;
-    cout << "Enter admin username: ";
-    cin >> username;
-    cout << "Enter admin password: ";
-    cin >> password;
-    Admin admin = Admin();
     // Change Test value to Admin predefined attribute
-    if (password != admin.getPassword() || !admin.check_admin(username,password)) {
-        string input;
-        cout << "Wrong username or password" << endl;
-        cout << "[1] Go back" << endl;
-        cout << "[2] Try again" << endl;
-        cout << "[3] End program" << endl;
-        cout << "Enter your action: ";
-        cin >> input;
-        vector<string> inputList = {"1", "2", "3"};
-        while (!checkExist(inputList, input)) {
-            cout << "Invalid input" << endl;
+    if (!Admin::isLoggedIn) {
+        if (!Admin::login()) {
+            string input;
+            cout << "Wrong username or password" << endl;
+            cout << "[1] Go back" << endl;
+            cout << "[2] Try again" << endl;
+            cout << "[3] End program" << endl;
             cout << "Enter your action: ";
             cin >> input;
+            vector<string> inputList = {"1", "2", "3"};
+            while (!checkExist(inputList, input)) {
+                cout << "Invalid input" << endl;
+                cout << "Enter your action: ";
+                cin >> input;
+            }
+            lineBreak();
+            int intInput = stoi(input);
+            switch (intInput) {
+                case 1:
+                    pageStart();
+                    break;
+                case 2:
+                    pageAdmin();
+                    break;
+                case 3:
+                    pageEnd();
+                    break;
+            }
         }
-        lineBreak();
-        int intInput = stoi(input);
-        switch (intInput) {
-            case 1:
-                pageStart();
-                break;
-            case 2:
-                pageAdmin();
-                break;
-            case 3:
-                pageEnd();
-                break;
+        else {
+            cout << "Welcome admin!" << endl;
+            string input;
+            cout << "[1] Show houses information" << endl;
+            cout << "[2] Show members information" << endl;
+            cout << "[3] Go back" << endl;
+            cout << "[4] End program" << endl;
+            cout << "Enter your action: ";
+            cin >> input;
+            vector<string> inputList = {"1", "2", "3", "4"};
+            while (!checkExist(inputList, input)) {
+                cout << "Invalid input" << endl;
+                cout << "Enter your action: ";
+                cin >> input;
+            }
+            lineBreak();
+            int intInput = stoi(input);
+            switch (intInput) {
+                case 1:
+                    // Admin view house function
+                    Admin::showHouses();
+                    goBackAdmin();
+                    break;
+                case 2:
+                    // Admin view member function
+                    Admin::showMember();
+                    goBackAdmin();
+                    break;
+                case 3:
+                    pageStart();
+                    break;
+                case 4:
+                    pageEnd();
+                    break;
+            }
         }
+
     } else {
         cout << "Welcome admin!" << endl;
         string input;
@@ -397,12 +429,12 @@ void pageAdmin() {
         switch (intInput) {
             case 1:
                 // Admin view house function
-                admin.showHouses();
+                Admin::showHouses();
                 goBackAdmin();
                 break;
             case 2:
                 // Admin view member function
-                admin.showMember();
+                Admin::showMember();
                 goBackAdmin();
                 break;
             case 3:

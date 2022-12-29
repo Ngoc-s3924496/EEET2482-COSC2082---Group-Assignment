@@ -5,14 +5,17 @@
 #include "Admin.h"
 #include "Data.h"
 #include "House.h"
-    // get password
-    std::string Admin::getPassword() {
-        return this->password;
-    }
 
     // check if username is available
-    bool Admin::check_admin(string &username, string &password) {
-        if (username == "admin" && password == "admin") {
+    bool Admin::login() {
+        string username_val;
+        string password_val;
+        cout << "Enter admin username: ";
+        cin >> username_val;
+        cout << "Enter admin password: ";
+        cin >> password_val;
+        if (username_val == "admin" && password_val == "admin") {
+            Admin::isLoggedIn = true;
             return true;
         }
         return false;

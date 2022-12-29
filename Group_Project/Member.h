@@ -23,7 +23,7 @@ public:
     friend class House;
     friend class Data;
     inline static Member* currentMember {};
-    inline static bool isLoggedIn {};
+    inline static bool isLoggedIn {false};
 private:
     string id {};
     string username {};

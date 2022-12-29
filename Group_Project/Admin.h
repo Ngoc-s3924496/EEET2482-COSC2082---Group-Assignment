@@ -12,20 +12,19 @@ using std::string;
 class Admin {
 private:
     // predefined admins
-    string admin {"admin"};
+    inline static string admin {"admin"};
 
     // admin password
-    string password{"admin"};
+    inline static string password{"admin"};
 public:
-    // get password
-    std::string getPassword();
+    inline static bool isLoggedIn {false};
 
     // check if username is available
-    bool check_admin(string &username, string &password);
+    static bool login();
 
-    void showMember();
+    static void showMember();
 
-    void showHouses();
+    static void showHouses();
 };
 
 
