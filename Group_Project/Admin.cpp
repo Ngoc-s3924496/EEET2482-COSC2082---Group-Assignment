@@ -38,7 +38,7 @@
 //            }
                 i.showInfo();
         }
-        cout << "Invalid member name!" << std::endl;
+//        cout << "Invalid member name!" << std::endl;
     }
 
     void Admin::showHouses() {
