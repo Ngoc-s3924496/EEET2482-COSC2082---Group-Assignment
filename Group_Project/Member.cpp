@@ -146,13 +146,11 @@
         cout << "Comments on member: " << endl;
         for (auto &x: this->ownerComments) {
             // x.first = name of commenters, x.second = comments
-//            for (auto &i : Data::userList) {
-////                if (i.id == x.first) {
-////                    cout << x.first << "-" << i.fullName << " " << x.second << "\n";
-////                }
-//                cout << i.id << endl;
-//            }
-            cout << std::setw(10) <<x.first << ": " << " " << x.second << "\n";
+            for (auto &i : Data::userList) {
+                if (i.username == x.first) {
+                    cout << std::setw(10) << x.first << "-" << i.fullName << " comments: " << x.second << "\n";
+                }
+            }
         }
         // new line
         cout << endl;
