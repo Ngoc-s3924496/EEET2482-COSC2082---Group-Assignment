@@ -71,8 +71,14 @@ void House::showFullHouse() {
     cout << "Location: " << location << endl;
     cout << "Description: " << description << endl;
     if (status) {
-        cout << "House Status: occupied by " << occupiers.back()->getFullName() << " - " << occupiers.back()->id
-             << endl;
+        if (this->occupiers.empty()) {
+            cout << "Empty" << endl;
+        }
+        else {
+            cout << "House Status: occupied by " << occupiers.at(occupiers.size() - 1)->getFullName() << " - " << occupiers.back()->id
+                 << endl;
+        }
+
     } else {
         cout << "House Status: empty" << endl;
     }
