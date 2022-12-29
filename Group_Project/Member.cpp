@@ -59,7 +59,6 @@
     }
 
     bool Member::login() {
-        cin.ignore();
         string username_val;
         cout << "Enter username: ";
         std::getline(cin, username_val);
@@ -79,7 +78,7 @@
         cout << "Invalid username or password!" << endl;
         cout << "Do you want to register? (Y)" << endl;
         string choice;
-        cin >> choice;
+        getline(cin, choice);
         if (choice == "Y" || choice == "y") {
             return register_account();
         }
@@ -185,7 +184,7 @@
     void Member::searchHouse() {
         cout << "Enter location: ";
         string location;
-        cin >> location;
+        getline(cin,location);
         // check if location is valid
         for (auto &i : locations) {
             if (strcasecmp(i.c_str(),location.c_str()) == 0) {
@@ -206,10 +205,10 @@
         cout << "Invalid location!" <<endl;
     }
 
-    bool Member::makeRequest() {
+    void Member::makeRequest() {
         if (Member::listingHouse.empty()) {
             cout << "There is currently no available house!" << endl;
-            return false;
+            return;
         }
         for (auto &i : Member::listingHouse) {
             cout << std::setw(10) << i.houseID << " " << i.address << " " << i.location << endl;
@@ -217,7 +216,7 @@
         }
         cout << "Enter house id: ";
         string house_id;
-        cin >> house_id;
+        getline(cin,house_id);
         // check if house_id is valid
         for (auto &j : Member::listingHouse) {
             if (j.houseID == house_id) {
@@ -225,10 +224,10 @@
                     // assign this house
                     this->pendingRequests.push_back(&j);
                     cout << "Request successfully!" << endl;
-                    return true;
+                    return;
                 }
                 cout << "Not enough points!" << endl;
-                return false;
+                return;
             }
         }
         cout << "Invalid house id!" << endl;
@@ -249,29 +248,28 @@
         cout << "Your requested house is still pending or not allocated!" << endl;
         cout << "Please try again later." << endl;
     }
-    bool Member::ratingHouse() {
+    void Member::ratingHouse() {
         if (this->rentHouse == nullptr) {
             cout << "You have not rent any house!" << endl;
-            return false;
+            return;
         }
         cout << "You are renting this house: " << this->rentHouse->houseID << endl;
         cout << "Please rate it !" << endl;
         cout << "Enter a score: ";
         string score_str;
-        cin >> score_str;
+        getline(cin, score_str);
         this->rentHouse->houseRatings.push_back(strtod(score_str.c_str(), nullptr));
         cout << "Do you want to leave a comment (Y/N) ?";
         string choice;
-        cin >> choice;
+        getline(cin, choice);
         if (choice == "Y") {
             cout << "Type here: ";
             string comment;
             getline(std::cin,comment);
             this->rentHouse->occupierComment[this->fullName] = comment;
-            return true;
+            return;
         }
         cout << "Thank you for using!" << endl;
-        return false;
     }
 
 

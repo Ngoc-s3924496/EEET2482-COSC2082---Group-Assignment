@@ -88,12 +88,12 @@ void pageStart() {
     cout << "[3] Admin" << endl;
     cout << "[4] End program" << endl;
     cout << "Enter your action: ";
-    cin >> input;
+    getline(cin, input);
     vector<string> inputList = {"1", "2", "3", "4"};
     while (!checkExist(inputList, input)) {
         cout << "Invalid input" << endl;
         cout << "Enter your action: ";
-        cin >> input;
+        getline(cin, input);
     }
     lineBreak();
     int intInput = stoi(input);
@@ -121,12 +121,12 @@ void pageGuest() {
     cout << "[4] End program" << endl;
     string input;
     cout << "Enter your action: ";
-    cin >> input;
+    getline(cin, input);
     vector<string> inputList = {"1", "2", "3", "4"};
     while (checkExist(inputList, input) == false) {
         cout << "Invalid input" << endl;
         cout << "Enter your action: ";
-        cin >> input;
+        getline(cin, input);
     }
     lineBreak();
     int intInput = stoi(input);
@@ -158,12 +158,12 @@ void pageMember() {
             cout << "[2] Try again" << endl;
             cout << "[3] End program" << endl;
             cout << "Enter your action: ";
-            cin >> input;
+            getline(cin, input);
             vector<string> inputList = {"1", "2", "3"};
             while (!checkExist(inputList, input)) {
                 cout << "Invalid input" << endl;
                 cout << "Enter your action: ";
-                cin >> input;
+                getline(cin, input);
             }
             lineBreak();
             int intInput = stoi(input);
@@ -196,12 +196,12 @@ void pageMember() {
             cout << "[12] End program" << endl;
             string input;
             cout << "Enter your action: ";
-            cin >> input;
+            getline(cin, input);
             vector<string> inputList = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
             while (!checkExist(inputList, input)) {
                 cout << "Invalid input" << endl;
                 cout << "Enter your action: ";
-                cin >> input;
+                getline(cin, input);
             }
             lineBreak();
             int intInput = stoi(input);
@@ -276,12 +276,12 @@ void pageMember() {
         cout << "[12] End program" << endl;
         string input;
         cout << "Enter your action: ";
-        cin >> input;
+        getline(cin, input);
         vector<string> inputList = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
         while (!checkExist(inputList, input)) {
             cout << "Invalid input" << endl;
             cout << "Enter your action: ";
-            cin >> input;
+            getline(cin, input);
         }
         lineBreak();
         int intInput = stoi(input);
@@ -351,12 +351,12 @@ void pageAdmin() {
             cout << "[2] Try again" << endl;
             cout << "[3] End program" << endl;
             cout << "Enter your action: ";
-            cin >> input;
+            getline(cin, input);
             vector<string> inputList = {"1", "2", "3"};
             while (!checkExist(inputList, input)) {
                 cout << "Invalid input" << endl;
                 cout << "Enter your action: ";
-                cin >> input;
+                getline(cin, input);
             }
             lineBreak();
             int intInput = stoi(input);
@@ -380,12 +380,12 @@ void pageAdmin() {
             cout << "[3] Go back" << endl;
             cout << "[4] End program" << endl;
             cout << "Enter your action: ";
-            cin >> input;
+            getline(cin, input);
             vector<string> inputList = {"1", "2", "3", "4"};
             while (!checkExist(inputList, input)) {
                 cout << "Invalid input" << endl;
                 cout << "Enter your action: ";
-                cin >> input;
+                getline(cin, input);
             }
             lineBreak();
             int intInput = stoi(input);
@@ -417,12 +417,12 @@ void pageAdmin() {
         cout << "[3] Go back" << endl;
         cout << "[4] End program" << endl;
         cout << "Enter your action: ";
-        cin >> input;
+        getline(cin, input);
         vector<string> inputList = {"1", "2", "3", "4"};
         while (!checkExist(inputList, input)) {
             cout << "Invalid input" << endl;
             cout << "Enter your action: ";
-            cin >> input;
+            getline(cin, input);
         }
         lineBreak();
         int intInput = stoi(input);
@@ -457,12 +457,12 @@ void goBackGuest() {
     cout << "[1] Go back" << endl;
     cout << "[2] End program" << endl;
     cout << "Enter your action: ";
-    cin >> input;
+    getline(cin, input);
     vector<string> inputList = {"1", "2"};
     while (!checkExist(inputList, input)) {
         cout << "Invalid input" << endl;
         cout << "Enter your action: ";
-        cin >> input;
+        getline(cin, input);
     }
     lineBreak();
     int intInput = stoi(input);
@@ -481,12 +481,12 @@ void goBackMember() {
     cout << "[1] Go back" << endl;
     cout << "[2] End program" << endl;
     cout << "Enter your action: ";
-    cin >> input;
+    getline(cin, input);
     vector<string> inputList = {"1", "2"};
     while (!checkExist(inputList, input)) {
         cout << "Invalid input" << endl;
         cout << "Enter your action: ";
-        cin >> input;
+        getline(cin, input);
     }
     lineBreak();
     int intInput = stoi(input);
@@ -505,12 +505,12 @@ void goBackAdmin() {
     cout << "[1] Go back" << endl;
     cout << "[2] End program" << endl;
     cout << "Enter your action: ";
-    cin >> input;
+    getline(cin, input);
     vector<string> inputList = {"1", "2"};
-    while (checkExist(inputList, input) == false) {
+    while (!checkExist(inputList, input)) {
         cout << "Invalid input" << endl;
         cout << "Enter your action: ";
-        cin >> input;
+        getline(cin, input);
     }
     lineBreak();
     int intInput = stoi(input);
@@ -529,8 +529,8 @@ void lineBreak() {
 }
 
 bool checkExist(vector<string> stringlist, string element) {
-    for (string elementList: stringlist) {
-        if (elementList.compare(element) == 0) {
+    for (string &elementList: stringlist) {
+        if (elementList == element) {
             return true;
         }
     }
