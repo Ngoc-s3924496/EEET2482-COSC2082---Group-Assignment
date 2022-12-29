@@ -131,7 +131,7 @@
 
         // print all pending requests
         cout << "Pending requests: ";
-        if (this-> pendingRequests.size() == 0) {
+        if (this-> pendingRequests.empty()) {
             cout << "No request found!" << endl;
         }
         else {
@@ -211,14 +211,14 @@
             cout << "There is currently no available house!" << endl;
             return;
         }
-        for (auto &i : this->listingHouse) {
+        for (auto &i : Member::listingHouse) {
             cout << std::setw(10) << i.houseID << " " << i.address << " " << i.location << endl;
         }
         cout << "Enter house id: ";
         string house_id;
         cin >> house_id;
         // check if house_id is valid
-        for (auto &j : this->listingHouse) {
+        for (auto &j : Member::listingHouse) {
             if (j.houseID == house_id) {
                 // assign this house
                 this->pendingRequests.push_back(&j);
