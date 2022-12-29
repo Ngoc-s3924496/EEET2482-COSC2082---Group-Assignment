@@ -3,6 +3,7 @@
 //
 
 #include "Admin.h"
+#include "Data.h"
     // get password
     std::string Admin::getPassword() {
         return this->password;
