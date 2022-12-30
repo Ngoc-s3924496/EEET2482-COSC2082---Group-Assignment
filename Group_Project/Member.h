@@ -72,6 +72,9 @@ public:
     const string &getFullName() const ;
 
     // Ngoc
+    void removeRequest(Member* member, House* house);
+    Member getMember();
+    void test();
     void listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) ;
 
     void listHouse(string &start, string &end, double &consumingPoint) ;
@@ -85,6 +88,8 @@ public:
     void rateOccupier();
 
     // Quoc
+    void displayListedHouse();
+
     void searchHouse();
 
     void makeRequest();
