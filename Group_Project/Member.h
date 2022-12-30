@@ -75,12 +75,12 @@ public:
 
     // Ngoc
     void listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) ;
-
+    Member getMember();
     void listHouse(string &start, string &end, double &consumingPoint) ;
 
     void unlistHouse();
 
-    static void viewRequest() ;
+    void viewRequest() ;
 
     void acceptRequest() ;
 
@@ -94,6 +94,8 @@ public:
     static void viewStatusRequestedHouse() ;
 
     static void ratingHouse();
+    void displayListedHouse();
+    void removeRequest(Member *member, House *house);
 };
 
 

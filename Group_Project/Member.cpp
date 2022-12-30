@@ -170,27 +170,135 @@ void Member::showMiniInfo() {
     cout << "\tOccupier rating: " << std::setprecision(2) << std::fixed << this->avgScore() << endl;
 }
 void Member::listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) {
-
+        if (this->myHouse == nullptr){
+            cout << "No house to list" << endl;
+            return;
+        }
+        this->myHouse->startDate = start;
+        this->myHouse->endDate = end;
+        this->myHouse->consumingPoints = consumingPoint;
+        this->myHouse->minOccupierRating = minOccupiedRating;
+        unlistHouse();
+        Member::listingHouse.push_back(*myHouse);
 }
 
 void Member::listHouse(string &start, string &end, double &consumingPoint) {
-
+    if (this->myHouse == nullptr){
+        cout << "No house to list" << endl;
+        return;
+    }
+    this->myHouse->startDate = start;
+    this->myHouse->endDate = end;
+    this->myHouse->consumingPoints = consumingPoint;
+    unlistHouse();
+    Member::listingHouse.push_back(*myHouse);
 }
-
+void Member::removeRequest(Member* member, House* house){
+    // Remove member from house requestlist
+    int index = 0;
+    for (auto &i : house->requestList){
+        if (i->id == member->id){
+            house->requestList.erase(house->requestList.begin() + index);
+            break;
+        }
+        else{
+            index++;
+        }
+    }
+    // Remove House from member pending request
+    index = 0;
+    for (auto &i : member->pendingRequests){
+        if (i->houseID.compare(house->houseID) == 0){
+            member->pendingRequests.erase(member->pendingRequests.begin() + index);
+            break;
+        }
+        else{
+            index++;
+        }
+    }
+}
+Member Member::getMember(){
+    return Data::userList[0];
+}
 void Member::unlistHouse() {
-
+    int index = 0;
+    for (auto &i : Member::listingHouse){
+        if (this->myHouse->houseID == i.houseID){
+            Member::listingHouse.erase(Member::listingHouse.begin() + index);
+            break;
+        }
+        else{
+            index++;
+        }
+    }
+    for (auto i : this->myHouse->requestList){
+        removeRequest(i, myHouse);
+    }
 }
 
 void Member::viewRequest() {
-    for (auto &i: currentMember->pendingRequests) {
+    if (pendingRequests.empty()){
+        cout << "No pending request" << endl;
+        return;
+    }
+    for (auto &i: this->pendingRequests) {
         cout << i->houseID << " ";
     }
 }
 
 void Member::acceptRequest() {
+    if (this->myHouse->requestList.empty()){
+        cout << "Your house have no request" << endl;
+        return;
+    }
+    for (auto &i : this->myHouse->requestList){
+        cout << "Username: " << i->username << " Point: " << i->avgScore() << endl;
+    }
+    cout << "Enter username of request you want to accept: ";
+    string username_val;
+    getline(cin,username_val);
+    for (auto &i : this->myHouse->requestList){
+        if (username_val == i->username){
+            i->rentHouse = myHouse;
+            this->myHouse->status = "Rented";
+            removeRequest(i, myHouse);
+            this->creditPoint += myHouse->consumingPoints;
+            i->creditPoint -= myHouse->consumingPoints;
+            this->myHouse->occupiers.push_back(i);
+            cout << i->getFullName() << " have successfully rented your house" << endl;
+            return;
+        }
+    }
+    cout << "Username not found" << endl;
 }
 
 void Member::rateOccupier() {
+    for (auto &i : this->myHouse->occupiers){
+        cout << i->username << endl;
+    }
+    cout << "Choose the person you want to rate" << endl;
+    string username_val;
+    getline(cin,username_val);
+    for (auto &i : this->myHouse->occupiers){
+        if (username_val == i->username){
+            cout << "Enter their score" << endl;
+            string score_str;
+            getline(cin,score_str);
+            i->occupierRatings.push_back(stod(score_str));
+            cout << "Do you want to leave a comment (Y/N) ?";
+            string choice;
+            getline(cin, choice);
+            if (choice == "Y") {
+                cout << "Type here: ";
+                string comment;
+                getline(std::cin,comment);
+                i->ownerComments.insert({i->username, comment});
+                this->rentHouse->occupierComment[this->fullName] = comment;
+                return;
+            }
+        }
+    }
+    cout << "Username not found" << endl;
 }
 
 void Member::searchHouse() {
@@ -245,7 +353,17 @@ void Member::makeRequest() {
     }
     cout << "Invalid house id!" << endl;
 }
-
+void Member::displayListedHouse(){
+    for (auto& i : Member::listingHouse){
+        cout << endl;
+        cout << "Name: " << i.houseID << endl;
+        cout << "Address: " << i.address << endl;
+        cout << "Location: " << i.location << endl;
+        cout << "Consuming points: " << i.consumingPoints << endl;
+        cout << "Occupier rating requirement: " << i.minOccupierRating << endl;
+        cout << " '" << i.description << "'" << endl;
+    }
+}
 void Member::viewStatusRequestedHouse() {
     for (auto &i : currentMember->pendingRequests) {
         // if no one request this house
