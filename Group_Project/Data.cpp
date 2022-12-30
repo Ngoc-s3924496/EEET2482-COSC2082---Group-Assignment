@@ -223,7 +223,7 @@ bool Data::saveHouseData(House house, string path) {
         saveFile << house.houseID << "," << house.startDate << "," << house.endDate << "," << house.address << "," << house.location << "," << house.description << "," << house.consumingPoints << "," << house.minOccupierRating << ",";
 
         // Save the house ratings
-        if (house.houseRatings.size() == 0) {
+        if (house.houseRatings.empty()) {
             saveFile << "none" << ",";
         } else {
             for (int i = 0; i < house.houseRatings.size(); i++) {
@@ -237,10 +237,10 @@ bool Data::saveHouseData(House house, string path) {
         }
 
         // Save the status, if it is rented then save as true
-        saveFile << ((house.status == true) ? "Rented" : "Not Rented") << ",";
+        saveFile << (house.status ? "Rented" : "Not Rented") << ",";
 
         // Check the occupiers list, if it is empty which means there is nobody rent the house, save "none"
-        if (house.occupiers.size() == 0) {
+        if (house.occupiers.empty()) {
             saveFile << "none" << ",";
         } else {
             // Save each occupier's id following by a semicolon
@@ -256,7 +256,7 @@ bool Data::saveHouseData(House house, string path) {
         }
 
         // Check the request list, if it is empty which means this person does not request any house or have rented one already, save "none"
-        if (house.requestList.size() == 0) {
+        if (house.requestList.empty()) {
             saveFile << "none" << ",";
         } else {
             // Save each of the house id following by a semicolon
@@ -271,7 +271,7 @@ bool Data::saveHouseData(House house, string path) {
         }
 
         // Save the occupier comments
-        if (house.occupierComment.size() == 0) {
+        if (house.occupierComment.empty()) {
             saveFile << "none" << endl;
         } else {
             int count = 0;
@@ -301,7 +301,7 @@ bool Data::saveHouseData(House house, string path) {
         saveFile << house.houseID << "," << house.startDate << "," << house.endDate << "," << house.address << "," << house.location << "," << house.description << "," << house.consumingPoints << "," << house.minOccupierRating << ",";
 
         // Save the house ratings
-        if (house.houseRatings.size() == 0) {
+        if (house.houseRatings.empty()) {
             saveFile << "none" << ",";
         } else {
             for (int i = 0; i < house.houseRatings.size(); i++) {
@@ -315,10 +315,10 @@ bool Data::saveHouseData(House house, string path) {
         }
 
         // Save the status
-        saveFile << ((house.status == true) ? "Rented" : "Not Rented") << ",";
+        saveFile << (house.status ? "Rented" : "Not Rented") << ",";
 
         // Save the occupiers
-        if (house.occupiers.size() == 0) {
+        if (house.occupiers.empty()) {
             saveFile << "none" << ",";
         } else {
             for (int i = 0; i < house.occupiers.size(); i++) {
@@ -332,7 +332,7 @@ bool Data::saveHouseData(House house, string path) {
         }
 
         // Save the request list
-        if (house.requestList.size() == 0) {
+        if (house.requestList.empty()) {
             saveFile << "none" << ",";
         } else {
             for (int i = 0; i < house.requestList.size(); i++) {
@@ -346,7 +346,7 @@ bool Data::saveHouseData(House house, string path) {
         }
 
         // Check the occupier ratings list, if it is empty then save as none
-        if (house.occupierComment.size() == 0) {
+        if (house.occupierComment.empty()) {
             saveFile << "none" << endl;
         } else {
             int count = 0;
@@ -613,7 +613,7 @@ bool Data::preloadHouseData(string housePath) {
         }
 
         // Append a new House object to the local vector
-        houseList.push_back(House(houseID, startDate, endDate, address, location, description, stod(consumingPoints), stod(minOccupierRating), houseRatings, status, occupierComment));
+        houseList.emplace_back(houseID, startDate, endDate, address, location, description, stod(consumingPoints), stod(minOccupierRating), houseRatings, status, occupierComment);
     }
     // Close the file
     openFile.close();
