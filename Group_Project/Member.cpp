@@ -1,10 +1,3 @@
-//
-// Created by huuqu on 12/26/2022.
-//
-
-
-
-// Consider only load one member at a time.
 #include "Member.h"
 #include "Admin.h"
 #include "Data.h"
@@ -22,6 +15,7 @@ Member::Member(string id, string fullName, string userName, string password, str
     this->ownerComments = std::move(ownerComment);
     this->creditPoint = creditPoints;
     this->occupierRatings = std::move(occupierRatings);
+    memberCounter++;
 }
 
 Member::Member(string id, string fullName, string username, string password, string phoneNumber,
@@ -38,6 +32,7 @@ Member::Member(string id, string fullName, string username, string password, str
     this->pendingRequests = std::move(pendingRequests);
     this->rentHouse = rentHouse;
     this->ownerComments = std::move(ownerComments);
+    memberCounter++;
 }
 
 bool Member::login() {
@@ -95,41 +90,41 @@ bool Member::register_account() {
     cout << "Enter phone number: ";
     getline(cin,data);
     currentMember->phoneNumber = data;
-    currentMember->id = "New";
+    currentMember->id = "M" + std::to_string(memberCounter);
     currentMember->username = username_val;
     currentMember->password = password_val;
     currentMember->creditPoint = 500;
     isLoggedIn = true;
 
     cout << "Register successfully!" << endl;
+    memberCounter++;
     Data::saveUserData(*Member::currentMember);
     Data::preloadUserData();
     return true;
 }
 
-double Member::avgScore(vector <double> &occupierRatings) {
+double Member::avgScore() {
     double avgScore {};
-    if (occupierRatings.empty()) {
+    if (this->occupierRatings.empty()) {
         return 0;
     }
-    else if (occupierRatings.size() == 1) {
-        return occupierRatings.at(0);
+    else if (this->occupierRatings.size() == 1) {
+        return this->occupierRatings.at(0);
     }
-    for (auto &i : occupierRatings) {
+    for (auto &i : this->occupierRatings) {
         avgScore += i;
     }
-    return avgScore / occupierRatings.size();
+    return avgScore / this->occupierRatings.size();
 }
 const string & Member::getFullName() const {
     return this->fullName;
 }
-void Member::showInfo() {
+void Member::showFullInfo() {
     // print basic information
     cout << "Full name: " << this->fullName << endl;
     cout << "Phone number: " << this->phoneNumber << endl;
     cout << "Credit point: " << this->creditPoint << endl;
-    cout << "Occupier rating: " << std::setprecision(2) << std::fixed << this->avgScore(this->occupierRatings) << endl;
-
+    cout << "Occupier rating: " << std::setprecision(2) << std::fixed << this->avgScore() << endl;
     // print all pending requests
     cout << "Pending requests: " << endl;
     if (this-> pendingRequests.empty()) {
@@ -152,7 +147,7 @@ void Member::showInfo() {
     }
     // print comments
     cout << "Comments on this member: " << endl;
-    if (ownerComments.size() == 0) {
+    if (ownerComments.empty()) {
         cout << "\tThere are no comments" << endl;
         return;
     }
@@ -168,7 +163,12 @@ void Member::showInfo() {
     // new line
     cout << endl;
 }
-
+void Member::showMiniInfo() {
+    cout << "\tFull name: " << this->fullName << endl;
+    cout << "\tPhone number: " << this->phoneNumber << endl;
+    cout << "\tCredit point: " << this->creditPoint << endl;
+    cout << "\tOccupier rating: " << std::setprecision(2) << std::fixed << this->avgScore() << endl;
+}
 void Member::listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) {
 
 }
@@ -182,7 +182,7 @@ void Member::unlistHouse() {
 }
 
 void Member::viewRequest() {
-    for (auto &i: this->pendingRequests) {
+    for (auto &i: currentMember->pendingRequests) {
         cout << i->houseID << " ";
     }
 }
@@ -232,9 +232,10 @@ void Member::makeRequest() {
     // check if house_id is valid
     for (auto &j : Member::listingHouse) {
         if (j.houseID == house_id) {
-            if (this->avgScore(this->occupierRatings) >= j.minOccupierRating) {
+            if (currentMember->avgScore() >= j.minOccupierRating) {
                 // assign this house
-                this->pendingRequests.push_back(&j);
+                currentMember->pendingRequests.push_back(&j);
+                currentMember->creditPoint -= j.consumingPoints;
                 cout << "Request successfully!" << endl;
                 return;
             }
@@ -246,13 +247,13 @@ void Member::makeRequest() {
 }
 
 void Member::viewStatusRequestedHouse() {
-    for (auto &i : this->pendingRequests) {
+    for (auto &i : currentMember->pendingRequests) {
         // if no one request this house
         if (i->occupiers.empty()) {
             continue;
         }
         // if at least one people request this house -> the newest rent will be at last
-        if (i->occupiers.at(i->occupiers.size() - 1)->fullName == this->fullName) {
+        if (i->occupiers.at(i->occupiers.size() - 1)->fullName == currentMember->fullName) {
             cout << "You have successfully rent this house!" << endl;
             return;
         }
@@ -261,16 +262,16 @@ void Member::viewStatusRequestedHouse() {
     cout << "Please try again later." << endl;
 }
 void Member::ratingHouse() {
-    if (this->rentHouse == nullptr) {
+    if (currentMember->rentHouse == nullptr) {
         cout << "You have not rent any house!" << endl;
         return;
     }
-    cout << "You are renting this house: " << this->rentHouse->houseID << endl;
+    cout << "You are renting this house: " << currentMember->rentHouse->houseID << endl;
     cout << "Please rate it !" << endl;
     cout << "Enter a score: ";
     string score_str;
     getline(cin, score_str);
-    this->rentHouse->houseRatings.push_back(strtod(score_str.c_str(), nullptr));
+    currentMember->rentHouse->houseRatings.push_back(strtod(score_str.c_str(), nullptr));
     cout << "Do you want to leave a comment (Y/N) ?";
     string choice;
     getline(cin, choice);
@@ -278,7 +279,7 @@ void Member::ratingHouse() {
         cout << "Type here: ";
         string comment;
         getline(std::cin,comment);
-        this->rentHouse->occupierComment[this->fullName] = comment;
+        currentMember->rentHouse->occupierComment[currentMember->fullName] = comment;
         return;
     }
     cout << "Thank you for using!" << endl;

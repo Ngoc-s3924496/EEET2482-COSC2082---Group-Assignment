@@ -237,7 +237,7 @@ void pageMember() {
             switch (intInput) {
                 case 1:
                     // showinfo() function
-                    Member::currentMember->showInfo();
+                    Member::currentMember->showFullInfo();
                     goBackMember();
                     break;
                 case 2:
@@ -262,22 +262,22 @@ void pageMember() {
                     break;
                 case 7:
                     // searchhouse() function
-                    Member::currentMember->searchHouse();
+                    Member::searchHouse();
                     goBackMember();
                     break;
                 case 8:
                     // makerequest() function
-                    Member::currentMember->makeRequest();
+                    Member::makeRequest();
                     goBackMember();
                     break;
                 case 9:
                     // viewstatusrequest() function
-                    Member::currentMember->viewStatusRequestedHouse();
+                    Member::viewStatusRequestedHouse();
                     goBackMember();
                     break;
                 case 10:
                     // ratinghouse() function
-                    Member::currentMember->ratingHouse();
+                    Member::ratingHouse();
                     goBackMember();
                     break;
                 case 11:
@@ -322,7 +322,7 @@ void pageMember() {
         switch (intInput) {
             case 1:
                 // showinfo() function
-                Member::currentMember->showInfo();
+                Member::currentMember->showFullInfo();
                 goBackMember();
                 break;
             case 2:
@@ -347,22 +347,22 @@ void pageMember() {
                 break;
             case 7:
                 // searchhouse() function
-                Member::currentMember->searchHouse();
+                Member::searchHouse();
                 goBackMember();
                 break;
             case 8:
                 // makerequest() function
-                Member::currentMember->makeRequest();
+                Member::makeRequest();
                 goBackMember();
                 break;
             case 9:
                 // viewstatusrequest() function
-                Member::currentMember->viewStatusRequestedHouse();
+                Member::viewStatusRequestedHouse();
                 goBackMember();
                 break;
             case 10:
                 // ratinghouse() function
-                Member::currentMember->ratingHouse();
+                Member::ratingHouse();
                 goBackMember();
                 break;
             case 11:

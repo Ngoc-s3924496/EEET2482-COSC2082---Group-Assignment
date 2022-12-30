@@ -22,8 +22,9 @@ public:
     friend class Admin;
     friend class House;
     friend class Data;
-    inline static Member* currentMember {};
+    inline static Member* currentMember {1};
     inline static bool isLoggedIn {false};
+    inline static int memberCounter {};
 private:
     string id {};
     string username {};
@@ -64,12 +65,13 @@ public:
     static bool login();
     static void logout();
     // calculate average score for the current member
-    double avgScore(std::vector <double> &occupierRatings);
+    double avgScore();
     // New user -> register an account
     static bool register_account();
     // show inf
-    void showInfo();
-    const string &getFullName() const ;
+    void showFullInfo();
+    void showMiniInfo();
+    [[nodiscard]] const string &getFullName() const ;
 
     // Ngoc
     void listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) ;
@@ -78,20 +80,20 @@ public:
 
     void unlistHouse();
 
-    void viewRequest() ;
+    static void viewRequest() ;
 
     void acceptRequest() ;
 
     void rateOccupier();
 
     // Quoc
-    void searchHouse();
+    static void searchHouse();
 
-    void makeRequest();
+    static void makeRequest();
 
-    void viewStatusRequestedHouse() ;
+    static void viewStatusRequestedHouse() ;
 
-    void ratingHouse();
+    static void ratingHouse();
 };
 
 
