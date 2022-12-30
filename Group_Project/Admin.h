@@ -5,34 +5,26 @@
 #ifndef ADMIN_H
 #define ADMIN_H
 
-#include "User.h"
 #include "Member.h"
 #include <iostream>
 #include <vector>
 using std::string;
-class Admin : public User {
+class Admin {
 private:
     // predefined admins
-    std::vector<string> admins{"Quoc", "Quan", "Thach", "Ngoc"};
-
-    // members vector array
-    inline static std::vector<Member> members {};
+    inline static string admin {"admin"};
 
     // admin password
-    string password{"admin"};
+    inline static string password{"admin"};
 public:
-    // get password
-    std::string getPassword();
-
-    // record new member in admin
-    void add_members(Member &member);
+    inline static bool isLoggedIn {false};
 
     // check if username is available
-    bool check_admin(string &username, string &password);
+    static bool login();
+    static void logout();
+    static void showMember();
 
-    void showMember();
-
-    void showHouses();
+    static void showHouses();
 };
 
 

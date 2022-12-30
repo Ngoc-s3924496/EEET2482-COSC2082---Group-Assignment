@@ -13,15 +13,17 @@ using std::vector;
 House::House() = default;
 
 House::House(string houseId, string startDate, string endDate, string address,
-             string location, string description) : houseID(houseId), startDate(startDate),
+             string location, string description, double consumingPoints, double minOccupierRating, 
+             vector<double> houseRatings, bool status, std::map<string, string> occupierComment) : houseID(houseId), startDate(startDate),
                                                                 endDate(endDate),
                                                                 address(address),
-                                                                description(description) {
-    this->houseRatings = {};
-    this->status = false;
+                                                                description(description),
+                                                                consumingPoints(consumingPoints),
+                                                                minOccupierRating(minOccupierRating),
+                                                                houseRatings(houseRatings), status(status),
+                                                                occupierComment(occupierComment) {
     this->occupiers = {};
     this->requestList = {};
-    this->occupierComment = {};
     // Check if location is valid or not
     for (const string& loc: locations) {
         if (location == loc) {
@@ -35,12 +37,13 @@ House::House(string houseId, string startDate, string endDate, string address,
 
 // Constructor full
 House::House(string houseId, string startDate, string endDate, string address,
-             string location, string description, vector<double> houseRatings, bool status,
+             string location, string description, double consumingPoints, double minOccupierRating, vector<double> houseRatings, bool status,
              vector <Member*> occupiers, vector <Member*> requestList,
              std::map<string, string> occupierComment) : houseID(houseId), startDate(startDate),
                                                                 endDate(endDate),
-                                                                address(address),
-                                                                description(description), houseRatings(houseRatings),
+                                                                address(address), description(description), 
+                                                                consumingPoints(consumingPoints), minOccupierRating(minOccupierRating), 
+                                                                houseRatings(houseRatings),
                                                                 status(status), occupiers(occupiers),
                                                                 requestList(requestList),
                                                                 occupierComment(occupierComment) {
@@ -65,18 +68,31 @@ void House::showDemoHouse() {
 
 // Show the full version of the house for Admin / Member viewing
 void House::showFullHouse() {
-    cout << "House Information - Full Version" << endl;
-    cout << "House ID: " << houseID << endl;
-    cout << "Address: " << address << endl;
-    cout << "Location: " << location << endl;
-    cout << "Description: " << description << endl;
-    if (status) {
-        cout << "House Status: occupied by " << occupiers.back()->getFullName() << " - " << occupiers.back()->id
-             << endl;
+    if (this != nullptr) {
+        cout << "House Information - Full Version" << endl;
+        cout << "House ID: " << houseID << endl;
+        cout << "Address: " << address << endl;
+        cout << "Location: " << location << endl;
+        cout << "Description: " << description << endl;
+        cout << "Consuming Points: " << consumingPoints << endl;
+        cout << "Minimum Occupier Rating: " << minOccupierRating << endl;
+        if (status) {
+            if (this->occupiers.empty()) {
+                cout << "Nobody has rented this house" << endl;
+            }
+            else {
+                cout << "House Status: Occupied by " << occupiers.at(occupiers.size() - 1)->getFullName() << " - " << occupiers.back()->id
+                    << endl;
+            }
+
+        } else {
+            cout << "House Status: Empty" << endl;
+        }
+        cout << "House Rating Score: " << this->avgScore() << endl;
     } else {
-        cout << "House Status: empty" << endl;
+        cout << "There is no house to be shown" << endl;
     }
-    cout << "House Rating Score: " << this->avgScore() << endl;
+    cout << endl;
 }
 
 // Calculate house-rating score ( avg rating ) for this house.

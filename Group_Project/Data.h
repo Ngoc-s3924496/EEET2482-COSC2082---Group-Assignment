@@ -6,9 +6,7 @@
 #include <fstream>
 #include <map>
 #include "Member.h"
-#include "User.h"
 #include "House.h"
-
 using std::cin;
 using std::cout;
 using std::vector;
@@ -27,16 +25,20 @@ using std::stoi;
 class Data {
 public:
     friend class Admin;
+    friend class Member;
+    friend class House;
 public:
-    vector<Member> userList;
-    vector<House> houseList;
+    inline static vector<Member> userList {};
+    inline static vector<House> houseList {};
 public:
     Data();
-    bool is_empty(std::ifstream &file);
-    bool saveUserData(Member member, string path = MEMBER_DATABASE);
-    bool saveHouseData(House house, string path = HOUSE_DATABASE);
-    bool LoadUserData(string memberPath = MEMBER_DATABASE);
-    bool LoadHouseData(string housePath = HOUSE_DATABASE);
+    static bool is_empty(std::ifstream &file);
+    static bool saveUserData(Member member, string path = MEMBER_DATABASE);
+    static bool saveHouseData(House house, string path = HOUSE_DATABASE);
+    static bool loadUserData(string memberPath = MEMBER_DATABASE);
+    static bool loadHouseData(string housePath = HOUSE_DATABASE);
+    static bool preloadUserData(string memberPath = MEMBER_DATABASE);
+    static bool preloadHouseData(string housePath = HOUSE_DATABASE);
 };
 
 #endif
