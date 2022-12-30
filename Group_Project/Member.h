@@ -22,9 +22,9 @@ public:
     friend class Admin;
     friend class House;
     friend class Data;
-    inline static Member* currentMember {1};
+    inline static Member* currentMember {};
     inline static bool isLoggedIn {false};
-    inline static int memberCounter {};
+    inline static int memberCounter {1};
 private:
     string id {};
     string username {};
