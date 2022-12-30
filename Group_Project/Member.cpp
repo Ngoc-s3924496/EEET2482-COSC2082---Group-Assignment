@@ -179,7 +179,7 @@ void Member::listHouse(string &start, string &end, double &consumingPoint, doubl
     currentMember->myHouse->consumingPoints = consumingPoint;
     currentMember->myHouse->minOccupierRating = minOccupiedRating;
         unlistHouse();
-        Member::listingHouse.push_back(*myHouse);
+        Member::listingHouse.push_back(*currentMember->myHouse);
 }
 
 void Member::listHouse(string &start, string &end, double &consumingPoint) {
@@ -191,7 +191,7 @@ void Member::listHouse(string &start, string &end, double &consumingPoint) {
     currentMember->myHouse->endDate = end;
     currentMember->myHouse->consumingPoints = consumingPoint;
     unlistHouse();
-    Member::listingHouse.push_back(*myHouse);
+    Member::listingHouse.push_back(*currentMember->myHouse);
 }
 void Member::removeRequest(Member* member, House* house){
     // Remove member from house requestlist
@@ -232,7 +232,7 @@ void Member::unlistHouse() {
         }
     }
     for (auto i : currentMember->myHouse->requestList){
-        removeRequest(i, myHouse);
+        removeRequest(i, currentMember->myHouse);
     }
 }
 
