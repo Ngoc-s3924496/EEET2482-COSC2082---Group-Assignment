@@ -170,26 +170,26 @@ void Member::showMiniInfo() {
     cout << "\tOccupier rating: " << std::setprecision(2) << std::fixed << this->avgScore() << endl;
 }
 void Member::listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) {
-        if (this->myHouse == nullptr){
+        if (currentMember->myHouse == nullptr){
             cout << "No house to list" << endl;
             return;
         }
-        this->myHouse->startDate = start;
-        this->myHouse->endDate = end;
-        this->myHouse->consumingPoints = consumingPoint;
-        this->myHouse->minOccupierRating = minOccupiedRating;
+    currentMember->myHouse->startDate = start;
+    currentMember->myHouse->endDate = end;
+    currentMember->myHouse->consumingPoints = consumingPoint;
+    currentMember->myHouse->minOccupierRating = minOccupiedRating;
         unlistHouse();
         Member::listingHouse.push_back(*myHouse);
 }
 
 void Member::listHouse(string &start, string &end, double &consumingPoint) {
-    if (this->myHouse == nullptr){
+    if (currentMember->myHouse == nullptr){
         cout << "No house to list" << endl;
         return;
     }
-    this->myHouse->startDate = start;
-    this->myHouse->endDate = end;
-    this->myHouse->consumingPoints = consumingPoint;
+    currentMember->myHouse->startDate = start;
+    currentMember->myHouse->endDate = end;
+    currentMember->myHouse->consumingPoints = consumingPoint;
     unlistHouse();
     Member::listingHouse.push_back(*myHouse);
 }
@@ -223,7 +223,7 @@ Member Member::getMember(){
 void Member::unlistHouse() {
     int index = 0;
     for (auto &i : Member::listingHouse){
-        if (this->myHouse->houseID == i.houseID){
+        if (currentMember->myHouse->houseID == i.houseID){
             Member::listingHouse.erase(Member::listingHouse.begin() + index);
             break;
         }
@@ -231,7 +231,7 @@ void Member::unlistHouse() {
             index++;
         }
     }
-    for (auto i : this->myHouse->requestList){
+    for (auto i : currentMember->myHouse->requestList){
         removeRequest(i, myHouse);
     }
 }
@@ -241,30 +241,30 @@ void Member::viewRequest() {
         cout << "No pending request" << endl;
         return;
     }
-    for (auto &i: this->pendingRequests) {
+    for (auto &i: currentMember->pendingRequests) {
         cout << i->houseID << " ";
     }
 }
 
 void Member::acceptRequest() {
-    if (this->myHouse->requestList.empty()){
+    if (currentMember->myHouse->requestList.empty()){
         cout << "Your house have no request" << endl;
         return;
     }
-    for (auto &i : this->myHouse->requestList){
+    for (auto &i : currentMember->myHouse->requestList){
         cout << "Username: " << i->username << " Point: " << i->avgScore() << endl;
     }
     cout << "Enter username of request you want to accept: ";
     string username_val;
     getline(cin,username_val);
-    for (auto &i : this->myHouse->requestList){
+    for (auto &i : currentMember->myHouse->requestList){
         if (username_val == i->username){
             i->rentHouse = myHouse;
-            this->myHouse->status = "Rented";
+            currentMember->myHouse->status = "Rented";
             removeRequest(i, myHouse);
-            this->creditPoint += myHouse->consumingPoints;
+            currentMember->creditPoint += myHouse->consumingPoints;
             i->creditPoint -= myHouse->consumingPoints;
-            this->myHouse->occupiers.push_back(i);
+            currentMember->myHouse->occupiers.push_back(i);
             cout << i->getFullName() << " have successfully rented your house" << endl;
             return;
         }
@@ -273,13 +273,13 @@ void Member::acceptRequest() {
 }
 
 void Member::rateOccupier() {
-    for (auto &i : this->myHouse->occupiers){
+    for (auto &i : currentMember->myHouse->occupiers){
         cout << i->username << endl;
     }
     cout << "Choose the person you want to rate" << endl;
     string username_val;
     getline(cin,username_val);
-    for (auto &i : this->myHouse->occupiers){
+    for (auto &i : currentMember->myHouse->occupiers){
         if (username_val == i->username){
             cout << "Enter their score" << endl;
             string score_str;
@@ -293,7 +293,7 @@ void Member::rateOccupier() {
                 string comment;
                 getline(std::cin,comment);
                 i->ownerComments.insert({i->username, comment});
-                this->rentHouse->occupierComment[this->fullName] = comment;
+                currentMember->rentHouse->occupierComment[currentMember->fullName] = comment;
                 return;
             }
         }
