@@ -494,7 +494,6 @@ bool Data::preloadHouseData(string housePath) {
         cerr << "Cannot open file House!" << endl;
         return -1;
     }
-
     // Skip the title of the database
     getline(openFile, line);
 

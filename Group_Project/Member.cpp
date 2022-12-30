@@ -23,33 +23,6 @@ Member::Member(string id, string fullName, string userName, string password, str
     this->creditPoint = creditPoints;
     this->occupierRatings = std::move(occupierRatings);
 }
-Member::Member(string id, string fullName, string username,string password, string phoneNumber) {
-    this->id = std::move(id);
-    this->username = std::move(username);
-    this->password = std::move(password);
-    this->fullName = std::move(fullName);
-    this->phoneNumber = std::move(phoneNumber);
-    this->myHouse = nullptr;
-    this->occupierRatings = {};
-    this->creditPoint = 500;
-    this->pendingRequests = {};
-    this->ownerComments = {};
-}
-
-Member::Member(string id, string fullName, string username,string password, string phoneNumber,
-               House *myHouse, std::vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
-               map<string,string> ownerComments) {
-    this->id = std::move(id);
-    this->username = std::move(username);
-    this->password = std::move(password);
-    this->fullName = std::move(fullName);
-    this->phoneNumber = std::move(phoneNumber);
-    this->myHouse = myHouse;
-    this->occupierRatings = std::move(occupierRatings);
-    this->creditPoint = creditPoint;
-    this->pendingRequests = std::move(pendingRequests);
-    this->ownerComments = std::move(ownerComments);
-}
 
 Member::Member(string id, string fullName, string username, string password, string phoneNumber,
                House *myHouse, vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
@@ -134,21 +107,18 @@ bool Member::register_account() {
     cout << Data::userList.size() << endl;
     Data::saveUserData(*Member::currentMember);
     Data::preloadUserData();
-    for (auto &i : Data::userList) {
-        i.showInfo();
-    }
     return true;
 }
 
 double Member::avgScore(vector <double> &occupierRatings) {
     double avgScore {};
-    if (occupierRatings.empty()) {
+    if (this->occupierRatings.empty()) {
         return 0;
     }
-    else if (occupierRatings.size() == 1) {
-        return occupierRatings.at(0);
+    else if (this->occupierRatings.size() == 1) {
+        return this->occupierRatings.at(0);
     }
-    for (auto &i : occupierRatings) {
+    for (auto &i : this->occupierRatings) {
         avgScore += i;
     }
     return avgScore / occupierRatings.size();

@@ -28,7 +28,6 @@
             cout << "No data found!" << endl;
             return;
         }
-        // find member
         for (auto &i: Data::userList) {
             i.showInfo();
         }
@@ -39,15 +38,7 @@
             cout << "No data found!" << endl;
             return;
         }
-        // find member
         for (auto &i: Data::houseList) {
-//            // if found
-//            if (member_name == i.getFullName()) {
-//                cout << "Member found!" << std::endl;
-//                i.showInfo();
-//                return;
-//            }
-
             i.showFullHouse();
         }
     }
