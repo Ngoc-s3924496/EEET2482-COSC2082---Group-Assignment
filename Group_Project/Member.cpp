@@ -103,8 +103,6 @@ bool Member::register_account() {
     isLoggedIn = true;
 
     cout << "Register successfully!" << endl;
-//    Data::loadUserData();
-    cout << Data::userList.size() << endl;
     Data::saveUserData(*Member::currentMember);
     Data::preloadUserData();
     return true;
@@ -148,6 +146,10 @@ void Member::showInfo() {
     }
     // print comments
     cout << "Comments on this member: " << endl;
+    if (ownerComments.size() == 0) {
+        cout << "There are no comments" << endl;
+        return;
+    }
     for (auto &x: this->ownerComments) {
         // x.first = name of commenters, x.second = comments
         for (auto &i : Data::userList) {
