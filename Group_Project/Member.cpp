@@ -71,7 +71,6 @@ void Member::logout() {
     Data::saveUserData(*Member::currentMember);
     Data::loadUserData();
     Member::isLoggedIn = false;
-    delete currentMember;
 }
 bool Member::register_account() {
     cout << "Registering..." << endl;
