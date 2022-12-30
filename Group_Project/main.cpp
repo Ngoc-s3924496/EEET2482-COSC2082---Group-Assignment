@@ -51,7 +51,12 @@ int main() {
     // for (Member *member: data.houseList[0].requestList) {
     //     member->showInfo();
     // }
-    Data::houseList[1].showFullHouse();
+
+    // for (int i = 0; i < 10; i++) {
+    //     cout << i+1 << "\t" << Data::houseList[i].occupiers.size() << "\t" << Data::houseList[i].requestList.size() << endl;
+    // }
+
+    // Data::houseList[0].requestList[0]->showInfo();
 
      // Call constructor for classes
      cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;

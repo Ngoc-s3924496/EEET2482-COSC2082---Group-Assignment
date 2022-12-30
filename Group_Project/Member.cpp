@@ -96,7 +96,7 @@ bool Member::register_account() {
     cout << "Enter phone number: ";
     getline(cin,data);
     currentMember->phoneNumber = data;
-    currentMember->id = "H" +  (Data::userList.size() + 1);
+    currentMember->id = "New";
     currentMember->username = username_val;
     currentMember->password = password_val;
     currentMember->creditPoint = 500;
@@ -110,13 +110,13 @@ bool Member::register_account() {
 
 double Member::avgScore(vector <double> &occupierRatings) {
     double avgScore {};
-    if (this->occupierRatings.empty()) {
+    if (occupierRatings.empty()) {
         return 0;
     }
-    else if (this->occupierRatings.size() == 1) {
-        return this->occupierRatings.at(0);
+    else if (occupierRatings.size() == 1) {
+        return occupierRatings.at(0);
     }
-    for (auto &i : this->occupierRatings) {
+    for (auto &i : occupierRatings) {
         avgScore += i;
     }
     return avgScore / occupierRatings.size();
@@ -132,26 +132,34 @@ void Member::showInfo() {
     cout << "Occupier rating: " << std::setprecision(2) << std::fixed << this->avgScore(this->occupierRatings) << endl;
 
     // print all pending requests
-    cout << "Pending requests: ";
+    cout << "Pending requests: " << endl;
     if (this-> pendingRequests.empty()) {
-        cout << "No request found!" << endl;
+        cout << "\tNo request found!" << endl;
     }
     else {
         for (auto &j: this->pendingRequests) {
-            cout << j->houseID << " ";
-            cout << j->address << " ";
-            cout << j->location << " ";
-            cout << j->description << " ";
+            cout << "\t";
+            cout << j->houseID << "\n\t\t";
+            cout << j->address << "\n\t\t";
+            cout << j->location << "\n\t\t";
+            cout << j->description << endl;
         }
+    }
+    cout << "Rent house: " << endl;
+    if (rentHouse == nullptr) {
+        cout << "\t" << "There is no house to be shown" << endl;
+    } else {
+        cout << "\t" <<rentHouse->houseID << "\n\t\t" << rentHouse->address << "\n\t\t" << rentHouse->location << "\n\t\t" << rentHouse->description << endl;
     }
     // print comments
     cout << "Comments on this member: " << endl;
     if (ownerComments.size() == 0) {
-        cout << "There are no comments" << endl;
+        cout << "\tThere are no comments" << endl;
         return;
     }
     for (auto &x: this->ownerComments) {
         // x.first = name of commenters, x.second = comments
+        cout << "\t";
         for (auto &i : Data::userList) {
             if (i.username == x.first) {
                 cout << std::setw(10) << x.first << "-" << i.fullName << " comments: " << x.second << endl;

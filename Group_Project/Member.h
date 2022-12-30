@@ -54,7 +54,6 @@ private:
 public:
     //Constructor
     Member();
-
     Member(string id, string fullName, string userName, string password, string phoneNumber, std::vector <double> occupierRatings, int creditPoints,map<string,string> ownerComment);
     Member(string id, string fullName, string username, string password, string phoneNumber,
            House *myHouse, std::vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
@@ -70,7 +69,7 @@ public:
     static bool register_account();
     // show inf
     void showInfo();
-    [[nodiscard]] const string &getFullName() const ;
+    const string &getFullName() const ;
 
     // Ngoc
     void listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) ;

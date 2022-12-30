@@ -11,9 +11,9 @@
         string username_val;
         string password_val;
         cout << "Enter admin username: ";
-        getline(cin,username_val);
+        cin >> username_val;
         cout << "Enter admin password: ";
-        getline(cin,password_val);
+        cin >> password_val;
         if (username_val == "admin" && password_val == "admin") {
             Admin::isLoggedIn = true;
             return true;
@@ -28,6 +28,7 @@
             cout << "No data found!" << endl;
             return;
         }
+        // find member
         for (auto &i: Data::userList) {
             i.showInfo();
         }
@@ -38,7 +39,15 @@
             cout << "No data found!" << endl;
             return;
         }
+        // find member
         for (auto &i: Data::houseList) {
+//            // if found
+//            if (member_name == i.getFullName()) {
+//                cout << "Member found!" << std::endl;
+//                i.showInfo();
+//                return;
+//            }
+
             i.showFullHouse();
         }
     }

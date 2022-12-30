@@ -78,7 +78,7 @@ void House::showFullHouse() {
         cout << "Minimum Occupier Rating: " << minOccupierRating << endl;
         if (status) {
             if (this->occupiers.empty()) {
-                cout << "Nobody has rented this house" << endl;
+                cout << "House Status: Nobody has rented this house" << endl;
             }
             else {
                 cout << "House Status: Occupied by " << occupiers.at(occupiers.size() - 1)->getFullName() << " - " << occupiers.back()->id
@@ -89,10 +89,26 @@ void House::showFullHouse() {
             cout << "House Status: Empty" << endl;
         }
         cout << "House Rating Score: " << this->avgScore() << endl;
+        cout << "Request list: " << endl;
+        if (requestList.empty()) {
+            cout << "\tNobody requested this house" << endl;
+        } else {
+            for (Member *member: requestList) {
+                member->showInfo();
+            }
+        }
+        cout << "Comment List: " << endl;
+        if (occupierComment.size() == 0) {
+            cout << "\tNobody has commented this house" << endl;
+        } else {
+            for (auto comment: occupierComment) {
+                cout << "\t";
+                cout << comment.first << "\t" << comment.second << endl;
+            }
+        }
     } else {
         cout << "There is no house to be shown" << endl;
     }
-    cout << endl;
 }
 
 // Calculate house-rating score ( avg rating ) for this house.
