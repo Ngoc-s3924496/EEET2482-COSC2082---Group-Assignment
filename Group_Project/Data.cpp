@@ -380,6 +380,8 @@ bool Data::preloadUserData(string memberPath) {
         cerr << "Cannot open file member!" << endl;
         return -1;
     }
+    fs::resize_file(memberPath,0);
+    openFile.seekp(0);
 
     // Skip the title of the database
     getline(openFile, line);

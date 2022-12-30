@@ -130,8 +130,13 @@ bool Member::register_account() {
     isLoggedIn = true;
 
     cout << "Register successfully!" << endl;
+//    Data::loadUserData();
+    cout << Data::userList.size() << endl;
     Data::saveUserData(*Member::currentMember);
-    Data::loadUserData();
+    Data::preloadUserData();
+    for (auto &i : Data::userList) {
+        i.showInfo();
+    }
     return true;
 }
 
