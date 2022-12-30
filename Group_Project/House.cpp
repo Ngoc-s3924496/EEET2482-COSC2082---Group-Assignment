@@ -92,6 +92,7 @@ void House::showFullHouse() {
     } else {
         cout << "There is no house to be shown" << endl;
     }
+    cout << endl;
 }
 
 // Calculate house-rating score ( avg rating ) for this house.

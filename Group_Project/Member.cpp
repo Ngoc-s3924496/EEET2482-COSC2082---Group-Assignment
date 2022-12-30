@@ -96,7 +96,7 @@ bool Member::register_account() {
     cout << "Enter phone number: ";
     getline(cin,data);
     currentMember->phoneNumber = data;
-    currentMember->id = "New";
+    currentMember->id = "H" +  (Data::userList.size() + 1);
     currentMember->username = username_val;
     currentMember->password = password_val;
     currentMember->creditPoint = 500;

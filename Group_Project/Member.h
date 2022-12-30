@@ -70,7 +70,7 @@ public:
     static bool register_account();
     // show inf
     void showInfo();
-    const string &getFullName() const ;
+    [[nodiscard]] const string &getFullName() const ;
 
     // Ngoc
     void listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) ;

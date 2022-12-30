@@ -11,9 +11,9 @@
         string username_val;
         string password_val;
         cout << "Enter admin username: ";
-        cin >> username_val;
+        getline(cin,username_val);
         cout << "Enter admin password: ";
-        cin >> password_val;
+        getline(cin,password_val);
         if (username_val == "admin" && password_val == "admin") {
             Admin::isLoggedIn = true;
             return true;
