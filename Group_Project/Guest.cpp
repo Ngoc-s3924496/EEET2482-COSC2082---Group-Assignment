@@ -7,6 +7,7 @@ bool Guest::registerAccount() {
     return true;
 }
 void Guest::showHouse() {
+    cout << "House Information - Guest Version" << endl;
     for (auto &i : Data::houseList) {
         i.showDemoHouse();
     }
