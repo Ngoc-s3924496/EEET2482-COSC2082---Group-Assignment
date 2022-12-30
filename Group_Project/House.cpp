@@ -61,9 +61,9 @@ House::House(string houseId, string startDate, string endDate, string address,
 // Show simple version of the house for Guest viewing
 void House::showDemoHouse() {
     cout << "House Information - Guest Version" << endl;
-    cout << "House ID: " << this->houseID << endl;
-    cout << "Location: " << this->location << endl;
-    cout << "Approximate House Rating Score: " << this->avgScore() - 1.5 << " ~ " << this->avgScore() + 1.5 << endl;
+    cout << "\t House ID: " << this->houseID << endl;
+    cout << "\t Location: " << this->location << endl;
+    cout << "\t Approximate House Rating Score: " << this->avgScore() - 1.5 << " ~ " << this->avgScore() + 1.5 << endl;
 }
 
 // Show the full version of the house for Admin / Member viewing
