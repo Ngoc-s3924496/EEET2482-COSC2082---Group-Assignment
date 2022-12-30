@@ -8,7 +8,8 @@
 
 class Guest {
 public:
-    bool register_account;
+    static bool registerAccount ();
+    static void showHouse();
 };
 
 

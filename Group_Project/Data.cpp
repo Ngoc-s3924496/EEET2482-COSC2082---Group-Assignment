@@ -56,7 +56,7 @@ bool Data::saveUserData(Member member, string path) {
         }
 
         // Check the occupier ratings list, if it is empty then save as none
-        if (member.occupierRatings.size() == 0) {
+        if (member.occupierRatings.empty()) {
             saveFile << "none" << ",";
         } else {
             // Save each of the rating following by a semicolon
@@ -74,7 +74,7 @@ bool Data::saveUserData(Member member, string path) {
         saveFile << member.creditPoint << ",";
 
         // Check if the pending request list is empty then save as "none"
-        if (member.pendingRequests.size() == 0) {
+        if (member.pendingRequests.empty()) {
             saveFile << "none" << ",";
         } else {
             // Save each of the house ID of each House object in the pending request list following by a semicolon
@@ -95,7 +95,7 @@ bool Data::saveUserData(Member member, string path) {
             saveFile << member.rentHouse->houseID << ",";
         }
         // Check the owner comment list is empty, if yes then save "none"
-        if (member.ownerComments.size() == 0) {
+        if (member.ownerComments.empty()) {
             saveFile << "none";
         } else {
             int count = 0;
@@ -134,7 +134,7 @@ bool Data::saveUserData(Member member, string path) {
         }
 
         // Check the occupier ratings list, if it is empty then save as none
-        if (member.occupierRatings.size() == 0) {
+        if (member.occupierRatings.empty()) {
             saveFile << "none" << ",";
         } else {
             // Save each of the rating following by a semicolon
@@ -151,7 +151,7 @@ bool Data::saveUserData(Member member, string path) {
         saveFile << member.creditPoint << ",";
 
         // Check if the pending request list is empty then save as "none"
-        if (member.pendingRequests.size() == 0) {
+        if (member.pendingRequests.empty()) {
             saveFile << "none" << ",";
         } else {
             // Save each of the house ID of each House object in the pending request list following by a semicolon
@@ -172,7 +172,7 @@ bool Data::saveUserData(Member member, string path) {
         }
 
         // Check the occupier ratings list, if it is empty then save as none
-        if (member.ownerComments.size() == 0) {
+        if (member.ownerComments.empty()) {
             saveFile << "none";
         } else {
             int count = 0;
@@ -190,7 +190,7 @@ bool Data::saveUserData(Member member, string path) {
     }
     // Close the file
     saveFile.close();
-    return 1;
+    return true;
 }
 
 bool Data::saveHouseData(House house, string path) {

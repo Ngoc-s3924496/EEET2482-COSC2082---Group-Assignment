@@ -24,7 +24,7 @@ public:
     friend class Data;
     inline static Member* currentMember {};
     inline static bool isLoggedIn {false};
-public:
+private:
     string id {};
     string username {};
     string password {};
@@ -38,7 +38,7 @@ public:
     House *rentHouse = nullptr;
 
     // List of available houses
-    inline static std::vector<House> listingHouse;
+    inline static std::vector<House> listingHouse {};
 
     // User money
     int creditPoint {};
@@ -54,8 +54,12 @@ public:
 public:
     //Constructor
     Member();
-    Member(string id, string fullName, string username, string password, string phoneNumber, 
-           vector<double> occupierRatings, int creditPoint, map<string,string> ownerComments);
+
+    Member(string id, string fullName, string userName, string password, string phoneNumber, std::vector <double> occupierRatings, int creditPoints,map<string,string> ownerComment);
+    Member(string id, string fullName, string username, string password, string phoneNumber);
+    Member(string id, string fullName, string username, string password, string phoneNumber,
+           House *myHouse, vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
+           map<string,string> ownerComments);
     Member(string id, string fullName, string username, string password, string phoneNumber,
            House *myHouse, std::vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
            House *rentHouse, map<string,string> ownerComments);
@@ -63,10 +67,12 @@ public:
     // Basic Methods
     // login
     static bool login();
+    static void logout();
     // calculate average score for the current member
     double avgScore(std::vector <double> &occupierRatings);
     // New user -> register an account
     static bool register_account();
+    void makeProfile();
     // show inf
     void showInfo();
     const string &getFullName() const ;
@@ -92,8 +98,6 @@ public:
     void viewStatusRequestedHouse() ;
 
     void ratingHouse();
-
-
 };
 
 

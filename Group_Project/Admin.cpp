@@ -20,7 +20,9 @@
         }
         return false;
     }
-
+    void Admin::logout() {
+        Admin::isLoggedIn = false;
+    }
     void Admin::showMember() {
         if(Data::userList.empty()) {
             cout << "No data found!" << endl;
