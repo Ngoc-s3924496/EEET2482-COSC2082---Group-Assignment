@@ -10,7 +10,6 @@
 #include "Data.h"
 #include <cstring>
 #include <iomanip>
-#include <utility>
 #include <vector>
 //Constructor
 Member::Member() = default;
@@ -115,15 +114,22 @@ bool Member::register_account() {
             return false;
         }
     }
-    cout << "Register successfully!" << endl;
+    string data;
     currentMember = new Member();
-    currentMember->id = "xxx";
-    currentMember->fullName = "test test";
-    currentMember->phoneNumber = "0123";
+    cout << "Enter full name: ";
+    getline(cin,data);
+    currentMember->fullName = data;
+
+    cout << "Enter phone number: ";
+    getline(cin,data);
+    currentMember->phoneNumber = data;
+    currentMember->id = "New";
     currentMember->username = username_val;
     currentMember->password = password_val;
     currentMember->creditPoint = 500;
     isLoggedIn = true;
+
+    cout << "Register successfully!" << endl;
     Data::saveUserData(*Member::currentMember);
     Data::loadUserData();
     return true;
@@ -177,29 +183,8 @@ void Member::showInfo() {
     }
     // new line
     cout << endl;
-
-    cout << "Do you want to change your profile? (Y): ";
-    string choice {};
-    getline(cin, choice);
-    if (choice == "Y" || choice == "y") {
-        this->makeProfile();
-    }
 }
-void Member::makeProfile() {
-    string data;
 
-    cout << "Enter full name: ";
-    getline(cin,data);
-    this->fullName = data;
-
-    cout << "Enter phone number: ";
-    getline(cin,data);
-    this->phoneNumber = data;
-
-    cout << "Update data successfully!";
-    Data::saveUserData(*this);
-    Data::loadUserData();
-}
 void Member::listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) {
 
 }
