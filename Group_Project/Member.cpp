@@ -208,7 +208,7 @@ void Member::removeRequest(Member* member, House* house){
     // Remove House from member pending request
     index = 0;
     for (auto &i : member->pendingRequests){
-        if (i->houseID.compare(house->houseID) == 0){
+        if (i->houseID == house->houseID){
             member->pendingRequests.erase(member->pendingRequests.begin() + index);
             break;
         }
@@ -237,7 +237,7 @@ void Member::unlistHouse() {
 }
 
 void Member::viewRequest() {
-    if (pendingRequests.empty()){
+    if (currentMember->pendingRequests.empty()){
         cout << "No pending request" << endl;
         return;
     }
@@ -259,11 +259,11 @@ void Member::acceptRequest() {
     getline(cin,username_val);
     for (auto &i : currentMember->myHouse->requestList){
         if (username_val == i->username){
-            i->rentHouse = myHouse;
+            i->rentHouse = currentMember->myHouse;
             currentMember->myHouse->status = "Rented";
-            removeRequest(i, myHouse);
-            currentMember->creditPoint += myHouse->consumingPoints;
-            i->creditPoint -= myHouse->consumingPoints;
+            removeRequest(i, currentMember->myHouse);
+            currentMember->creditPoint += currentMember->myHouse->consumingPoints;
+            i->creditPoint -= currentMember->myHouse->consumingPoints;
             currentMember->myHouse->occupiers.push_back(i);
             cout << i->getFullName() << " have successfully rented your house" << endl;
             return;

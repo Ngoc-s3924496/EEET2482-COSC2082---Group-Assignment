@@ -80,11 +80,11 @@ public:
 
     void unlistHouse();
 
-    void viewRequest() ;
+    static void viewRequest() ;
 
-    void acceptRequest() ;
+    static void acceptRequest() ;
 
-    void rateOccupier();
+    static void rateOccupier();
 
     // Quoc
     static void searchHouse();
@@ -94,8 +94,8 @@ public:
     static void viewStatusRequestedHouse() ;
 
     static void ratingHouse();
-    void displayListedHouse();
-    void removeRequest(Member *member, House *house);
+    static void displayListedHouse();
+    static void removeRequest(Member *member, House *house);
 };
 
 
