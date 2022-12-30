@@ -840,5 +840,5 @@ bool Data::loadHouseData(string housePath) {
     }
     // Close the file
     openFile.close();
-    return 1;
+    return true;
 }
