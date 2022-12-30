@@ -7,7 +7,6 @@
 #include <map>
 #include "Member.h"
 #include "House.h"
-#include <experimental/filesystem>
 using std::cin;
 using std::cout;
 using std::vector;
@@ -21,7 +20,6 @@ using std::stoi;
 
 #define MEMBER_DATABASE "./Data/Members.csv"
 #define HOUSE_DATABASE "./Data/Houses.csv"
-namespace fs = std::experimental::filesystem;
 
 
 class Data {

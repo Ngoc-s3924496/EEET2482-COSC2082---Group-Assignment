@@ -72,7 +72,6 @@ public:
     double avgScore(std::vector <double> &occupierRatings);
     // New user -> register an account
     static bool register_account();
-    void makeProfile();
     // show inf
     void showInfo();
     const string &getFullName() const ;

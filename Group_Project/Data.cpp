@@ -380,8 +380,8 @@ bool Data::preloadUserData(string memberPath) {
         cerr << "Cannot open file member!" << endl;
         return -1;
     }
-    fs::resize_file(memberPath,0);
-    openFile.seekp(0);
+    // Delete the existing vector
+    userList.clear();
 
     // Skip the title of the database
     getline(openFile, line);
@@ -408,10 +408,8 @@ bool Data::preloadUserData(string memberPath) {
         line.erase(0, line.find(',') + 1);
         // Load the phone number into the local variable
         phoneNumber = line.substr(0, line.find(','));
+        // Erase the unnecessary clauses in the data string
         line.erase(0, line.find(',') + 1);
-
-        // Load the House object into the local variable
-        houseID = line.substr(0, line.find(','));
         line.erase(0, line.find(',') + 1);
         
         // Load the occupier ratings into the local vector
@@ -438,13 +436,8 @@ bool Data::preloadUserData(string memberPath) {
             creditPoints = "0";
         }
 
-        // Load the pending request into the local vector
-        readString = line.substr(0, line.find(','));
+        // Erase the unnecessary clauses in the data string
         line.erase(0, line.find(',') + 1);
-
-
-        // Load the rent house into the local variable
-        readString = line.substr(0, line.find(','));
         line.erase(0, line.find(',') + 1);
 
 
@@ -494,6 +487,9 @@ bool Data::preloadHouseData(string housePath) {
         cerr << "Cannot open file House!" << endl;
         return -1;
     }
+
+    // Delete the existing vector
+    houseList.clear();
 
     // Skip the title of the database
     getline(openFile, line);
@@ -578,12 +574,8 @@ bool Data::preloadHouseData(string housePath) {
             status = false;
         }
 
-        // Load the occupiers into a local vector
-        readString = line.substr(0, line.find(','));
+        // Erase the unnecessary clauses in the data string
         line.erase(0, line.find(',') + 1);
-        
-        // Load the request list into a local vector
-        readString = line.substr(0, line.find(','));
         line.erase(0, line.find(',') + 1);
 
         // Load the occupier comments into a local map
