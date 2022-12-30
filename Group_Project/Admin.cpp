@@ -26,7 +26,7 @@
         }
         // find member
         for (auto &i: Data::userList) {
-            i.showInfo();
+            i.showFullInfo();
         }
     }
 
