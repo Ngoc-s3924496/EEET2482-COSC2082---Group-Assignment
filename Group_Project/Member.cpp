@@ -169,30 +169,36 @@ void Member::showMiniInfo() {
     cout << "\tCredit point: " << this->creditPoint << endl;
     cout << "\tOccupier rating: " << std::setprecision(2) << std::fixed << this->avgScore() << endl;
 }
-void Member::listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) {
-        if (currentMember->myHouse == nullptr){
-            cout << "No house to list" << endl;
-            return;
-        }
-    currentMember->myHouse->startDate = start;
-    currentMember->myHouse->endDate = end;
-    currentMember->myHouse->consumingPoints = consumingPoint;
-    currentMember->myHouse->minOccupierRating = minOccupiedRating;
-        unlistHouse();
-        Member::listingHouse.push_back(*currentMember->myHouse);
-}
-
-void Member::listHouse(string &start, string &end, double &consumingPoint) {
+void Member::listHouse() {
     if (currentMember->myHouse == nullptr){
         cout << "No house to list" << endl;
         return;
     }
-    currentMember->myHouse->startDate = start;
-    currentMember->myHouse->endDate = end;
-    currentMember->myHouse->consumingPoints = consumingPoint;
-    unlistHouse();
+    string startDate, endDate, consumingPoint, minRating;
+    cout << "Enter your listing start date: ";
+    getline(cin, startDate);
+    cout << "Enter your listing end date: ";
+    getline(cin, endDate);
+    cout << "Enter your listing consuming points: ";
+    getline(cin, consumingPoint);
+    cout << "Do you want to have a occupier rating requirement? (Y/N)" << endl;
+    string choice;
+    getline(cin, choice);
+    if (choice == "Y") {
+        cout << "Enter your listing consuming points: " << endl;
+        getline(cin, minRating);
+        currentMember->myHouse->minOccupierRating = stod(minRating);
+    }
+    else{
+        currentMember->myHouse->minOccupierRating = 0;
+    }
+    currentMember->myHouse->startDate = startDate;
+    currentMember->myHouse->endDate = endDate;
+    currentMember->myHouse->consumingPoints = stod(consumingPoint);
+    unlistHouse(1);
     Member::listingHouse.push_back(*currentMember->myHouse);
 }
+
 void Member::removeRequest(Member* member, House* house){
     // Remove member from house requestlist
     int index = 0;
@@ -217,10 +223,8 @@ void Member::removeRequest(Member* member, House* house){
         }
     }
 }
-Member Member::getMember(){
-    return Data::userList[0];
-}
-void Member::unlistHouse() {
+
+void Member::unlistHouse(int i) {
     int index = 0;
     for (auto &i : Member::listingHouse){
         if (currentMember->myHouse->houseID == i.houseID){
@@ -234,15 +238,19 @@ void Member::unlistHouse() {
     for (auto i : currentMember->myHouse->requestList){
         removeRequest(i, currentMember->myHouse);
     }
+    if (i == 0){
+        cout << "Remove house listing successfully";
+    }
 }
 
-void Member::viewRequest() {
+void Member::viewPendingRequest() {
     if (currentMember->pendingRequests.empty()){
         cout << "No pending request" << endl;
         return;
     }
+    cout << "House waiting for respond: " << endl;
     for (auto &i: currentMember->pendingRequests) {
-        cout << i->houseID << " ";
+        cout << i->houseID << endl;
     }
 }
 
@@ -257,7 +265,7 @@ void Member::acceptRequest() {
     cout << "Enter username of request you want to accept: ";
     string username_val;
     getline(cin,username_val);
-    for (auto &i : currentMember->myHouse->requestList){
+    for (auto i : currentMember->myHouse->requestList){
         if (username_val == i->username){
             i->rentHouse = currentMember->myHouse;
             currentMember->myHouse->status = "Rented";
@@ -276,26 +284,26 @@ void Member::rateOccupier() {
     for (auto &i : currentMember->myHouse->occupiers){
         cout << i->username << endl;
     }
-    cout << "Choose the person you want to rate" << endl;
+    cout << "Choose the person you want to rate: ";
     string username_val;
     getline(cin,username_val);
     for (auto &i : currentMember->myHouse->occupiers){
         if (username_val == i->username){
-            cout << "Enter their score" << endl;
+            cout << "Enter their score: ";
             string score_str;
             getline(cin,score_str);
             i->occupierRatings.push_back(stod(score_str));
-            cout << "Do you want to leave a comment (Y/N) ?";
+            cout << "Do you want to leave a comment? (Y/N): ";
             string choice;
             getline(cin, choice);
             if (choice == "Y") {
                 cout << "Type here: ";
                 string comment;
                 getline(std::cin,comment);
-                i->ownerComments.insert({i->username, comment});
-                currentMember->rentHouse->occupierComment[currentMember->fullName] = comment;
+                i->ownerComments.insert({Member::currentMember->username, comment});
                 return;
             }
+            return;
         }
     }
     cout << "Username not found" << endl;
@@ -354,6 +362,9 @@ void Member::makeRequest() {
     cout << "Invalid house id!" << endl;
 }
 void Member::displayListedHouse(){
+    if (Member::listingHouse.size() == 0){
+        cout << "No house on listing" << endl;
+    }
     for (auto& i : Member::listingHouse){
         cout << endl;
         cout << "Name: " << i.houseID << endl;
@@ -378,6 +389,17 @@ void Member::viewStatusRequestedHouse() {
     }
     cout << "Your requested house is still pending or not allocated!" << endl;
     cout << "Please try again later." << endl;
+}
+
+void Member::viewRentStatus(){
+    if (Member::currentMember->rentHouse == nullptr){
+        cout << "You are not renting any house at the momemnt" << endl;
+        return;
+    }
+    else{
+        cout << "Current rented house information";
+        Member:currentMember->rentHouse->showDemoHouse();
+    }
 }
 void Member::ratingHouse() {
     if (currentMember->rentHouse == nullptr) {

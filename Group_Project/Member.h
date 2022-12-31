@@ -74,13 +74,11 @@ public:
     [[nodiscard]] const string &getFullName() const ;
 
     // Ngoc
-    static void listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) ;
-    Member getMember();
-    static void listHouse(string &start, string &end, double &consumingPoint) ;
+    static void listHouse();
 
-    static void unlistHouse();
+    static void unlistHouse(int i);
 
-    static void viewRequest() ;
+    static void viewPendingRequest();
 
     static void acceptRequest() ;
 
@@ -90,6 +88,8 @@ public:
     static void searchHouse();
 
     static void makeRequest();
+
+    static void viewRentStatus();
 
     static void viewStatusRequestedHouse() ;
 

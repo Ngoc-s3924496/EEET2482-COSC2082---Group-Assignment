@@ -207,26 +207,26 @@ void pageMember() {
                     break;
             }
         }
-
         else {
             cout << "Hello " << Member::currentMember->getFullName() << " !" << endl;
             cout << "[1] Show account info" << endl;
-            cout << "[2] List house for occupation" << endl;
-            cout << "[3] Un-list House" << endl;
-            cout << "[4] View house request" << endl;
-            cout << "[5] Accept request" << endl;
-            cout << "[6] Rate occupier" << endl;
-            cout << "[7] Search house on listing" << endl;
-            cout << "[8] Make request" << endl;
-            cout << "[9] View status of house request" << endl;
-            cout << "[10] Rate house" << endl;
-            cout << "[11] Logout" << endl;
-            cout << "[12] Go back" << endl;
-            cout << "[13] End program" << endl;
+            cout << "[2] Show all listing house" << endl;
+            cout << "[3] List house for occupation" << endl;
+            cout << "[4] Un-list House" << endl;
+            cout << "[5] View pending house request" << endl;
+            cout << "[6] Accept request" << endl;
+            cout << "[7] Rate occupier" << endl;
+            cout << "[8] Search house on listing" << endl;
+            cout << "[9] Make request" << endl;
+            cout << "[10] View rent status" << endl;
+            cout << "[11] Rate house" << endl;
+            cout << "[12] Logout" << endl;
+            cout << "[13] Go back" << endl;
+            cout << "[14] End program" << endl;
             string input;
             cout << "Enter your action: ";
             getline(cin, input);
-            vector<string> inputList = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12","13"};
+            vector<string> inputList = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"};
             while (!checkExist(inputList, input)) {
                 cout << "Invalid input" << endl;
                 cout << "Enter your action: ";
@@ -241,53 +241,62 @@ void pageMember() {
                     goBackMember();
                     break;
                 case 2:
-                    // listhouse() function
+                    Member::displayListedHouse();
                     goBackMember();
-                    break;
                 case 3:
-                    // unlisthouse() function
+                    // listhouse() function
+                    Member::listHouse();
                     goBackMember();
                     break;
                 case 4:
-                    // viewrequest() function
+                    // unlisthouse() function
+                    Member::unlistHouse(0);
                     goBackMember();
                     break;
                 case 5:
-                    // acceptrequesthouse() function
+                    // viewrequest() function
+                    Member::viewPendingRequest();
                     goBackMember();
                     break;
                 case 6:
-                    // ratingoccupier() function
+                    // acceptrequesthouse() function
+                    Member::acceptRequest();
                     goBackMember();
                     break;
                 case 7:
+                    // ratingoccupier() function
+                    Member::rateOccupier();
+                    goBackMember();
+                    break;
+                case 8:
                     // searchhouse() function
                     Member::searchHouse();
                     goBackMember();
                     break;
-                case 8:
+                case 9:
                     // makerequest() function
                     Member::makeRequest();
                     goBackMember();
                     break;
-                case 9:
+                case 10:
                     // viewstatusrequest() function
-                    Member::viewStatusRequestedHouse();
+                    //Member::viewStatusRequestedHouse();
+                    Member::viewRentStatus();
                     goBackMember();
                     break;
-                case 10:
+                case 11:
                     // ratinghouse() function
                     Member::ratingHouse();
                     goBackMember();
                     break;
-                case 11:
+                case 12:
                     Member::logout();
                     pageStart();
                     break;
-                case 12:
+                case 13:
                     pageStart();
                     break;
-                case 13:
+                case 14:
                     pageEnd();
                     break;
             }
@@ -296,22 +305,23 @@ void pageMember() {
     else {
         cout << "Hello " << Member::currentMember->getFullName() << " !" << endl;
         cout << "[1] Show account info" << endl;
-        cout << "[2] List house for occupation" << endl;
-        cout << "[3] Un-list House" << endl;
-        cout << "[4] View house request" << endl;
-        cout << "[5] Accept request" << endl;
-        cout << "[6] Rate occupier" << endl;
-        cout << "[7] Search house on listing" << endl;
-        cout << "[8] Make request" << endl;
-        cout << "[9] View status of house request" << endl;
-        cout << "[10] Rate house" << endl;
-        cout << "[11] Logout" << endl;
-        cout << "[12] Go back" << endl;
-        cout << "[13] End program" << endl;
+        cout << "[2] Show all listing house" << endl;
+        cout << "[3] List house for occupation" << endl;
+        cout << "[4] Un-list House" << endl;
+        cout << "[5] View pending house request" << endl;
+        cout << "[6] Accept request" << endl;
+        cout << "[7] Rate occupier" << endl;
+        cout << "[8] Search house on listing" << endl;
+        cout << "[9] Make request" << endl;
+        cout << "[10] View rent status" << endl;
+        cout << "[11] Rate house" << endl;
+        cout << "[12] Logout" << endl;
+        cout << "[13] Go back" << endl;
+        cout << "[14] End program" << endl;
         string input;
         cout << "Enter your action: ";
         getline(cin, input);
-        vector<string> inputList = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12","13"};
+        vector<string> inputList = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"};
         while (!checkExist(inputList, input)) {
             cout << "Invalid input" << endl;
             cout << "Enter your action: ";
@@ -326,53 +336,62 @@ void pageMember() {
                 goBackMember();
                 break;
             case 2:
-                // listhouse() function
+                Member::displayListedHouse();
                 goBackMember();
-                break;
             case 3:
-                // unlisthouse() function
+                // listhouse() function
+                Member::listHouse();
                 goBackMember();
                 break;
             case 4:
-                // viewrequest() function
+                // unlisthouse() function
+                Member::unlistHouse(0);
                 goBackMember();
                 break;
             case 5:
-                // acceptrequesthouse() function
+                // viewrequest() function
+                Member::viewPendingRequest();
                 goBackMember();
                 break;
             case 6:
-                // ratingoccupier() function
+                // acceptrequesthouse() function
+                Member::acceptRequest();
                 goBackMember();
                 break;
             case 7:
+                // ratingoccupier() function
+                Member::rateOccupier();
+                goBackMember();
+                break;
+            case 8:
                 // searchhouse() function
                 Member::searchHouse();
                 goBackMember();
                 break;
-            case 8:
+            case 9:
                 // makerequest() function
                 Member::makeRequest();
                 goBackMember();
                 break;
-            case 9:
+            case 10:
                 // viewstatusrequest() function
-                Member::viewStatusRequestedHouse();
+                //Member::viewStatusRequestedHouse();
+                Member::viewRentStatus();
                 goBackMember();
                 break;
-            case 10:
+            case 11:
                 // ratinghouse() function
                 Member::ratingHouse();
                 goBackMember();
                 break;
-            case 11:
+            case 12:
                 Member::logout();
                 pageStart();
                 break;
-            case 12:
+            case 13:
                 pageStart();
                 break;
-            case 13:
+            case 14:
                 pageEnd();
                 break;
         }
