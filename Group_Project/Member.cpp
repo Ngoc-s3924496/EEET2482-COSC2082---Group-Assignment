@@ -195,7 +195,7 @@ void Member::listHouse() {
     currentMember->myHouse->startDate = startDate;
     currentMember->myHouse->endDate = endDate;
     currentMember->myHouse->consumingPoints = stod(consumingPoint);
-    unlistHouse(1);
+    unListHouse(1);
     Member::listingHouse.push_back(*currentMember->myHouse);
 }
 
@@ -224,10 +224,10 @@ void Member::removeRequest(Member* member, House* house){
     }
 }
 
-void Member::unlistHouse(int i) {
+void Member::unListHouse(int i) {
     int index = 0;
-    for (auto &i : Member::listingHouse){
-        if (currentMember->myHouse->houseID == i.houseID){
+    for (auto &j : Member::listingHouse){
+        if (currentMember->myHouse->houseID == j.houseID){
             Member::listingHouse.erase(Member::listingHouse.begin() + index);
             break;
         }
@@ -235,8 +235,8 @@ void Member::unlistHouse(int i) {
             index++;
         }
     }
-    for (auto i : currentMember->myHouse->requestList){
-        removeRequest(i, currentMember->myHouse);
+    for (auto &j : currentMember->myHouse->requestList){
+        removeRequest(j, currentMember->myHouse);
     }
     if (i == 0){
         cout << "Remove house listing successfully";
@@ -362,7 +362,7 @@ void Member::makeRequest() {
     cout << "Invalid house id!" << endl;
 }
 void Member::displayListedHouse(){
-    if (Member::listingHouse.size() == 0){
+    if (Member::listingHouse.empty()){
         cout << "No house on listing" << endl;
     }
     for (auto& i : Member::listingHouse){
@@ -375,30 +375,15 @@ void Member::displayListedHouse(){
         cout << " '" << i.description << "'" << endl;
     }
 }
-void Member::viewStatusRequestedHouse() {
-    for (auto &i : currentMember->pendingRequests) {
-        // if no one request this house
-        if (i->occupiers.empty()) {
-            continue;
-        }
-        // if at least one people request this house -> the newest rent will be at last
-        if (i->occupiers.at(i->occupiers.size() - 1)->fullName == currentMember->fullName) {
-            cout << "You have successfully rent this house!" << endl;
-            return;
-        }
-    }
-    cout << "Your requested house is still pending or not allocated!" << endl;
-    cout << "Please try again later." << endl;
-}
 
 void Member::viewRentStatus(){
     if (Member::currentMember->rentHouse == nullptr){
-        cout << "You are not renting any house at the momemnt" << endl;
+        cout << "You are not renting any house at the moment or they are still pending!" << endl;
         return;
     }
     else{
         cout << "Current rented house information";
-        Member:currentMember->rentHouse->showDemoHouse();
+        Member::currentMember->rentHouse->showFullHouse();
     }
 }
 void Member::ratingHouse() {
@@ -424,5 +409,3 @@ void Member::ratingHouse() {
     }
     cout << "Thank you for using!" << endl;
 }
-
-

@@ -1,7 +1,3 @@
-//
-// Created by huuqu on 12/26/2022.
-//
-
 #ifndef MEMBER_H
 #define MEMBER_H
 
@@ -76,7 +72,7 @@ public:
     // Ngoc
     static void listHouse();
 
-    static void unlistHouse(int i);
+    static void unListHouse(int i);
 
     static void viewPendingRequest();
 
@@ -91,12 +87,7 @@ public:
 
     static void viewRentStatus();
 
-    static void viewStatusRequestedHouse() ;
-
     static void ratingHouse();
     static void displayListedHouse();
     static void removeRequest(Member *member, House *house);
 };
-
-
-#endif //MEMBER_H
