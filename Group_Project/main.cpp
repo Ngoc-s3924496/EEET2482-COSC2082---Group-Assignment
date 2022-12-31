@@ -58,18 +58,18 @@ int main() {
 
     // Data::houseList[0].requestList[0]->showInfo();
 
-     // Call constructor for classes
-     cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;
-     cout << "VACATION HOUSE EXCHANGE APPLICATION" << endl;
-     cout << "Instructors: Mr. Linh Tran & Phong Ngo" << endl;
-     cout << "Group: Team 925" << endl;
-     cout << "Duong Vu Thanh Ngoc: s3924496" << endl;
-     cout << "Ngo Tran Bao Thach: s3927021" << endl;
-     cout << "Nguyen Minh Quan: s3927181" << endl;
-     cout << "Doan Huu Quoc: s3927776" << endl;
-     lineBreak();
-     pageStart();
-     return 0;
+    // Call constructor for classes
+    cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;
+    cout << "VACATION HOUSE EXCHANGE APPLICATION" << endl;
+    cout << "Instructors: Mr. Linh Tran & Phong Ngo" << endl;
+    cout << "Group: Team 925" << endl;
+    cout << "Duong Vu Thanh Ngoc: s3924496" << endl;
+    cout << "Ngo Tran Bao Thach: s3927021" << endl;
+    cout << "Nguyen Minh Quan: s3927181" << endl;
+    cout << "Doan Huu Quoc: s3927776" << endl;
+    lineBreak();
+    pageStart();
+    return 0;
 }
 
 // int main() {
@@ -250,7 +250,7 @@ void pageMember() {
                     break;
                 case 4:
                     // unlisthouse() function
-                    Member::unlistHouse(0);
+                    Member::unListHouse(0);
                     goBackMember();
                     break;
                 case 5:
@@ -345,7 +345,7 @@ void pageMember() {
                 break;
             case 4:
                 // unlisthouse() function
-                Member::unlistHouse(0);
+                Member::unListHouse(0);
                 goBackMember();
                 break;
             case 5:
