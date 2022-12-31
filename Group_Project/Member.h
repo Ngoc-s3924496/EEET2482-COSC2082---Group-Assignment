@@ -6,7 +6,6 @@
 #define MEMBER_H
 
 #include<iostream>
-#include<map>
 #include<vector>
 #include "House.h"
 
@@ -21,14 +20,16 @@ public:
     friend class Admin;
     friend class House;
     friend class Data;
-private:
-    string id;
-    string username;
-    string password;
+    inline static Member* currentMember {};
+    inline static bool isLoggedIn {false};
+    inline static int memberCounter {1};
+public:
+    string id {};
+    string username {};
+    string password {};
     //user full name and mobile phone
-    string fullName;
-    string phoneNumber;
-
+    string fullName {};
+    string phoneNumber {};
     // The house of user
     House *myHouse = nullptr;
 
@@ -36,64 +37,64 @@ private:
     House *rentHouse = nullptr;
 
     // List of available houses
-    inline static std::vector<House> listingHouse;
+    inline static std::vector<House> listingHouse {};
 
     // User money
     int creditPoint {};
 
     // User points
-    std::vector<double> occupierRatings {};
+    vector<double> occupierRatings {};
 
     // User requests
-    std::vector<House*> pendingRequests {};
+    vector<House*> pendingRequests {};
 
     // Comments of others on this user
-    std::map<string, string> ownerComments {}; // adjust later
+    vector<string> ownerComments {};
 public:
     //Constructor
     Member();
-    Member(string id, string fullName, string username, string password, string phoneNumber);
+    Member(string id, string fullName, string userName, string password, string phoneNumber);
+    Member(string id, string fullName, string userName, string password, string phoneNumber, std::vector <double> occupierRatings, int creditPoints,vector<string> ownerComments);
     Member(string id, string fullName, string username, string password, string phoneNumber,
-           House *myHouse, std::vector<double> occupierRatings, int creditPoint, std::vector<House*> pendingRequests,
-           std::map<string,string> ownerComments);
-    Member(string id, string fullName, string username, string password, string phoneNumber,
-           House *myHouse, std::vector<double> occupierRatings, int creditPoint, std::vector<House*> pendingRequests,
-           House *rentHouse, std::map<string,string> ownerComments);
+           House *myHouse, std::vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
+           House *rentHouse, vector<string> ownerComments);
 
     // Basic Methods
     // login
-    bool login(string &username, string &password);
+    static bool login();
+    static void logout();
     // calculate average score for the current member
-    double avgScore(std::vector <double> &occupierRatings);
+    double avgScore();
     // New user -> register an account
-    void register_account();
+    static bool register_account();
     // show inf
-    void showInfo();
-    const string &getFullName() const ;
+    void showFullInfo();
+    void showMiniInfo();
+    [[nodiscard]] const string &getFullName() const ;
 
     // Ngoc
-    void listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) ;
+    static void listHouse(string &start, string &end, double &consumingPoint, double &minOccupiedRating) ;
+    Member getMember();
+    static void listHouse(string &start, string &end, double &consumingPoint) ;
 
-    void listHouse(string &start, string &end, double &consumingPoint) ;
+    static void unlistHouse();
 
-    void unlistHouse();
+    static void viewRequest() ;
 
-    void viewRequest() ;
+    static void acceptRequest() ;
 
-    void acceptRequest() ;
-
-    void rateOccupier();
+    static void rateOccupier();
 
     // Quoc
-    void searchHouse();
+    static void searchHouse();
 
-    void makeRequest();
+    static void makeRequest();
 
-    void viewStatusRequestedHouse() ;
+    static void viewStatusRequestedHouse() ;
 
-    void ratingHouse();
-
-
+    static void ratingHouse();
+    static void displayListedHouse();
+    static void removeRequest(Member *member, House *house);
 };
 
 

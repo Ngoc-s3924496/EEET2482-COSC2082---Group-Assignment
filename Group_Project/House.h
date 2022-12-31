@@ -2,7 +2,6 @@
 #define HOUSE_H
 
 #include<iostream>
-#include<map>
 #include<vector>
 
 using std::string;
@@ -19,26 +18,28 @@ public:
     friend class Member;
     friend class Admin;
     friend class Data;
-private:
+public:
     string houseID;
     string startDate;
     string endDate;
     string address;
     string location;
     string description;
+    double consumingPoints, minOccupierRating;
     vector<double> houseRatings;
     bool status;
     vector<Member*> occupiers;
     vector<Member*> requestList;
-    std::map<string, string> occupierComment;
+    vector<string> occupierComment;
 public:
     House();
+    House(string houseId, string startDate, string endDate, string address, string location, string description, double consumingPoints, double minOccupierRating);
     House(string houseId, string startDate, string endDate, string address,
-          string location, string description);
+          string location, string description, double consumingPoints, double minOccupierRating, vector<double> houseRatings, bool status, vector<string> occupierComment);
     House(string houseId, string startDate, string endDate, string address,
-          string location, string description, vector<double> houseRatings, bool status,
+          string location, string description, double consumingPoints, double minOccupierRating, vector<double> houseRatings, bool status,
           vector<Member*> occupiers, vector<Member*> requestList,
-          std::map<string, string> occupierComment);
+          vector<string> occupierComment);
 
 
     void showFullHouse();
@@ -48,4 +49,4 @@ public:
     double avgScore();
 };
 
-#endif //HOUSE_H
+#endif //HOUSE_H1

@@ -1,46 +1,42 @@
-//
-// Created by huuqu on 12/26/2022.
-//
-
 #include "Admin.h"
-    // get password
-    std::string Admin::getPassword() {
-        return this->password;
-    }
-
-    // record new member in admin
-    void Admin::add_members(Member &member) {
-        members.push_back(member);
-    }
+#include "Data.h"
+#include "House.h"
 
     // check if username is available
-    bool Admin::check_admin(string &username, string &password) {
-        for (auto &i: admins) {
-            if (i == username && password == "admin") {
-                return true;
-            }
+    bool Admin::login() {
+        string username_val;
+        string password_val;
+        cout << "Enter admin username: ";
+        getline(cin,username_val);
+        cout << "Enter admin password: ";
+        getline(cin,password_val);
+        if (username_val == "admin" && password_val == "admin") {
+            Admin::isLoggedIn = true;
+            return true;
         }
         return false;
     }
-
+    void Admin::logout() {
+        Admin::isLoggedIn = false;
+    }
     void Admin::showMember() {
-        // enter member name
-        std::cout << "Enter a member name: ";
-        std::string member_name{};
-        std::getline(std::cin, member_name);
-
-        // find member
-        for (auto &i: Admin::members) {
-            // if found
-            if (member_name == i.getFullName()) {
-                cout << "Member found!" << std::endl;
-                i.showInfo();
-                return;
-            }
+        if(Data::userList.empty()) {
+            cout << "No data found!" << endl;
+            return;
         }
-        cout << "Invalid member name!" << std::endl;
+        // find member
+        for (auto &i: Data::userList) {
+            i.showFullInfo();
+        }
     }
 
     void Admin::showHouses() {
-
+        if(Data::houseList.empty()) {
+            cout << "No data found!" << endl;
+            return;
+        }
+        // find member
+        for (auto &i: Data::houseList) {
+            i.showFullHouse();
+        }
     }
