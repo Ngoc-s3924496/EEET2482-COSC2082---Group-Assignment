@@ -35,11 +35,11 @@ public:
 public:
     House();
     House(string houseId, string startDate, string endDate, string address,
-          string location, string description, double consumingPoints, double minOccupierRating, vector<double> houseRatings, bool status, std::map<string, string> occupierComment);
+          string location, string description, double consumingPoints, double minOccupierRating, vector<double> houseRatings, bool status, vector<string> occupierComment);
     House(string houseId, string startDate, string endDate, string address,
           string location, string description, double consumingPoints, double minOccupierRating, vector<double> houseRatings, bool status,
           vector<Member*> occupiers, vector<Member*> requestList,
-          std::map<string, string> occupierComment);
+          vector<string> occupierComment);
 
 
     void showFullHouse();
@@ -49,4 +49,4 @@ public:
     double avgScore();
 };
 
-#endif //HOUSE_H1
+#endif //HOUSE_H

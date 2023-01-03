@@ -403,7 +403,7 @@ void Member::ratingHouse() {
         cout << "Type here: ";
         string comment;
         getline(std::cin,comment);
-        currentMember->rentHouse->occupierComment[currentMember->fullName] = comment;
+        currentMember->rentHouse->occupierComment.push_back(comment);
         return;
     }
     cout << "Thank you for using!" << endl;
