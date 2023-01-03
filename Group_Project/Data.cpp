@@ -60,12 +60,14 @@ bool Data::saveUserData(Member member, string path) {
             saveFile << "none" << ",";
         } else {
             // Save each of the rating following by a semicolon
+            int count = 0;
             for (int i = 0; i < member.occupierRatings.size(); i++) {
                 saveFile << member.occupierRatings[i];
-                if (i + 1 == member.occupierRatings.size()) {
+                if (count == member.occupierRatings.size() - 1) {
                     break;
                 }
-                saveFile << ";";
+                saveFile << "; ";
+                count++;
             }
             // Save the end of the occupier ratings string a comma to indicate the end of the list
             saveFile << ",";
@@ -78,12 +80,14 @@ bool Data::saveUserData(Member member, string path) {
             saveFile << "none" << ",";
         } else {
             // Save each of the house ID of each House object in the pending request list following by a semicolon
+            int count = 0;
             for (int i = 0; i < member.pendingRequests.size(); i++) {
                 saveFile << member.pendingRequests[i]->houseID;
-                if (i + 1 == member.pendingRequests.size()) {
+                if (count == member.pendingRequests.size() - 1) {
                     break;
                 }
-                saveFile << ";";
+                saveFile << "; ";
+                count++;
             }
             // Save the end of the pending request string a comma to indicate the end of the list
             saveFile << ",";
@@ -95,18 +99,18 @@ bool Data::saveUserData(Member member, string path) {
             saveFile << member.rentHouse->houseID << ",";
         }
         // Check the owner comment list is empty, if yes then save "none"
-        if (member.ownerComments.empty()) {
-            saveFile << "none";
+        if (member.ownerComments.size() == 0) {
+            saveFile << "none" << endl;
         } else {
             int count = 0;
-            // Save each key of the map following by a colon and the value of the map
-            for (map<string, string>::iterator i = member.ownerComments.begin(); i != member.ownerComments.end(); i++) {
-                saveFile << i->first << ": " << i->second;
-                count++;
+            for (string comment: member.ownerComments) {
+                saveFile << comment;
                 if (count == member.ownerComments.size() - 1) {
                     break;
+                } else {
+                    saveFile << "; ";
                 }
-                saveFile << ";";
+                count++;
             }
         }
         saveFile << endl;
@@ -138,12 +142,14 @@ bool Data::saveUserData(Member member, string path) {
             saveFile << "none" << ",";
         } else {
             // Save each of the rating following by a semicolon
+            int count = 0;
             for (int i = 0; i < member.occupierRatings.size(); i++) {
                 saveFile << member.occupierRatings[i];
-                if (i + 1 == member.occupierRatings.size()) {
+                if (count == member.occupierRatings.size() - 1) {
                     break;
                 }
-                saveFile << ";";
+                saveFile << "; ";
+                count++;
             }
             saveFile << ",";
         }
@@ -155,12 +161,14 @@ bool Data::saveUserData(Member member, string path) {
             saveFile << "none" << ",";
         } else {
             // Save each of the house ID of each House object in the pending request list following by a semicolon
+            int count = 0;
             for (int i = 0; i < member.pendingRequests.size(); i++) {
                 saveFile << member.pendingRequests[i]->houseID;
-                if (i + 1 == member.pendingRequests.size()) {
+                if (count == member.pendingRequests.size() - 1) {
                     break;
                 }
-                saveFile << ";";
+                saveFile << "; ";
+                count++;
             }
             saveFile << ",";
         }
@@ -172,21 +180,22 @@ bool Data::saveUserData(Member member, string path) {
         }
 
         // Check the occupier ratings list, if it is empty then save as none
-        if (member.ownerComments.empty()) {
-            saveFile << "none";
+        if (member.ownerComments.size() == 0) {
+            saveFile << "none" << endl;
         } else {
             int count = 0;
-            // Save each key of the map following by a colon and the value of the map
-            for (map<string, string>::iterator i = member.ownerComments.begin(); i != member.ownerComments.end(); i++) {
-                saveFile << i->first << ": " << i->second;
-                count++;
+            for (string comment: member.ownerComments) {
+                saveFile << comment;
                 if (count == member.ownerComments.size() - 1) {
                     break;
+                } else {
+                    saveFile << "; ";
                 }
-                saveFile << ";";
+                count++;
             }
         }
         saveFile << endl;
+
     }
     // Close the file
     saveFile.close();
@@ -226,12 +235,14 @@ bool Data::saveHouseData(House house, string path) {
         if (house.houseRatings.size() == 0) {
             saveFile << "none" << ",";
         } else {
+            int count = 0;
             for (int i = 0; i < house.houseRatings.size(); i++) {
                 saveFile << house.houseRatings[i];
-                if (i + 1 == house.houseRatings.size()) {
+                if (count == house.houseRatings.size() - 1) {
                     break;
                 }
-                saveFile << ";";
+                saveFile << "; ";
+                count++;
             }
             saveFile << ",";
         }
@@ -244,12 +255,13 @@ bool Data::saveHouseData(House house, string path) {
             saveFile << "none" << ",";
         } else {
             // Save each occupier's id following by a semicolon
+            int count = 0;
             for (int i = 0; i < house.occupiers.size(); i++) {
-                saveFile << house.occupiers[i]->id;
-                if (i + 1 == house.occupiers.size()) {
+                saveFile << house.occupiers[i]->username;
+                if (count == house.occupiers.size() - 1) {
                     break;
                 }
-                saveFile << ";";
+                saveFile << "; ";
             }
             // Save at the end of the occupierRatings list a comma to mark the end
             saveFile << ",";
@@ -260,31 +272,35 @@ bool Data::saveHouseData(House house, string path) {
             saveFile << "none" << ",";
         } else {
             // Save each of the house id following by a semicolon
+            int count = 0;
             for (int i = 0; i < house.requestList.size(); i++) {
-                saveFile << house.requestList[i]->id;
-                if (i + 1 == house.requestList.size()) {
+                saveFile << house.requestList[i]->username;
+                if (count == house.requestList.size() - 1) {
                     break;
                 }
-                saveFile << ";";
+                saveFile << "; ";
+                count++;
             }
             saveFile << ",";
         }
 
         // Save the occupier comments
-        if (house.occupierComment.size() == 0) {
+        if (house.occupierComment.empty()) {
             saveFile << "none" << endl;
         } else {
             int count = 0;
-            for (map<string, string>::iterator i = house.occupierComment.begin(); i != house.occupierComment.end(); i++) {
-                saveFile << i->first << ": " << i->second;
-                count++;
+            for (string comment: house.occupierComment) {
+                saveFile << comment;
                 if (count == house.occupierComment.size() - 1) {
                     break;
+                } else {
+                    saveFile << "; ";
                 }
-                saveFile << ";";
+                count++;
             }
-            saveFile << endl;
         }
+        saveFile << endl;
+
     } else {
         // Open the file for appending
         saveFile.open(path, std::ios::app);
@@ -304,12 +320,14 @@ bool Data::saveHouseData(House house, string path) {
         if (house.houseRatings.size() == 0) {
             saveFile << "none" << ",";
         } else {
+            int count = 0;
             for (int i = 0; i < house.houseRatings.size(); i++) {
                 saveFile << house.houseRatings[i];
-                if (i + 1 == house.houseRatings.size()) {
+                if (count == house.houseRatings.size() - 1) {
                     break;
                 }
-                saveFile << ";";
+                saveFile << "; ";
+                count++;
             }
             saveFile << ",";
         }
@@ -321,12 +339,14 @@ bool Data::saveHouseData(House house, string path) {
         if (house.occupiers.size() == 0) {
             saveFile << "none" << ",";
         } else {
+            int count = 0;
             for (int i = 0; i < house.occupiers.size(); i++) {
-                saveFile << house.occupiers[i]->id;
-                if (i + 1 == house.occupiers.size()) {
+                saveFile << house.occupiers[i]->username;
+                if (count == house.occupiers.size() - 1) {
                     break;
                 }
-                saveFile << ";";
+                saveFile << "; ";
+                count++;
             }
             saveFile << ",";
         }
@@ -335,12 +355,14 @@ bool Data::saveHouseData(House house, string path) {
         if (house.requestList.size() == 0) {
             saveFile << "none" << ",";
         } else {
+            int count = 0;
             for (int i = 0; i < house.requestList.size(); i++) {
-                saveFile << house.requestList[i]->id;
-                if (i + 1 == house.requestList.size()) {
+                saveFile << house.requestList[i]->username;
+                if (count == house.requestList.size() - 1) {
                     break;
                 }
-                saveFile << ";";
+                saveFile << "; ";
+                count++;
             }
             saveFile << ",";
         }
@@ -350,17 +372,17 @@ bool Data::saveHouseData(House house, string path) {
             saveFile << "none" << endl;
         } else {
             int count = 0;
-            // Save each key of the map following by a colon and the value of the map
-            for (map<string, string>::iterator i = house.occupierComment.begin(); i != house.occupierComment.end(); i++) {
-                saveFile << i->first << ": " << i->second;
-                count++;
+            for (string comment: house.occupierComment) {
+                saveFile << comment;
                 if (count == house.occupierComment.size() - 1) {
                     break;
+                } else {
+                    saveFile << "; ";
                 }
-                saveFile << ";";
+                count++;
             }
-            saveFile << endl;
         }
+        saveFile << endl;
     }
     // Close the file
     saveFile.close();
@@ -392,7 +414,7 @@ bool Data::preloadUserData(string memberPath) {
         string id, fullName, userName, password, phoneNumber, houseID, readString, creditPoints, keyValueString, key, value;
         bool notEndOfString = true;
         vector<double> occupierRatings {};
-        map<string, string> ownerComment {};
+        vector<string> commentList {};
 
         // Load the member id into local variable
         id = line.substr(0, line.find(','));
@@ -441,36 +463,26 @@ bool Data::preloadUserData(string memberPath) {
         line.erase(0, line.find(',') + 1);
 
 
-        // Load the owner comments into the local map
+        // Load the owner comments into the local vector
         readString = line;
-        // cout << readString << endl;
         while (true) {
             if (readString == "none") {
                 break;
             }
             // If there is still a semicolon, which means there are still values
             if (readString.find("; ") < readString.length()) {
-                // Save the part before the colon as the key
                 keyValueString = readString.substr(0, readString.find("; "));
-                key = keyValueString.substr(0, keyValueString.find(": "));
-                // Save the after part of the colon as the value of that key
-                keyValueString.erase(0, keyValueString.find(": ") + 2);
-                value = keyValueString;
-                // Save the key value pair into the map
-                ownerComment[key] = value;
+                commentList.push_back(keyValueString);
                 readString.erase(0, readString.find("; ") + 2);
             } else {
                 keyValueString = readString;
-                key = keyValueString.substr(0, keyValueString.find(": "));
-                keyValueString.erase(0, keyValueString.find(": ") + 2);
-                value = keyValueString;
-                ownerComment[key] = value;
+                commentList.push_back(keyValueString);
                 break;
             }
         }
 
         // Append a loaded user into the local vector
-        userList.push_back(Member(id, fullName, userName, password, phoneNumber, occupierRatings, stoi(creditPoints), ownerComment));
+        userList.push_back(Member(id, fullName, userName, password, phoneNumber, occupierRatings, stoi(creditPoints), commentList));
     }
     // Close the file
     openFile.close();
@@ -499,7 +511,7 @@ bool Data::preloadHouseData(string housePath) {
         string houseID, startDate, endDate, address, location, description, consumingPoints, minOccupierRating, readString, memberID, key, value, keyValueString;
         vector<double> houseRatings;
         bool status = false;
-        map<string, string> occupierComment;
+        vector<string> occupierComment;
 
         // Load the house id, start date, end date, address, location, description into local variables
         houseID = line.substr(0, line.find(','));
@@ -578,30 +590,20 @@ bool Data::preloadHouseData(string housePath) {
         line.erase(0, line.find(',') + 1);
         line.erase(0, line.find(',') + 1);
 
-        // Load the occupier comments into a local map
-        readString = line.substr(0, line.find(','));
-        line.erase(0, line.find(',') + 1);
+        // Load the occupier comments into a local vector
+        readString = line;
         while (true) {
             if (readString == "none") {
                 break;
             }
             // If there is still a semicolon, which means there are still values
             if (readString.find("; ") < readString.length()) {
-                // Save the part before the colon to the key
                 keyValueString = readString.substr(0, readString.find("; "));
-                key = keyValueString.substr(0, keyValueString.find(": "));
-                // Save the part after the colon to the value
-                keyValueString.erase(0, keyValueString.find(": ") + 2);
-                value = keyValueString;
-                // Save the key value pair to the map
-                occupierComment[key] = value;
+                occupierComment.push_back(keyValueString);
                 readString.erase(0, readString.find("; ") + 2);
             } else {
                 keyValueString = readString;
-                key = keyValueString.substr(0, keyValueString.find(": "));
-                keyValueString.erase(0, keyValueString.find(": ") + 2);
-                value = keyValueString;
-                occupierComment[key] = value;
+                occupierComment.push_back(keyValueString);
                 break;
             }
         }
@@ -833,14 +835,11 @@ bool Data::loadHouseData(string housePath) {
 }
 
 bool Data::checkDataExist(string id, string path) {
-    Data::preloadHouseData();
-    Data::preloadUserData();
-    Data::loadHouseData();
-    Data::loadUserData();
-    fstream openFile;
+    ifstream openFile;
     string line;
     // Open the file for reading
-    openFile.open(path, std::ios::in);
+    openFile.open(path);
+    openFile.seekg(0, std::ios::beg);
     // Check the file whether it can be opened
     if (!openFile) {
         cerr << "Cannot open file Member!" << endl;
@@ -850,14 +849,16 @@ bool Data::checkDataExist(string id, string path) {
     while (getline(openFile, line)) {
         if (id == line.substr(0, line.find(','))) {
             openFile.close();
-            return true;
+            return 1;
         }
     }
     openFile.close();
-    return false;
+    return 0;
 }
 
+
 bool Data::updateUserData(Member member, string memberPath) {
+    // Update the latest data
     Data::preloadHouseData();
     Data::preloadUserData();
     Data::loadHouseData();
@@ -872,10 +873,7 @@ bool Data::updateUserData(Member member, string memberPath) {
     // Check if the data is already exist in the file then append it to the end of the file.
     if (checkDataExist(member.id, memberPath)) {
         fstream saveFile;
-        ifstream readFile;
-        string line;
 
-        readFile.open(memberPath, std::ios::in);
         // Open the file to write the data
         saveFile.open("./Data/temp.csv", std::ios::out);
         // Check the file whether it can be opened
@@ -883,244 +881,116 @@ bool Data::updateUserData(Member member, string memberPath) {
             cerr << "Cannot open file for saving!" << endl;
             return -1;
         }
-        if (!readFile) {
-            cerr << "Cannot open file for reading!" << endl;
-            return -1;
-        }
-
-        while (getline(readFile, line)) {
-            if (member.id != line.substr(0, line.find(','))) {
-                saveFile << line;
-            } else {
-                // Save the id, full name, username, password, phone number
-                saveFile << member.id << "," << member.fullName << "," << member.username << "," << member.password << "," << member.phoneNumber << ",";
-
-                // Check if the myHouse attribute is a null pointer which means there is no House object, save as "none"
-                if (member.myHouse != nullptr) {
-                    // Save the owned house ID
-                    saveFile << member.myHouse->houseID << ",";
-                } else {
-                    saveFile << "none" << ",";
-                }
-
-                // Check the occupier ratings list, if it is empty then save as none
-                if (member.occupierRatings.empty()) {
-                    saveFile << "none" << ",";
-                } else {
-                    // Save each of the rating following by a semicolon
-                    for (int i = 0; i < member.occupierRatings.size(); i++) {
-                        saveFile << member.occupierRatings[i];
-                        if (i + 1 == member.occupierRatings.size()) {
-                            break;
-                        }
-                        saveFile << ";";
-                    }
-                    // Save the end of the occupier ratings string a comma to indicate the end of the list
-                    saveFile << ",";
-                }
-                // Save the credit points
-                saveFile << member.creditPoint << ",";
-
-                // Check if the pending request list is empty then save as "none"
-                if (member.pendingRequests.empty()) {
-                    saveFile << "none" << ",";
-                } else {
-                    // Save each of the house ID of each House object in the pending request list following by a semicolon
-                    for (int i = 0; i < member.pendingRequests.size(); i++) {
-                        saveFile << member.pendingRequests[i]->houseID;
-                        if (i + 1 == member.pendingRequests.size()) {
-                            break;
-                        }
-                        saveFile << ";";
-                    }
-                    // Save the end of the pending request string a comma to indicate the end of the list
-                    saveFile << ",";
-                }
-                // Check if the rentHouse attribute is a null pointer which means there is no rent house, then save "none"
-                if (member.rentHouse == nullptr) {
-                    saveFile << "none" << ",";
-                } else {
-                    saveFile << member.rentHouse->houseID << ",";
-                }
-                // Check the owner comment list is empty, if yes then save "none"
-                if (member.ownerComments.empty()) {
-                    saveFile << "none";
-                } else {
-                    int count = 0;
-                    // Save each key of the map following by a colon and the value of the map
-                    for (map<string, string>::iterator i = member.ownerComments.begin(); i != member.ownerComments.end(); i++) {
-                        saveFile << i->first << ": " << i->second;
-                        count++;
-                        if (count == member.ownerComments.size() - 1) {
-                            break;
-                        }
-                        saveFile << ";";
-                    }
-                }
-                saveFile << endl;
+        // Find the wanted user and replace with the current user
+        for (int i = 0; i < userList.size(); i++) {
+            if (member.id == userList[i].id) {
+                userList.erase(userList.begin() + i, userList.begin() + i + 1);
+                userList.insert(userList.begin() + i, member);
             }
         }
+        // Save every user to the file temp
+        for (Member member: userList) {
+            saveUserData(member, "./Data/temp.csv");
+        }
+
+        // Close the file
         saveFile.close();
-        readFile.close();
+        // Remove the old file
         remove(memberPath.c_str());
+        // Rename the temp file's name with the old file name
         rename("./Data/temp.csv", memberPath.c_str());
-        // // Save the title
-        // saveFile << "ID,Full Name,Username,Password,Phone Number,Owned House,Occupier Ratings,Credit Points,Pending Requests,Rent House,Comment List" << endl;
-        // // Save each member into the file again
-        // for (Member member: userList) {
-        //     // Save the id, full name, username, password, phone number
-        //     saveFile << member.id << "," << member.fullName << "," << member.username << "," << member.password << "," << member.phoneNumber << ",";
 
-        //     // Check if the myHouse attribute is a null pointer which means there is no House object, save as "none"
-        //     if (member.myHouse != nullptr) {
-        //         // Save the owned house ID
-        //         saveFile << member.myHouse->houseID << ",";
-        //     } else {
-        //         saveFile << "none" << ",";
-        //     }
-
-        //     // Check the occupier ratings list, if it is empty then save as none
-        //     if (member.occupierRatings.empty()) {
-        //         saveFile << "none" << ",";
-        //     } else {
-        //         // Save each of the rating following by a semicolon
-        //         for (int i = 0; i < member.occupierRatings.size(); i++) {
-        //             saveFile << member.occupierRatings[i];
-        //             if (i + 1 == member.occupierRatings.size()) {
-        //                 break;
-        //             }
-        //             saveFile << ";";
-        //         }
-        //         // Save the end of the occupier ratings string a comma to indicate the end of the list
-        //         saveFile << ",";
-        //     }
-        //     // Save the credit points
-        //     saveFile << member.creditPoint << ",";
-
-        //     // Check if the pending request list is empty then save as "none"
-        //     if (member.pendingRequests.empty()) {
-        //         saveFile << "none" << ",";
-        //     } else {
-        //         // Save each of the house ID of each House object in the pending request list following by a semicolon
-        //         for (int i = 0; i < member.pendingRequests.size(); i++) {
-        //             saveFile << member.pendingRequests[i]->houseID;
-        //             if (i + 1 == member.pendingRequests.size()) {
-        //                 break;
-        //             }
-        //             saveFile << ";";
-        //         }
-        //         // Save the end of the pending request string a comma to indicate the end of the list
-        //         saveFile << ",";
-        //     }
-        //     // Check if the rentHouse attribute is a null pointer which means there is no rent house, then save "none"
-        //     if (member.rentHouse == nullptr) {
-        //         saveFile << "none" << ",";
-        //     } else {
-        //         saveFile << member.rentHouse->houseID << ",";
-        //     }
-        //     // Check the owner comment list is empty, if yes then save "none"
-        //     if (member.ownerComments.empty()) {
-        //         saveFile << "none";
-        //     } else {
-        //         int count = 0;
-        //         // Save each key of the map following by a colon and the value of the map
-        //         for (map<string, string>::iterator i = member.ownerComments.begin(); i != member.ownerComments.end(); i++) {
-        //             saveFile << i->first << ": " << i->second;
-        //             count++;
-        //             if (count == member.ownerComments.size() - 1) {
-        //                 break;
-        //             }
-        //             saveFile << ";";
-        //         }
-        //     }
-        //     saveFile << endl;
-        // }
-        // saveFile.close();
     } else {
-        cout << "Appending" << endl;
-        // fstream saveFile;
-        // // Open the file to append the data
-        // saveFile.open(memberPath, std::ios::app);
-        // // Check the file whether it can be opened
-        // if (!saveFile) {
-        //     cerr << "Cannot open file for saving!" << endl;
-        //     return -1;
-        // }
+        fstream saveFile;
+        // Open the file to write the data
+        saveFile.open(memberPath, std::ios::app);
+        // Check the file whether it can be opened
+        if (!saveFile) {
+            cerr << "Cannot open file for saving!" << endl;
+            return -1;
+        }
+        // Move the pointer to the end of the file for appending into the file
+        saveFile.seekg(std::ios::end);
 
-        // // Move the pointer to the end of the file for appending into the file
-        // saveFile.seekg(std::ios::end);
+        // Save the id, full name, username, password, phone number
+        saveFile << member.id << "," << member.fullName << "," << member.username << "," << member.password << "," << member.phoneNumber << ",";
 
-        // // Save the id, full name, username, password, phone number
-        // saveFile << member.id << "," << member.fullName << "," << member.username << "," << member.password << "," << member.phoneNumber << ",";
+        // Check if the myHouse attribute is a null pointer which means there is no House object, save as "none"
+        if (member.myHouse != nullptr) {
+            // Save the owned house ID
+            saveFile << member.myHouse->houseID << ",";
+        } else {
+            saveFile << "none" << ",";
+        }
 
-        // // Check if the myHouse attribute is a null pointer which means there is no House object, save as "none"
-        // if (member.myHouse != nullptr) {
-        //     // Save the owned house ID
-        //     saveFile << member.myHouse->houseID << ",";
-        // } else {
-        //     saveFile << "none" << ",";
-        // }
+        // Check the occupier ratings list, if it is empty then save as none
+        if (member.occupierRatings.empty()) {
+            saveFile << "none" << ",";
+        } else {
+            // Save each of the rating following by a semicolon
+            int count = 0;
+            for (int i = 0; i < member.occupierRatings.size(); i++) {
+                saveFile << member.occupierRatings[i];
+                if (count == member.occupierRatings.size() - 1) {
+                    break;
+                }
+                saveFile << "; ";
+                count++;
+            }
+            saveFile << ",";
+        }
+        // Save the credit points
+        saveFile << member.creditPoint << ",";
 
-        // // Check the occupier ratings list, if it is empty then save as none
-        // if (member.occupierRatings.empty()) {
-        //     saveFile << "none" << ",";
-        // } else {
-        //     // Save each of the rating following by a semicolon
-        //     for (int i = 0; i < member.occupierRatings.size(); i++) {
-        //         saveFile << member.occupierRatings[i];
-        //         if (i + 1 == member.occupierRatings.size()) {
-        //             break;
-        //         }
-        //         saveFile << ";";
-        //     }
-        //     saveFile << ",";
-        // }
-        // // Save the credit points
-        // saveFile << member.creditPoint << ",";
+        // Check if the pending request list is empty then save as "none"
+        if (member.pendingRequests.empty()) {
+            saveFile << "none" << ",";
+        } else {
+            // Save each of the house ID of each House object in the pending request list following by a semicolon
+            int count = 0;
+            for (int i = 0; i < member.pendingRequests.size(); i++) {
+                saveFile << member.pendingRequests[i]->houseID;
+                if (count == member.pendingRequests.size() - 1) {
+                    break;
+                }
+                saveFile << "; ";
+            }
+            saveFile << ",";
+        }
+        // Check if the rentHouse attribute is a null pointer which means there is no rent house, then save "none"
+        if (member.rentHouse == nullptr) {
+            saveFile << "none" << ",";
+        } else {
+            saveFile << member.rentHouse->houseID << ",";
+        }
 
-        // // Check if the pending request list is empty then save as "none"
-        // if (member.pendingRequests.empty()) {
-        //     saveFile << "none" << ",";
-        // } else {
-        //     // Save each of the house ID of each House object in the pending request list following by a semicolon
-        //     for (int i = 0; i < member.pendingRequests.size(); i++) {
-        //         saveFile << member.pendingRequests[i]->houseID;
-        //         if (i + 1 == member.pendingRequests.size()) {
-        //             break;
-        //         }
-        //         saveFile << ";";
-        //     }
-        //     saveFile << ",";
-        // }
-        // // Check if the rentHouse attribute is a null pointer which means there is no rent house, then save "none"
-        // if (member.rentHouse == nullptr) {
-        //     saveFile << "none" << ",";
-        // } else {
-        //     saveFile << member.rentHouse->houseID << ",";
-        // }
-
-        // // Check the occupier ratings list, if it is empty then save as none
-        // if (member.ownerComments.empty()) {
-        //     saveFile << "none";
-        // } else {
-        //     int count = 0;
-        //     // Save each key of the map following by a colon and the value of the map
-        //     for (map<string, string>::iterator i = member.ownerComments.begin(); i != member.ownerComments.end(); i++) {
-        //         saveFile << i->first << ": " << i->second;
-        //         count++;
-        //         if (count == member.ownerComments.size() - 1) {
-        //             break;
-        //         }
-        //         saveFile << ";";
-        //     }
-        // }
-        // saveFile << endl;
-        // saveFile.close();
+        // Check the comment list, if it is empty then save as none
+        if (member.ownerComments.size() == 0) {
+            saveFile << "none" << endl;
+        } else {
+            int count = 0;
+            for (string comment: member.ownerComments) {
+                saveFile << comment;
+                if (count == member.ownerComments.size() - 1) {
+                    break;
+                } else {
+                    saveFile << "; ";
+                }
+                count++;
+            }
+        }
+        saveFile << endl;
     }
     return 1;
 }
 
+
 bool Data::updateHouseData(House house, string housePath) {
+    // Update the latest data
+    Data::preloadHouseData();
+    Data::preloadUserData();
+    Data::loadHouseData();
+    Data::loadUserData();
     // Check the file is able to be opened
     ifstream file(housePath);
     if (!file) {
@@ -1130,91 +1000,34 @@ bool Data::updateHouseData(House house, string housePath) {
     file.close();
     // Check if the data is already exist in the file then append it to the end of the file.
     if (checkDataExist(house.houseID, housePath)) {
-        cout << "Hello" << endl;
-        Data::preloadHouseData();
-        Data::preloadUserData();
-        Data::loadHouseData();
-        Data::loadUserData();
         fstream saveFile;
+
         // Open the file to write the data
-        saveFile.open(housePath, std::ios::out);
+        saveFile.open("./Data/housetemp.csv", std::ios::out);
         // Check the file whether it can be opened
         if (!saveFile) {
             cerr << "Cannot open file for saving!" << endl;
             return -1;
         }
-        // Save the title
-        saveFile << "ID,Start Date,End Date,Address,Location,Description, Consuming Points, Minimum Occupier Rating,House Ratings,Status,Occupiers,Request List,Comment List" << endl;
-        // Save each house in the house list into the file again
-        for (House house: houseList) {
-            // Save the house id, start date, end date, address, location, description, consuming points, minimum occupier rating
-            saveFile << house.houseID << "," << house.startDate << "," << house.endDate << "," << house.address << "," << house.location << "," << house.description << "," << house.consumingPoints << "," << house.minOccupierRating << ",";
-
-            // Save the house ratings
-            if (house.houseRatings.size() == 0) {
-                saveFile << "none" << ",";
-            } else {
-                for (int i = 0; i < house.houseRatings.size(); i++) {
-                    saveFile << house.houseRatings[i];
-                    if (i + 1 == house.houseRatings.size()) {
-                        break;
-                    }
-                    saveFile << ";";
-                }
-                saveFile << ",";
-            }
-
-            // Save the status, if it is rented then save as true
-            saveFile << ((house.status == true) ? "Rented" : "Not Rented") << ",";
-
-            // Check the occupiers list, if it is empty which means there is nobody rent the house, save "none"
-            if (house.occupiers.size() == 0) {
-                saveFile << "none" << ",";
-            } else {
-                // Save each occupier's id following by a semicolon
-                for (int i = 0; i < house.occupiers.size(); i++) {
-                    saveFile << house.occupiers[i]->id;
-                    if (i + 1 == house.occupiers.size()) {
-                        break;
-                    }
-                    saveFile << ";";
-                }
-                // Save at the end of the occupierRatings list a comma to mark the end
-                saveFile << ",";
-            }
-
-            // Check the request list, if it is empty which means this person does not request any house or have rented one already, save "none"
-            if (house.requestList.size() == 0) {
-                saveFile << "none" << ",";
-            } else {
-                // Save each of the house id following by a semicolon
-                for (int i = 0; i < house.requestList.size(); i++) {
-                    saveFile << house.requestList[i]->id;
-                    if (i + 1 == house.requestList.size()) {
-                        break;
-                    }
-                    saveFile << ";";
-                }
-                saveFile << ",";
-            }
-
-            // Save the occupier comments
-            if (house.occupierComment.size() == 0) {
-                saveFile << "none" << endl;
-            } else {
-                int count = 0;
-                for (map<string, string>::iterator i = house.occupierComment.begin(); i != house.occupierComment.end(); i++) {
-                    saveFile << i->first << ": " << i->second;
-                    count++;
-                    if (count == house.occupierComment.size() - 1) {
-                        break;
-                    }
-                    saveFile << ";";
-                }
-                saveFile << endl;
+        // Find the wanted house and replace the wanted house with the new house
+        for (int i = 0; i < houseList.size(); i++) {
+            if (house.houseID == houseList[i].houseID) {
+                houseList.erase(houseList.begin() + i, houseList.begin() + i + 1);
+                houseList.insert(houseList.begin() + i, house);
             }
         }
+        // Save each house to the file temp
+        for (House house: houseList) {
+            saveHouseData(house, "./Data/housetemp.csv");
+        }
+
+        // Close the file
         saveFile.close();
+        // Remove the old file
+        remove(housePath.c_str());
+        // Rename the temp file's name with the old file name
+        rename("./Data/housetemp.csv", housePath.c_str());
+
     } else {
         fstream saveFile;
         // Open the file for appending
@@ -1235,12 +1048,14 @@ bool Data::updateHouseData(House house, string housePath) {
         if (house.houseRatings.size() == 0) {
             saveFile << "none" << ",";
         } else {
+            int count = 0;
             for (int i = 0; i < house.houseRatings.size(); i++) {
                 saveFile << house.houseRatings[i];
-                if (i + 1 == house.houseRatings.size()) {
+                if (count == house.houseRatings.size() - 1) {
                     break;
                 }
-                saveFile << ";";
+                saveFile << "; ";
+                count++;
             }
             saveFile << ",";
         }
@@ -1252,12 +1067,14 @@ bool Data::updateHouseData(House house, string housePath) {
         if (house.occupiers.size() == 0) {
             saveFile << "none" << ",";
         } else {
+            int count = 0;
             for (int i = 0; i < house.occupiers.size(); i++) {
-                saveFile << house.occupiers[i]->id;
-                if (i + 1 == house.occupiers.size()) {
+                saveFile << house.occupiers[i]->username;
+                if (count == house.occupiers.size() - 1) {
                     break;
                 }
-                saveFile << ";";
+                saveFile << "; ";
+                count++;
             }
             saveFile << ",";
         }
@@ -1266,12 +1083,14 @@ bool Data::updateHouseData(House house, string housePath) {
         if (house.requestList.size() == 0) {
             saveFile << "none" << ",";
         } else {
+            int count = 0;
             for (int i = 0; i < house.requestList.size(); i++) {
-                saveFile << house.requestList[i]->id;
-                if (i + 1 == house.requestList.size()) {
+                saveFile << house.requestList[i]->username;
+                if (count == house.requestList.size() - 1) {
                     break;
                 }
-                saveFile << ";";
+                saveFile << "; ";
+                count++;
             }
             saveFile << ",";
         }
@@ -1281,18 +1100,18 @@ bool Data::updateHouseData(House house, string housePath) {
             saveFile << "none" << endl;
         } else {
             int count = 0;
-            // Save each key of the map following by a colon and the value of the map
-            for (map<string, string>::iterator i = house.occupierComment.begin(); i != house.occupierComment.end(); i++) {
-                saveFile << i->first << ": " << i->second;
-                count++;
+            for (string comment: house.occupierComment) {
+                saveFile << comment;
                 if (count == house.occupierComment.size() - 1) {
                     break;
+                } else {
+                    saveFile << "; ";
+                    count++;
                 }
-                saveFile << ";";
             }
-            saveFile << endl;
-            saveFile.close();
         }
+        saveFile << endl;
+        saveFile.close();
     }
     return 1;
 }

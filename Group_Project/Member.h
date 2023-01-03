@@ -2,7 +2,6 @@
 #define MEMBER_H
 
 #include<iostream>
-#include<map>
 #include<vector>
 #include "House.h"
 
@@ -11,7 +10,6 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
-using std::map;
 class Member {
 public:
     // allow Admin to access private attribute
@@ -47,14 +45,14 @@ private:
     vector<House*> pendingRequests {};
 
     // Comments of others on this user
-    map<string, string> ownerComments {}; // adjust later
+    vector<string> ownerComments {}; // adjust later
 public:
     //Constructor
     Member();
-    Member(string id, string fullName, string userName, string password, string phoneNumber, std::vector <double> occupierRatings, int creditPoints,map<string,string> ownerComment);
+    Member(string id, string fullName, string userName, string password, string phoneNumber, std::vector <double> occupierRatings, int creditPoints,vector<string> ownerComment);
     Member(string id, string fullName, string username, string password, string phoneNumber,
            House *myHouse, std::vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
-           House *rentHouse, map<string,string> ownerComments);
+           House *rentHouse, vector<string> ownerComments);
 
     // Basic Methods
     // login
@@ -91,3 +89,4 @@ public:
     static void displayListedHouse();
     static void removeRequest(Member *member, House *house);
 };
+#endif //MEMBER_H

@@ -6,7 +6,7 @@
 #include <vector>
 //Constructor
 Member::Member() = default;
-Member::Member(string id, string fullName, string userName, string password, string phoneNumber, std::vector <double> occupierRatings, int creditPoints,map<string,string> ownerComment) {
+Member::Member(string id, string fullName, string userName, string password, string phoneNumber, std::vector <double> occupierRatings, int creditPoints,vector<string> ownerComment) {
     this->id = std::move(id);
     this->fullName = std::move(fullName);
     this->username = std::move(userName);
@@ -20,7 +20,7 @@ Member::Member(string id, string fullName, string userName, string password, str
 
 Member::Member(string id, string fullName, string username, string password, string phoneNumber,
                House *myHouse, vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
-               House *rentHouse, map<string,string> ownerComments) {
+               House *rentHouse, vector<string> ownerComments) {
     this->id = std::move(id);
     this->username = std::move(username);
     this->password = std::move(password);
@@ -155,8 +155,8 @@ void Member::showFullInfo() {
         // x.first = name of commenters, x.second = comments
         cout << "\t";
         for (auto &i : Data::userList) {
-            if (i.username == x.first) {
-                cout << std::setw(10) << x.first << "-" << i.fullName << " comments: " << x.second << endl;
+            for (auto &j : i.ownerComments) {
+                cout << "\t" << j << endl;
             }
         }
     }
@@ -300,7 +300,7 @@ void Member::rateOccupier() {
                 cout << "Type here: ";
                 string comment;
                 getline(std::cin,comment);
-                i->ownerComments.insert({Member::currentMember->username, comment});
+                i->ownerComments.push_back(Member::currentMember->username + ": "+ comment);
                 return;
             }
             return;
@@ -308,7 +308,6 @@ void Member::rateOccupier() {
     }
     cout << "Username not found" << endl;
 }
-
 void Member::searchHouse() {
     cout << "Enter location: ";
     string location;

@@ -31,7 +31,7 @@ public:
     bool status;
     vector<Member*> occupiers;
     vector<Member*> requestList;
-    std::map<string, string> occupierComment;
+    vector<string> occupierComment;
 public:
     House();
     House(string houseId, string startDate, string endDate, string address,
