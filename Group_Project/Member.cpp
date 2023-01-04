@@ -62,8 +62,12 @@ bool Member::login() {
     isLoggedIn = false;
     return false;
 }
+
 void Member::logout() {
-    Data::saveUserData(*Member::currentMember);
+    Data::updateUserData(*Member::currentMember);
+    Data::preloadHouseData();
+    Data::preloadUserData();
+    Data::loadHouseData();
     Data::loadUserData();
     Member::isLoggedIn = false;
 }
@@ -98,8 +102,11 @@ bool Member::register_account() {
 
     cout << "Register successfully!" << endl;
     memberCounter++;
-    Data::saveUserData(*Member::currentMember);
+    Data::updateUserData(*Member::currentMember);
+    Data::preloadHouseData();
     Data::preloadUserData();
+    Data::loadHouseData();
+    Data::loadUserData();
     return true;
 }
 

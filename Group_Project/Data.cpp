@@ -285,7 +285,7 @@ bool Data::saveHouseData(House house, string path) {
         }
 
         // Save the occupier comments
-        if (house.occupierComment.empty()) {
+        if (house.occupierComment.size() == 0) {
             saveFile << "none" << endl;
         } else {
             int count = 0;

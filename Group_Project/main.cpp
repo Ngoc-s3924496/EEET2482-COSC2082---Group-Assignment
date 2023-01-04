@@ -515,7 +515,7 @@ void pageAdmin() {
 void pageEnd() {
     //if not null
     if (Member::currentMember) {
-        Data::saveUserData(*Member::currentMember);
+        Data::updateUserData(*Member::currentMember);
     }
     cout << "Thank you for using this program" << endl;
     cout << "See you next time!" << endl;
