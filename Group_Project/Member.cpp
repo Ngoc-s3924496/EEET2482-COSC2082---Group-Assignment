@@ -64,11 +64,17 @@ bool Member::login() {
 }
 
 void Member::logout() {
+    cout << "Check1" << endl;
     Data::updateUserData(*Member::currentMember);
+    cout << "Check2" << endl;
     Data::preloadHouseData();
+    cout << "Check3" << endl;
     Data::preloadUserData();
+    cout << "Check4" << endl;
     Data::loadHouseData();
+    cout << "Check5" << endl;
     Data::loadUserData();
+    cout << "Check6" << endl;
     Member::isLoggedIn = false;
 }
 bool Member::register_account() {

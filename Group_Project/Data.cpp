@@ -482,11 +482,11 @@ bool Data::preloadUserData(string memberPath) {
         }
 
         // Append a loaded user into the local vector
-        userList.push_back(Member(id, fullName, userName, password, phoneNumber, occupierRatings, stoi(creditPoints), commentList));
+        userList.emplace_back(id, fullName, userName, password, phoneNumber, occupierRatings, stoi(creditPoints), commentList);
     }
     // Close the file
     openFile.close();
-    return 1;
+    return true;
 }
 
 bool Data::preloadHouseData(string housePath) {
