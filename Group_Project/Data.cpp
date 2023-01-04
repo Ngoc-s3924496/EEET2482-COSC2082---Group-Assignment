@@ -977,9 +977,10 @@ bool Data::updateUserData(Member member, string memberPath) {
                     saveFile << "; ";
                 }
                 count++;
+                saveFile << endl;
             }
         }
-        saveFile << endl;
+        saveFile.close();
     }
     return 1;
 }
@@ -1107,11 +1108,12 @@ bool Data::updateHouseData(House house, string housePath) {
                 } else {
                     saveFile << "; ";
                     count++;
+                    saveFile << endl;
                 }
             }
         }
-        saveFile << endl;
+
         saveFile.close();
     }
-    return 1;
+    return true;
 }
