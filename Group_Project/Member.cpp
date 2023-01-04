@@ -140,25 +140,19 @@ void Member::showFullInfo() {
         }
     }
     cout << "Rent house: " << endl;
-    if (rentHouse == nullptr) {
+    if (this->rentHouse == nullptr) {
         cout << "\t" << "There is no house to be shown" << endl;
     } else {
-        cout << "\t" <<rentHouse->houseID << "\n\t\t" << rentHouse->address << "\n\t\t" << rentHouse->location << "\n\t\t" << rentHouse->description << endl;
+        cout << "\t" <<this->rentHouse->houseID << "\n\t\t" << this->rentHouse->address << "\n\t\t" << this->rentHouse->location << "\n\t\t" << this->rentHouse->description << endl;
     }
     // print comments
     cout << "Comments on this member: " << endl;
-    if (ownerComments.empty()) {
+    if (this->ownerComments.empty()) {
         cout << "\tThere are no comments" << endl;
         return;
     }
     for (auto &x: this->ownerComments) {
-        // x.first = name of commenters, x.second = comments
-        cout << "\t";
-        for (auto &i : Data::userList) {
-            for (auto &j : i.ownerComments) {
-                cout << "\t" << j << endl;
-            }
-        }
+        cout << "\t" << x << endl;
     }
     // new line
     cout << endl;
