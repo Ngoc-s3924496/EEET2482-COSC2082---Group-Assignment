@@ -33,30 +33,9 @@ void goBackAdmin();
 void lineBreak();
 
 bool checkExist(vector<string> stringlist, string element);
+
 int main() {
-    Data::preloadHouseData();
-    Data::preloadUserData();
-    Data::loadHouseData();
-    Data::loadUserData();
-
-    // cout << data.houseList[0].houseID;
-    // data.houseList[0].showFullHouse();
-    // for (House *house : data.userList[3].pendingRequests) {
-    //     house->showFullHouse();
-    // }
-    // data.userList[3].rentHouse->showFullHouse();
-    // for (Member *member: data.houseList[0].occupiers) {
-    //     member->showInfo();
-    // }
-    // for (Member *member: data.houseList[0].requestList) {
-    //     member->showInfo();
-    // }
-
-    // for (int i = 0; i < 10; i++) {
-    //     cout << i+1 << "\t" << Data::houseList[i].occupiers.size() << "\t" << Data::houseList[i].requestList.size() << endl;
-    // }
-
-    // Data::houseList[0].requestList[0]->showInfo();
+    Data::loadFullData();
 
     // Call constructor for classes
     cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;
@@ -71,32 +50,6 @@ int main() {
     pageStart();
     return 0;
 }
-
-// int main() {
-//     House h1("123", "1/1/2022", "2/2/2023", "Nothing to show", "SAIGON", "Nothing to show here");
-//     Member m1("abc", "Anonymous", "noname123", "123123123", "0123123345");
-
-//     Data *data = new Data();
-//     if(data->LoadHouseData()) {
-//         cout << "Load successfully";
-//         for (House house: data->houseList) {
-//             house.showFullHouse();
-//         }
-//     }
-
-//     // string test ="ID,Full Name,Username,Password,Phone Number,Owned House,Occupied Ratings,Credit Points,Pending Requests,Rent House,Comment List";
-//     // cout << test.length();
-//     // string numStr = test.substr(0, test.find("; "));
-//     // double num = stoi(numStr);
-//     // cout << num + 1 << endl;
-//     // test.erase(0, test.find("; ") + 2);
-//     // cout << test.find("; ");
-//     // numStr = test.substr(0, test.find(","));
-//     // test.erase(0, test.find(",") + 1);
-//     // num = stod(numStr);
-//     // cout << num << endl;
-//     // cout << test;
-// }
 
 void pageStart() {
     string input;

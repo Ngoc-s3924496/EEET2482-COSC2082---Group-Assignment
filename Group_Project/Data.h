@@ -42,6 +42,7 @@ public:
     static bool checkDataExist(string id, string path);
     static bool updateUserData(Member member, string memberPath = MEMBER_DATABASE);
     static bool updateHouseData(House house, string housePath = HOUSE_DATABASE);
+    static bool loadFullData();
 };
 
 #endif

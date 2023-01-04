@@ -112,8 +112,8 @@ bool Data::saveUserData(Member member, string path) {
                 }
                 count++;
             }
-        }
-        saveFile << endl;
+            saveFile << endl;
+        } 
     } else {
         // Open the file to append the data
         saveFile.open(path, std::ios::app);
@@ -193,9 +193,8 @@ bool Data::saveUserData(Member member, string path) {
                 }
                 count++;
             }
+            saveFile << endl;
         }
-        saveFile << endl;
-
     }
     // Close the file
     saveFile.close();
@@ -298,9 +297,8 @@ bool Data::saveHouseData(House house, string path) {
                 }
                 count++;
             }
+            saveFile << endl;
         }
-        saveFile << endl;
-
     } else {
         // Open the file for appending
         saveFile.open(path, std::ios::app);
@@ -381,8 +379,8 @@ bool Data::saveHouseData(House house, string path) {
                 }
                 count++;
             }
+            saveFile << endl;
         }
-        saveFile << endl;
     }
     // Close the file
     saveFile.close();
@@ -859,10 +857,7 @@ bool Data::checkDataExist(string id, string path) {
 
 bool Data::updateUserData(Member member, string memberPath) {
     // Update the latest data
-    Data::preloadHouseData();
-    Data::preloadUserData();
-    Data::loadHouseData();
-    Data::loadUserData();
+    Data::loadFullData();   
     // Check the file is able to be opened
     ifstream file(memberPath);
     if (!file) {
@@ -977,8 +972,8 @@ bool Data::updateUserData(Member member, string memberPath) {
                     saveFile << "; ";
                 }
                 count++;
-                saveFile << endl;
             }
+            saveFile << endl;
         }
         saveFile.close();
     }
@@ -988,10 +983,7 @@ bool Data::updateUserData(Member member, string memberPath) {
 
 bool Data::updateHouseData(House house, string housePath) {
     // Update the latest data
-    Data::preloadHouseData();
-    Data::preloadUserData();
-    Data::loadHouseData();
-    Data::loadUserData();
+    Data::loadFullData(); 
     // Check the file is able to be opened
     ifstream file(housePath);
     if (!file) {
@@ -1108,12 +1100,19 @@ bool Data::updateHouseData(House house, string housePath) {
                 } else {
                     saveFile << "; ";
                     count++;
-                    saveFile << endl;
                 }
             }
+            saveFile << endl;
         }
-
         saveFile.close();
     }
     return true;
+}
+
+bool Data::loadFullData() {
+    Data::preloadHouseData();
+    Data::preloadUserData();
+    Data::loadHouseData();
+    Data::loadUserData();
+    return 1;
 }
