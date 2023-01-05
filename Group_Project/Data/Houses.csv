@@ -9,3 +9,9 @@ H7,04/05/2022,30/11/2022,"M-One South Saigon Apartment W. Tan Kieng",HANOI,"This
 H8,01/12/2022,31/12/2022,"37/14B Tran Xuan Soan W. Tan Hung D.7",SAIGON,"This is a great house for sharing between students since it is located near bus stops convenient store market gasoline station etc. This rent price is negotiable",100,0,4; 3.5,Not Rented,s3912354; s3912345,s3912347; s3912351,s3912354: Good; s3912345: Bad
 H9,02/12/2022,02/01/2022,"94 Mac Dinh Chi W.7",HUE,"This is a 200 square meters villa with full furnitures and a pool. The rent price is negotiable.",150,-5,3; 4; 2; 1,Not Rented,s3912348; s3912346; s3912351; s3912352,s3912347; s3912350,s3912346: Very bad; s3912351: Qualified; s3912352: Reasonable price
 H10,01/11/2022,30/11/2022,"269F/202 Nguyen Trai W.5",HUE,"This is a two-floor house with no furnitures and the rent price is reasonable",100,-10,-9; -9,Not Rented,s3912347; s3912348,s3912348; s3912350,s3912348: Very dirty
+H11,,,cach mang thang 8,SAIGON,big house,0,0,none,Not Rented,none,none,none
+H12,,,cach mang thang 8,saigon,big house,0,0,none,Not Rented,none,none,none
+H13,,,nguyen Hue,SAIGON,expensive,0,0,none,Not Rented,none,none,none
+H14,,,123,HUE,cute,0,0,none,Not Rented,none,none,none
+H15,,,Dien Bien Phu,SAIGON,old,0,0,none,Not Rented,none,none,none
+H16,,,asfas,HUE,adf,0,0,none,Not Rented,none,none,none

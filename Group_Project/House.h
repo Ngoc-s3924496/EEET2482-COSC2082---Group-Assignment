@@ -11,7 +11,7 @@ using std::cin;
 using std::endl;
 using std::vector;
 
-const string locations[3] = {"HANOI", "HUE", "SAIGON"};
+static string locations[3] = {"HANOI", "HUE", "SAIGON"};
 
 class Member;
 class House {

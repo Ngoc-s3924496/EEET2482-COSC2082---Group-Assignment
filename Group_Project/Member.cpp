@@ -119,6 +119,21 @@ void Member::addHouse() {
     Member::currentMember->myHouse->houseID = "H" + std::to_string(House::houseCounter);
     cout << "Enter location: ";
     getline(cin,data);
+    bool isNotValid = true;
+    while (isNotValid) {
+        for (auto &location : locations) {
+            if (strcasecmp(location.c_str(),data.c_str()) == 0) {
+                isNotValid = false;
+                break;
+            }
+        }
+        if(isNotValid) {
+            cout << "Invalid location!" << endl;
+            cout << "Only SAIGON, HANOI and HUE are permitted." << endl;
+            cout << "Enter location: ";
+            getline(cin,data);
+        }
+    }
     Member::currentMember->myHouse->location = data;
     cout << "Enter address: ";
     getline(cin,data);
@@ -127,7 +142,8 @@ void Member::addHouse() {
     getline(cin,data);
     Member::currentMember->myHouse->description = data;
     Data::updateHouseData(*Member::currentMember->myHouse);
-    Data::loadFullData();
+    Data::loadHouseData();
+//    Data::loadFullData();
     cout << "Your house is registered successfully!" << endl;
 }
 double Member::avgScore() {

@@ -1,6 +1,6 @@
 #include "House.h"
 #include "Member.h"
-
+#include <cstring>
 using std::string;
 using std::cout;
 using std::cin;
@@ -30,12 +30,12 @@ House::House(string houseId, string startDate, string endDate, string address,
     this->occupiers = {};
     this->requestList = {};
     // Check if location is valid or not
-    for (const string &loc: locations) {
-        if (location == loc) {
+    for (string &loc: locations) {
+        if (strcasecmp(location.c_str(),loc.c_str()) == 0) {
             this->location = location;
         }
     }
-    if (this->location == "") {
+    if (this->location.empty()) {
         cerr << "Invalid location" << endl;
     }
     houseCounter++;
