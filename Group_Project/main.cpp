@@ -196,6 +196,7 @@ void pageMember() {
                 case 2:
                     Member::displayListedHouse();
                     goBackMember();
+                    break;
                 case 3:
                     // listhouse() function
                     Member::listHouse();
@@ -291,6 +292,7 @@ void pageMember() {
             case 2:
                 Member::displayListedHouse();
                 goBackMember();
+                break;
             case 3:
                 // listhouse() function
                 Member::listHouse();

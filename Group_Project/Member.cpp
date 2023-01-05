@@ -374,6 +374,7 @@ void Member::makeRequest() {
 void Member::displayListedHouse(){
     if (House::listingHouse.empty()){
         cout << "No house on listing" << endl;
+        return;
     }
     for (auto& i : House::listingHouse){
         cout << endl;
