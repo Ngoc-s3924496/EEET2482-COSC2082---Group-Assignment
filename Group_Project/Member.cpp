@@ -363,6 +363,8 @@ void Member::makeRequest() {
                 currentMember->pendingRequests.push_back(&j);
                 currentMember->creditPoint -= j.consumingPoints;
                 cout << "Request successfully!" << endl;
+                Data::updateUserData(*Member::currentMember);
+                Data::loadFullData();
                 return;
             }
             cout << "Not enough points!" << endl;
