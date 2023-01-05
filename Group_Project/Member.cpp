@@ -104,6 +104,27 @@ bool Member::register_account() {
     return true;
 }
 
+void Member::addHouse() {
+    if (Member::currentMember->myHouse != nullptr) {
+        cout << "You have already registered a house!" << endl;
+        return;
+    }
+    string data;
+    Member::currentMember->myHouse = new House();
+    cout << "Registering your house..." << endl;
+    cout << "Enter location: ";
+    getline(cin,data);
+    Member::currentMember->myHouse->location = data;
+    cout << "Enter address: ";
+    getline(cin,data);
+    Member::currentMember->myHouse->address = data;
+    cout << "Enter description: ";
+    getline(cin,data);
+    Member::currentMember->myHouse->description = data;
+    Data::updateHouseData(*Member::currentMember->myHouse);
+    Data::loadFullData();
+    cout << "Your house is registered successfully!" << endl;
+}
 double Member::avgScore() {
     double avgScore {};
     if (this->occupierRatings.empty()) {

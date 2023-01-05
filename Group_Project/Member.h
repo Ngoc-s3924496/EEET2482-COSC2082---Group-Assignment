@@ -57,6 +57,7 @@ public:
     // login
     static bool login();
     static void logout();
+    static void addHouse();
     // calculate average score for the current member
     double avgScore();
     // New user -> register an account
