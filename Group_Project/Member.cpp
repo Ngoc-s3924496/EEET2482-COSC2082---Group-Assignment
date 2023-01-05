@@ -221,6 +221,14 @@ void Member::removeRequest(Member* member, House* house){
 
 void Member::unListHouse(int i) {
     int index = 0;
+    if (House::listingHouse.empty()) {
+        cout << "No house is listed at the moment." << endl;
+        return;
+    }
+    if (currentMember->myHouse == nullptr) {
+        cout << "You have no listed house!" << endl;
+        return;
+    }
     for (auto &j : House::listingHouse){
         if (currentMember->myHouse->houseID == j.houseID){
             House::listingHouse.erase(House::listingHouse.begin() + index);
@@ -250,6 +258,10 @@ void Member::viewPendingRequest() {
 }
 
 void Member::acceptRequest() {
+    if (currentMember->myHouse == nullptr) {
+        cout << "You have no house!" << endl;
+        return;
+    }
     if (currentMember->myHouse->requestList.empty()){
         cout << "Your house have no request" << endl;
         return;
@@ -276,6 +288,10 @@ void Member::acceptRequest() {
 }
 
 void Member::rateOccupier() {
+    if (currentMember->myHouse == nullptr) {
+        cout << "You have no house!" << endl;
+        return;
+    }
     for (auto &i : currentMember->myHouse->occupiers){
         cout << i->username << endl;
     }
