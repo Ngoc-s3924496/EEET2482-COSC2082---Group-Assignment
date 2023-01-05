@@ -38,6 +38,7 @@ House::House(string houseId, string startDate, string endDate, string address,
     if (this->location == "") {
         cerr << "Invalid location" << endl;
     }
+    houseCounter++;
 };
 
 // Constructor full
@@ -62,6 +63,7 @@ House::House(string houseId, string startDate, string endDate, string address,
     if (this->location == "") {
         cerr << "Invalid location" << endl;
     }
+    houseCounter++;
 };
 
 // Show simple version of the house for Guest viewing
@@ -97,7 +99,7 @@ void House::showFullHouse() {
         cout << "House Rating Score: " << this->avgScore() << endl;
         cout << "Request list: " << endl;
         if (this->requestList.empty()) {
-            cout << "\tNobody requested this house" << endl;
+            cout << "Nobody requested this house" << endl;
         } else {
             for (Member *member: this->requestList) {
                 member->showMiniInfo();
@@ -106,7 +108,7 @@ void House::showFullHouse() {
         }
         cout << "Comment List: " << endl;
         if (this->occupierComment.empty()) {
-            cout << "\tNobody has commented this house" << endl;
+            cout << "Nobody has commented this house" << endl;
         } else {
             for (int i = 0; i < occupierComment.size(); ++i) {
                 cout << occupierComment.at(i) << endl;

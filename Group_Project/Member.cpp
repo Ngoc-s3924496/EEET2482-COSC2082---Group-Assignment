@@ -19,14 +19,18 @@ Member::Member(string id, string fullName, string userName, string password, str
 }
 
 Member::Member(string id, string fullName, string username, string password, string phoneNumber,
-               House *myHouse, vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
+               string myHouseID, vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
                House *rentHouse, vector<string> ownerComments) {
     this->id = std::move(id);
     this->username = std::move(username);
     this->password = std::move(password);
     this->fullName = std::move(fullName);
     this->phoneNumber = std::move(phoneNumber);
-    this->myHouse = myHouse;
+    for (auto &i : Data::houseList) {
+        if (i.houseID == myHouseID) {
+            this->myHouse = &i;
+        }
+    }
     this->occupierRatings = std::move(occupierRatings);
     this->creditPoint = creditPoint;
     this->pendingRequests = std::move(pendingRequests);
@@ -112,6 +116,7 @@ void Member::addHouse() {
     string data;
     Member::currentMember->myHouse = new House();
     cout << "Registering your house..." << endl;
+    Member::currentMember->myHouse->houseID = "H" + std::to_string(House::houseCounter);
     cout << "Enter location: ";
     getline(cin,data);
     Member::currentMember->myHouse->location = data;
@@ -147,6 +152,13 @@ void Member::showFullInfo() {
     cout << "Phone number: " << this->phoneNumber << endl;
     cout << "Credit point: " << this->creditPoint << endl;
     cout << "Occupier rating: " << std::setprecision(2) << std::fixed << this->avgScore() << endl;
+
+    if (this->myHouse != nullptr) {
+        this->myHouse->showFullHouse();
+    }
+    else {
+        cout << "No house registered!" << endl;
+    }
     // print all pending requests
     cout << "Pending requests: " << endl;
     if (this-> pendingRequests.empty()) {

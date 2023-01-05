@@ -50,7 +50,7 @@ public:
     Member();
     Member(string id, string fullName, string userName, string password, string phoneNumber, std::vector <double> occupierRatings, int creditPoints,vector<string> ownerComment);
     Member(string id, string fullName, string username, string password, string phoneNumber,
-           House *myHouse, std::vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
+           string myHouseID, std::vector<double> occupierRatings, int creditPoint, vector<House*> pendingRequests,
            House *rentHouse, vector<string> ownerComments);
 
     // Basic Methods

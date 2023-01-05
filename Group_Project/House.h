@@ -19,23 +19,24 @@ public:
     friend class Member;
     friend class Admin;
     friend class Data;
+    inline static int houseCounter {1};
 public:
-    string houseID;
-    string startDate;
-    string endDate;
-    string address;
-    string location;
-    string description;
-    double consumingPoints, minOccupierRating;
-    vector<double> houseRatings;
-    bool status;
+    string houseID {};
+    string startDate {};
+    string endDate {};
+    string address {};
+    string location {};
+    string description {};
+    double consumingPoints {}, minOccupierRating {};
+    vector<double> houseRatings {};
+    bool status {};
 
     // List of available houses
     inline static std::vector<House> listingHouse {};
 
-    vector<Member*> occupiers;
-    vector<Member*> requestList;
-    vector<string> occupierComment;
+    vector<Member*> occupiers {};
+    vector<Member*> requestList {};
+    vector<string> occupierComment {};
 public:
     House();
     House(string houseId, string startDate, string endDate, string address,
