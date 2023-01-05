@@ -32,8 +32,7 @@ private:
     // Rent house
     House *rentHouse = nullptr;
 
-    // List of available houses
-    inline static std::vector<House> listingHouse {};
+
 
     // User money
     int creditPoint {};
@@ -45,7 +44,7 @@ private:
     vector<House*> pendingRequests {};
 
     // Comments of others on this user
-    vector<string> ownerComments {}; // adjust later
+    vector<string> ownerComments {};
 public:
     //Constructor
     Member();

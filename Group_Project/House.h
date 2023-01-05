@@ -29,6 +29,10 @@ public:
     double consumingPoints, minOccupierRating;
     vector<double> houseRatings;
     bool status;
+
+    // List of available houses
+    inline static std::vector<House> listingHouse {};
+
     vector<Member*> occupiers;
     vector<Member*> requestList;
     vector<string> occupierComment;

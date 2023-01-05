@@ -100,10 +100,7 @@ bool Member::register_account() {
     cout << "Register successfully!" << endl;
     memberCounter++;
     Data::updateUserData(*Member::currentMember);
-    Data::preloadHouseData();
-    Data::preloadUserData();
-    Data::loadHouseData();
-    Data::loadUserData();
+    Data::loadFullData();
     return true;
 }
 
@@ -179,10 +176,10 @@ void Member::listHouse() {
     getline(cin, endDate);
     cout << "Enter your listing consuming points: ";
     getline(cin, consumingPoint);
-    cout << "Do you want to have a occupier rating requirement? (Y/N)" << endl;
+    cout << "Do you want to have a occupier rating requirement? (Y)" << endl;
     string choice;
     getline(cin, choice);
-    if (choice == "Y") {
+    if (choice == "Y" || choice == "y") {
         cout << "Enter your listing consuming points: " << endl;
         getline(cin, minRating);
         currentMember->myHouse->minOccupierRating = stod(minRating);
@@ -194,11 +191,11 @@ void Member::listHouse() {
     currentMember->myHouse->endDate = endDate;
     currentMember->myHouse->consumingPoints = stod(consumingPoint);
     unListHouse(1);
-    Member::listingHouse.push_back(*currentMember->myHouse);
+    House::listingHouse.push_back(*currentMember->myHouse);
 }
 
 void Member::removeRequest(Member* member, House* house){
-    // Remove member from house requestlist
+    // Remove member from house request list
     int index = 0;
     for (auto &i : house->requestList){
         if (i->id == member->id){
@@ -224,9 +221,9 @@ void Member::removeRequest(Member* member, House* house){
 
 void Member::unListHouse(int i) {
     int index = 0;
-    for (auto &j : Member::listingHouse){
+    for (auto &j : House::listingHouse){
         if (currentMember->myHouse->houseID == j.houseID){
-            Member::listingHouse.erase(Member::listingHouse.begin() + index);
+            House::listingHouse.erase(House::listingHouse.begin() + index);
             break;
         }
         else{
@@ -291,10 +288,10 @@ void Member::rateOccupier() {
             string score_str;
             getline(cin,score_str);
             i->occupierRatings.push_back(stod(score_str));
-            cout << "Do you want to leave a comment? (Y/N): ";
+            cout << "Do you want to leave a comment? (Y): ";
             string choice;
             getline(cin, choice);
-            if (choice == "Y") {
+            if (choice == "Y" || choice == "y") {
                 cout << "Type here: ";
                 string comment;
                 getline(std::cin,comment);
@@ -314,10 +311,10 @@ void Member::searchHouse() {
     for (auto &i : locations) {
         if (strcasecmp(i.c_str(),location.c_str()) == 0) {
             // list of house
-            if (Member::listingHouse.empty()) {
+            if (House::listingHouse.empty()) {
                 cout << "No house available in " << i  << "!" << endl;
             }
-            for (auto &j : Member::listingHouse) {
+            for (auto &j : House::listingHouse) {
                 // print house with that location
                 if (strcasecmp(j.location.c_str(),location.c_str()) == 0) {
                     cout << j.houseID << " " << j.address << " " << j.location << endl;
@@ -331,11 +328,11 @@ void Member::searchHouse() {
 }
 
 void Member::makeRequest() {
-    if (Member::listingHouse.empty()) {
+    if (House::listingHouse.empty()) {
         cout << "There is currently no available house!" << endl;
         return;
     }
-    for (auto &i : Member::listingHouse) {
+    for (auto &i : House::listingHouse) {
         cout << std::setw(10) << i.houseID << " " << i.address << " " << i.location << endl;
         cout << std::setw(15) << i.minOccupierRating << endl;
     }
@@ -343,7 +340,7 @@ void Member::makeRequest() {
     string house_id;
     getline(cin,house_id);
     // check if house_id is valid
-    for (auto &j : Member::listingHouse) {
+    for (auto &j : House::listingHouse) {
         if (j.houseID == house_id) {
             if (currentMember->avgScore() >= j.minOccupierRating) {
                 // assign this house
@@ -359,10 +356,10 @@ void Member::makeRequest() {
     cout << "Invalid house id!" << endl;
 }
 void Member::displayListedHouse(){
-    if (Member::listingHouse.empty()){
+    if (House::listingHouse.empty()){
         cout << "No house on listing" << endl;
     }
-    for (auto& i : Member::listingHouse){
+    for (auto& i : House::listingHouse){
         cout << endl;
         cout << "Name: " << i.houseID << endl;
         cout << "Address: " << i.address << endl;
@@ -394,10 +391,10 @@ void Member::ratingHouse() {
     string score_str;
     getline(cin, score_str);
     currentMember->rentHouse->houseRatings.push_back(strtod(score_str.c_str(), nullptr));
-    cout << "Do you want to leave a comment (Y/N) ?";
+    cout << "Do you want to leave a comment (Y) ?";
     string choice;
     getline(cin, choice);
-    if (choice == "Y") {
+    if (choice == "Y" || choice == "y") {
         cout << "Type here: ";
         string comment;
         getline(std::cin,comment);
