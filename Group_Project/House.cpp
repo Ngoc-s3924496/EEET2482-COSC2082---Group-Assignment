@@ -14,7 +14,7 @@ House::House() = default;
 
 House::House(string houseId, string startDate, string endDate, string address,
              string location, string description, double consumingPoints, double minOccupierRating,
-             vector<double> houseRatings, bool status, vector <string> occupierComment) : houseID(houseId),
+             vector<double> houseRatings, bool isListed, bool status, vector <string> occupierComment) : houseID(houseId),
                                                                                           startDate(startDate),
                                                                                           endDate(endDate),
                                                                                           address(address),
@@ -24,7 +24,7 @@ House::House(string houseId, string startDate, string endDate, string address,
                                                                                           minOccupierRating(
                                                                                                   minOccupierRating),
                                                                                           houseRatings(houseRatings),
-                                                                                          status(status),
+                                                                                          isListed(isListed), status(status),
                                                                                           occupierComment(
                                                                                                   occupierComment) {
     this->occupiers = {};
@@ -44,14 +44,14 @@ House::House(string houseId, string startDate, string endDate, string address,
 // Constructor full
 House::House(string houseId, string startDate, string endDate, string address,
              string location, string description, double consumingPoints, double minOccupierRating,
-             vector<double> houseRatings, bool status,
+             vector<double> houseRatings, bool isListed, bool status,
              vector<Member *> occupiers, vector<Member *> requestList,
              vector <string> occupierComment) : houseID(houseId), startDate(startDate),
                                                 endDate(endDate),
                                                 address(address), description(description),
                                                 consumingPoints(consumingPoints), minOccupierRating(minOccupierRating),
                                                 houseRatings(houseRatings),
-                                                status(status), occupiers(occupiers),
+                                                isListed(isListed), status(status), occupiers(occupiers),
                                                 requestList(requestList),
                                                 occupierComment(occupierComment) {
     // Check if location is valid or not

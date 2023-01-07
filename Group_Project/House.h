@@ -29,7 +29,7 @@ public:
     string description {};
     double consumingPoints {}, minOccupierRating {};
     vector<double> houseRatings {};
-    bool status {};
+    bool status {}, isListed {};
 
     // List of available houses
     inline static std::vector<House> listingHouse {};
@@ -40,9 +40,9 @@ public:
 public:
     House();
     House(string houseId, string startDate, string endDate, string address,
-          string location, string description, double consumingPoints, double minOccupierRating, vector<double> houseRatings, bool status, vector<string> occupierComment);
+          string location, string description, double consumingPoints, double minOccupierRating, vector<double> houseRatings, bool isListed, bool status, vector<string> occupierComment);
     House(string houseId, string startDate, string endDate, string address,
-          string location, string description, double consumingPoints, double minOccupierRating, vector<double> houseRatings, bool status,
+          string location, string description, double consumingPoints, double minOccupierRating, vector<double> houseRatings, bool isListed, bool status,
           vector<Member*> occupiers, vector<Member*> requestList,
           vector<string> occupierComment);
 

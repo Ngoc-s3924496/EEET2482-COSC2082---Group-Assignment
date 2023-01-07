@@ -225,7 +225,7 @@ bool Data::saveHouseData(House house, string path) {
         }
 
         // Save the title
-        saveFile << "ID,Start Date,End Date,Address,Location,Description, Consuming Points, Minimum Occupier Rating,House Ratings,Status,Occupiers,Request List,Comment List" << endl;
+        saveFile << "ID,Start Date,End Date,Address,Location,Description, Consuming Points, Minimum Occupier Rating,House Ratings,For Rent,Status,Occupiers,Request List,Comment List" << endl;
 
         // Save the house id, start date, end date, address, location, description, consuming points, minimum occupier rating
         saveFile << house.houseID << "," << house.startDate << "," << house.endDate << "," << house.address << "," << house.location << "," << house.description << "," << house.consumingPoints << "," << house.minOccupierRating << ",";
@@ -245,6 +245,9 @@ bool Data::saveHouseData(House house, string path) {
             }
             saveFile << ",";
         }
+
+        // Save the house whether it is available for rent, if it is yes then save as true
+        saveFile << ((house.isListed == true) ? "Yes" : "No") << ",";
 
         // Save the status, if it is rented then save as true
         saveFile << ((house.status == true) ? "Rented" : "Not Rented") << ",";
@@ -329,6 +332,9 @@ bool Data::saveHouseData(House house, string path) {
             }
             saveFile << ",";
         }
+
+        // Save the house whether it is available for rent, if it is yes then save as true
+        saveFile << ((house.isListed == true) ? "Yes" : "No") << ",";
 
         // Save the status
         saveFile << ((house.status == true) ? "Rented" : "Not Rented") << ",";
@@ -508,7 +514,7 @@ bool Data::preloadHouseData(string housePath) {
     while (getline(openFile, line)) {
         string houseID, startDate, endDate, address, location, description, consumingPoints, minOccupierRating, readString, memberID, key, value, keyValueString;
         vector<double> houseRatings;
-        bool status = false;
+        bool status = false, isListed = false;
         vector<string> occupierComment;
 
         // Load the house id, start date, end date, address, location, description into local variables
@@ -574,6 +580,16 @@ bool Data::preloadHouseData(string housePath) {
             }
         }
 
+        // Load the isListed to see whether is house is open for rent
+        readString = line.substr(0, line.find(','));
+        line.erase(0, line.find(',') + 1);
+        // Check if the string is yes, then the isListed variable will be true and vice versa
+        if (readString == "Yes") {
+            isListed = true;
+        } else {
+            isListed = false;
+        }
+
         // Load the status into a local variable
         readString = line.substr(0, line.find(','));
         line.erase(0, line.find(',') + 1);
@@ -607,7 +623,7 @@ bool Data::preloadHouseData(string housePath) {
         }
 
         // Append a new House object to the local vector
-        houseList.push_back(House(houseID, startDate, endDate, address, location, description, stod(consumingPoints), stod(minOccupierRating), houseRatings, status, occupierComment));
+        houseList.push_back(House(houseID, startDate, endDate, address, location, description, stod(consumingPoints), stod(minOccupierRating), houseRatings, isListed, status, occupierComment));
     }
     // Close the file
     openFile.close();
@@ -1052,6 +1068,9 @@ bool Data::updateHouseData(House house, string housePath) {
             }
             saveFile << ",";
         }
+
+        // Save the house whether it is available for rent, if it is yes then save as true
+        saveFile << ((house.isListed == true) ? "Yes" : "No") << ",";
 
         // Save the status
         saveFile << ((house.status == true) ? "Rented" : "Not Rented") << ",";
