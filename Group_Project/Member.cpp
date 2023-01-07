@@ -50,7 +50,6 @@ bool Member::login() {
         if (i.username == username_val && i.password == password_val) {
             // set current member
             Member::currentMember = &i;
-
             cout << "Login successfully" << endl;
             isLoggedIn = true;
             return true;
@@ -115,6 +114,10 @@ void Member::addHouse() {
     }
     string data;
     Member::currentMember->myHouse = new House();
+    if (!Member::currentMember->myHouse) {
+        cout << "Failed to register!" << endl;
+        return;
+    }
     cout << "Registering your house..." << endl;
     Member::currentMember->myHouse->houseID = "H" + std::to_string(House::houseCounter);
     cout << "Enter location: ";
@@ -142,7 +145,11 @@ void Member::addHouse() {
     getline(cin,data);
     Member::currentMember->myHouse->description = data;
     Data::updateHouseData(*Member::currentMember->myHouse);
+    Data::houseList.push_back(*Member::currentMember->myHouse);
+    Data::preloadHouseData();
     Data::loadHouseData();
+    Data::updateUserData(*Member::currentMember);
+    Data::loadUserData();
 //    Data::loadFullData();
     cout << "Your house is registered successfully!" << endl;
 }
