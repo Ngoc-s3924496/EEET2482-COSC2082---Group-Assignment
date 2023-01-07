@@ -84,6 +84,14 @@ void House::showFullHouse() {
         cout << "Description: " << this->description << endl;
         cout << "Consuming Points: " << this->consumingPoints << endl;
         cout << "Minimum Occupier Rating: " << this->minOccupierRating << endl;
+        
+        cout << "Open For Rent: ";
+        if (this->isListed == true) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+        }
+
         if (this->status) {
             if (this->occupiers.empty()) {
                 cout << "House Status: Nobody has rented this house" << endl;
