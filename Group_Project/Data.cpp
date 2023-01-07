@@ -1070,13 +1070,13 @@ bool Data::updateHouseData(House house, string housePath) {
         }
 
         // Save the house whether it is available for rent, if it is yes then save as true
-        saveFile << ((house.isListed == true) ? "Yes" : "No") << ",";
+        saveFile << (house.isListed ? "Yes" : "No") << ",";
 
         // Save the status
-        saveFile << ((house.status == true) ? "Rented" : "Not Rented") << ",";
+        saveFile << (house.status ? "Rented" : "Not Rented") << ",";
 
         // Save the occupiers
-        if (house.occupiers.size() == 0) {
+        if (house.occupiers.empty()) {
             saveFile << "none" << ",";
         } else {
             int count = 0;
@@ -1092,7 +1092,7 @@ bool Data::updateHouseData(House house, string housePath) {
         }
 
         // Save the request list
-        if (house.requestList.size() == 0) {
+        if (house.requestList.empty()) {
             saveFile << "none" << ",";
         } else {
             int count = 0;
@@ -1108,7 +1108,7 @@ bool Data::updateHouseData(House house, string housePath) {
         }
 
         // Check the occupier ratings list, if it is empty then save as none
-        if (house.occupierComment.size() == 0) {
+        if (house.occupierComment.empty()) {
             saveFile << "none" << endl;
         } else {
             int count = 0;
@@ -1133,5 +1133,5 @@ bool Data::loadFullData() {
     Data::preloadUserData();
     Data::loadHouseData();
     Data::loadUserData();
-    return 1;
+    return true;
 }

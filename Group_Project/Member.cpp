@@ -114,7 +114,7 @@ void Member::addHouse() {
     }
     string data;
     Member::currentMember->myHouse = new House();
-    if (!Member::currentMember->myHouse) {
+    if (Member::currentMember->myHouse == nullptr) {
         cout << "Failed to register!" << endl;
         return;
     }
@@ -144,13 +144,9 @@ void Member::addHouse() {
     cout << "Enter description: ";
     getline(cin,data);
     Member::currentMember->myHouse->description = data;
-    Data::updateHouseData(*Member::currentMember->myHouse);
-    Data::houseList.push_back(*Member::currentMember->myHouse);
-    Data::preloadHouseData();
-    Data::loadHouseData();
     Data::updateUserData(*Member::currentMember);
-    Data::loadUserData();
-//    Data::loadFullData();
+    Data::updateHouseData(*Member::currentMember->myHouse);
+    Data::loadFullData();
     cout << "Your house is registered successfully!" << endl;
 }
 double Member::avgScore() {
