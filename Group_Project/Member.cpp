@@ -244,6 +244,8 @@ void Member::listHouse() {
     currentMember->myHouse->consumingPoints = stod(consumingPoint);
     unListHouse(1);
     House::listingHouse.push_back(*currentMember->myHouse);
+    Data::updateHouseData(*currentMember->myHouse);
+    Data::loadFullData();
 }
 
 void Member::removeRequest(Member* member, House* house){
@@ -294,8 +296,9 @@ void Member::unListHouse(int i) {
         removeRequest(j, currentMember->myHouse);
     }
     if (i == 0){
-        cout << "Remove house listing successfully";
+        cout << "Remove house listing successfully" << endl;
     }
+
 }
 
 void Member::viewPendingRequest() {
@@ -414,6 +417,11 @@ void Member::makeRequest() {
                 // assign this house
                 currentMember->pendingRequests.push_back(&j);
                 currentMember->creditPoint -= j.consumingPoints;
+//                for (Member &m : Data::userList) {
+//                    if (m.myHouse->houseID == house_id) {
+//                        m.myHouse->requestList.push_back(currentMember);
+//                    }
+//                }
                 cout << "Request successfully!" << endl;
                 Data::updateUserData(*Member::currentMember);
                 Data::loadFullData();
@@ -447,7 +455,7 @@ void Member::viewRentStatus(){
         return;
     }
     else{
-        cout << "Current rented house information";
+        cout << "Current rented house information" << endl;
         Member::currentMember->rentHouse->showFullHouse();
     }
 }
