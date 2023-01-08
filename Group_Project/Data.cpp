@@ -247,13 +247,13 @@ bool Data::saveHouseData(House house, string path) {
         }
 
         // Save the house whether it is available for rent, if it is yes then save as true
-        saveFile << ((house.isListed == true) ? "Yes" : "No") << ",";
+        saveFile << (house.isListed ? "Yes" : "No") << ",";
 
         // Save the status, if it is rented then save as true
-        saveFile << ((house.status == true) ? "Rented" : "Not Rented") << ",";
+        saveFile << (house.status ? "Rented" : "Not Rented") << ",";
 
         // Check the occupiers list, if it is empty which means there is nobody rent the house, save "none"
-        if (house.occupiers.size() == 0) {
+        if (house.occupiers.empty()) {
             saveFile << "none" << ",";
         } else {
             // Save each occupier's id following by a semicolon

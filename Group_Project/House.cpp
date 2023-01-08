@@ -86,7 +86,7 @@ void House::showFullHouse() {
         cout << "Minimum Occupier Rating: " << this->minOccupierRating << endl;
         
         cout << "Open For Rent: ";
-        if (this->isListed == true) {
+        if (this->isListed) {
             cout << "Yes" << endl;
         } else {
             cout << "No" << endl;
