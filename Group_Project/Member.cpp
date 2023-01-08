@@ -245,12 +245,10 @@ void Member::listHouse() {
     currentMember->myHouse->startDate = startDate;
     currentMember->myHouse->endDate = endDate;
     currentMember->myHouse->consumingPoints = stod(consumingPoint);
-    currentMember->myHouse->showFullHouse();
     House::listingHouse.push_back(*currentMember->myHouse);
     currentMember->myHouse->isListed = true;
     Data::updateHouseData(*Member::currentMember->myHouse);
     Data::updateUserData(*Member::currentMember);
-    currentMember->myHouse->showFullHouse();
     Data::loadFullData();
     cout << "List House successfully!" << endl;
 }
@@ -413,32 +411,39 @@ void Member::makeRequest() {
     }
     for (auto &i : House::listingHouse) {
         cout << std::setw(10) << i.houseID << " " << i.address << " " << i.location << endl;
-        cout << std::setw(15) << i.minOccupierRating << endl;
+        cout << std::setw(15) << "Min occupier rating: " <<i.minOccupierRating << endl;
     }
     cout << "Enter house id: ";
     string house_id;
     getline(cin,house_id);
-    if (house_id == currentMember->myHouse->houseID) {
+    if (currentMember->myHouse != nullptr && house_id == currentMember->myHouse->houseID) {
         cout << "You cannot request your own house!" << endl;
-        return;
     }
-    // check if house_id is valid
-    for (auto &j : House::listingHouse) {
-        if (j.houseID == house_id) {
-            if (currentMember->avgScore() >= j.minOccupierRating) {
-                // assign this house
-                currentMember->pendingRequests.push_back(&j);
-                currentMember->creditPoint -= j.consumingPoints;
-                cout << "Request successfully!" << endl;
-                Data::updateUserData(*Member::currentMember);
-                Data::loadFullData();
+    else {
+        // check if house_id is valid
+        for (auto &j : House::listingHouse) {
+            if (strcasecmp(j.houseID.c_str(),house_id.c_str()) == 0) {
+                if (currentMember->avgScore() >= j.minOccupierRating) {
+                    // assign this house
+                    currentMember->pendingRequests.push_back(&j);
+                    j.requestList.push_back(currentMember);
+                    Data::updateHouseData(j);
+                    Data::updateUserData(*Member::currentMember);
+                    for (auto &k : Data::userList) {
+                        if(k.myHouse->houseID == j.houseID) {
+                            Data::updateUserData(k);
+                        }
+                    }
+                    Data::loadFullData();
+                    cout << "Request successfully!" << endl;
+                    return;
+                }
+                cout << "Not enough points!" << endl;
                 return;
             }
-            cout << "Not enough points!" << endl;
-            return;
         }
+        cout << "Invalid house id!" << endl;
     }
-    cout << "Invalid house id!" << endl;
 }
 void Member::displayListedHouse(){
     if (House::listingHouse.empty()){
