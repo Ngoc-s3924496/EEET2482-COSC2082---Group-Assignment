@@ -56,7 +56,7 @@ House::House(string houseId, string startDate, string endDate, string address,
                                                 occupierComment(occupierComment) {
     // Check if location is valid or not
     for (const string &loc: locations) {
-        if (location == loc) {
+        if (strcasecmp(loc.c_str(),location.c_str()) == 0) {
             this->location = location;
         }
     }
