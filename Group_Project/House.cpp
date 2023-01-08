@@ -63,7 +63,10 @@ House::House(string houseId, string startDate, string endDate, string address,
             this->location = location;
         }
     }
-    if (this->location == "") {
+    if (isListed) {
+        listingHouse.push_back(*this);
+    }
+    if (this->location.empty()) {
         cerr << "Invalid location" << endl;
     }
     houseCounter++;

@@ -225,9 +225,9 @@ void Member::listHouse() {
         unListHouse(1);
     }
     string startDate, endDate, consumingPoint, minRating;
-    cout << "Enter your listing start date: ";
+    cout << "Enter your listing start date (DD/MM/YYYY): ";
     getline(cin, startDate);
-    cout << "Enter your listing end date: ";
+    cout << "Enter your listing end date  (DD/MM/YYYY): ";
     getline(cin, endDate);
     cout << "Enter your listing consuming points: ";
     getline(cin, consumingPoint);
@@ -245,10 +245,12 @@ void Member::listHouse() {
     currentMember->myHouse->startDate = startDate;
     currentMember->myHouse->endDate = endDate;
     currentMember->myHouse->consumingPoints = stod(consumingPoint);
+    currentMember->myHouse->showFullHouse();
     House::listingHouse.push_back(*currentMember->myHouse);
-    Data::updateUserData(*Member::currentMember);
     currentMember->myHouse->isListed = true;
     Data::updateHouseData(*Member::currentMember->myHouse);
+    Data::updateUserData(*Member::currentMember);
+    currentMember->myHouse->showFullHouse();
     Data::loadFullData();
     cout << "List House successfully!" << endl;
 }
