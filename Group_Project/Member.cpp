@@ -421,7 +421,7 @@ void Member::makeRequest() {
     }
     else {
         // check if house_id is valid
-        for (auto &j : House::listingHouse) {
+        for (House &j : House::listingHouse) {
             if (strcasecmp(j.houseID.c_str(),house_id.c_str()) == 0) {
                 if (currentMember->avgScore() >= j.minOccupierRating) {
                     // assign this house
@@ -429,11 +429,11 @@ void Member::makeRequest() {
                     j.requestList.push_back(currentMember);
                     Data::updateHouseData(j);
                     Data::updateUserData(*Member::currentMember);
-                    for (auto &k : Data::userList) {
-                        if(k.myHouse->houseID == j.houseID) {
-                            Data::updateUserData(k);
-                        }
-                    }
+//                    for (auto &k : Data::userList) {
+//                        if(k.myHouse->houseID == j.houseID) {
+//                            Data::updateUserData(k);
+//                        }
+//                    }
                     Data::loadFullData();
                     cout << "Request successfully!" << endl;
                     return;
