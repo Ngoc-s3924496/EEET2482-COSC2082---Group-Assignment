@@ -114,7 +114,8 @@ void House::showFullHouse() {
         cout << "Request list: " << endl;
         if (this->requestList.empty()) {
             cout << "Nobody requested this house" << endl;
-        } else {
+        }
+        else {
             for (Member *member: this->requestList) {
                 member->showMiniInfo();
                 cout << endl;

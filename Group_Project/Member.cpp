@@ -319,6 +319,7 @@ void Member::viewPendingRequest() {
 }
 
 void Member::acceptRequest() {
+    Data::loadFullData();
     if (currentMember->myHouse == nullptr) {
         cout << "You have no house!" << endl;
         return;
@@ -429,11 +430,6 @@ void Member::makeRequest() {
                     j.requestList.push_back(currentMember);
                     Data::updateHouseData(j);
                     Data::updateUserData(*Member::currentMember);
-//                    for (auto &k : Data::userList) {
-//                        if(k.myHouse->houseID == j.houseID) {
-//                            Data::updateUserData(k);
-//                        }
-//                    }
                     Data::loadFullData();
                     cout << "Request successfully!" << endl;
                     return;
