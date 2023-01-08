@@ -221,6 +221,9 @@ void Member::listHouse() {
         cout << "No house to list" << endl;
         return;
     }
+    if (currentMember->myHouse->isListed) {
+        unListHouse(1);
+    }
     string startDate, endDate, consumingPoint, minRating;
     cout << "Enter your listing start date: ";
     getline(cin, startDate);
@@ -228,11 +231,11 @@ void Member::listHouse() {
     getline(cin, endDate);
     cout << "Enter your listing consuming points: ";
     getline(cin, consumingPoint);
-    cout << "Do you want to have a occupier rating requirement? (Y)" << endl;
+    cout << "Do you want to have a occupier rating requirement? (Y): ";
     string choice;
     getline(cin, choice);
     if (choice == "Y" || choice == "y") {
-        cout << "Enter your listing consuming points: " << endl;
+        cout << "Enter your listing consuming points: ";
         getline(cin, minRating);
         currentMember->myHouse->minOccupierRating = stod(minRating);
     }
@@ -242,10 +245,11 @@ void Member::listHouse() {
     currentMember->myHouse->startDate = startDate;
     currentMember->myHouse->endDate = endDate;
     currentMember->myHouse->consumingPoints = stod(consumingPoint);
-    unListHouse(1);
     House::listingHouse.push_back(*currentMember->myHouse);
-    Data::updateHouseData(*currentMember->myHouse);
+    Data::updateUserData(*Member::currentMember);
+    Data::updateHouseData(*Member::currentMember->myHouse);
     Data::loadFullData();
+    cout << "List House successfully!" << endl;
 }
 
 void Member::removeRequest(Member* member, House* house){
@@ -410,6 +414,10 @@ void Member::makeRequest() {
     cout << "Enter house id: ";
     string house_id;
     getline(cin,house_id);
+    if (house_id == currentMember->myHouse->houseID) {
+        cout << "You cannot request your own house!" << endl;
+        return;
+    }
     // check if house_id is valid
     for (auto &j : House::listingHouse) {
         if (j.houseID == house_id) {
@@ -417,11 +425,6 @@ void Member::makeRequest() {
                 // assign this house
                 currentMember->pendingRequests.push_back(&j);
                 currentMember->creditPoint -= j.consumingPoints;
-//                for (Member &m : Data::userList) {
-//                    if (m.myHouse->houseID == house_id) {
-//                        m.myHouse->requestList.push_back(currentMember);
-//                    }
-//                }
                 cout << "Request successfully!" << endl;
                 Data::updateUserData(*Member::currentMember);
                 Data::loadFullData();
