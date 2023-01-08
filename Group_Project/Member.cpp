@@ -245,9 +245,9 @@ void Member::listHouse() {
     currentMember->myHouse->startDate = startDate;
     currentMember->myHouse->endDate = endDate;
     currentMember->myHouse->consumingPoints = stod(consumingPoint);
-    currentMember->myHouse->isListed = true;
     House::listingHouse.push_back(*currentMember->myHouse);
     Data::updateUserData(*Member::currentMember);
+    currentMember->myHouse->isListed = true;
     Data::updateHouseData(*Member::currentMember->myHouse);
     Data::loadFullData();
     cout << "List House successfully!" << endl;

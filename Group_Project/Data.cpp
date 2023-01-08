@@ -976,7 +976,7 @@ bool Data::updateUserData(Member member, string memberPath) {
         }
 
         // Check the comment list, if it is empty then save as none
-        if (member.ownerComments.size() == 0) {
+        if (member.ownerComments.empty()) {
             saveFile << "none" << endl;
         } else {
             int count = 0;
