@@ -1,6 +1,7 @@
 #include "House.h"
 #include "Member.h"
 #include <cstring>
+
 using std::string;
 using std::cout;
 using std::cin;
@@ -14,24 +15,30 @@ House::House() = default;
 
 House::House(string houseId, string startDate, string endDate, string address,
              string location, string description, double consumingPoints, double minOccupierRating,
-             vector<double> houseRatings, bool isListed, bool status, vector <string> occupierComment) : houseID(houseId),
-                                                                                          startDate(startDate),
-                                                                                          endDate(endDate),
-                                                                                          address(address),
-                                                                                          description(description),
-                                                                                          consumingPoints(
-                                                                                                  consumingPoints),
-                                                                                          minOccupierRating(
-                                                                                                  minOccupierRating),
-                                                                                          houseRatings(houseRatings),
-                                                                                          isListed(isListed), status(status),
-                                                                                          occupierComment(
-                                                                                                  occupierComment) {
-    this->occupiers = {};
-    this->requestList = {};
+             vector<double> houseRatings, bool isListed, bool status, vector<string> occupierComment) : houseID(
+        houseId),
+                                                                                                        startDate(
+                                                                                                                startDate),
+                                                                                                        endDate(endDate),
+                                                                                                        address(address),
+                                                                                                        description(
+                                                                                                                description),
+                                                                                                        consumingPoints(
+                                                                                                                consumingPoints),
+                                                                                                        minOccupierRating(
+                                                                                                                minOccupierRating),
+                                                                                                        houseRatings(
+                                                                                                                houseRatings),
+                                                                                                        isListed(
+                                                                                                                isListed),
+                                                                                                        status(status),
+                                                                                                        occupierComment(
+                                                                                                                occupierComment) {
+    this->occupiers;
+    this->requestList;
     // Check if location is valid or not
     for (string &loc: locations) {
-        if (strcasecmp(location.c_str(),loc.c_str()) == 0) {
+        if (strcasecmp(location.c_str(), loc.c_str()) == 0) {
             this->location = location;
         }
     }
@@ -49,17 +56,17 @@ House::House(string houseId, string startDate, string endDate, string address,
              string location, string description, double consumingPoints, double minOccupierRating,
              vector<double> houseRatings, bool isListed, bool status,
              vector<Member *> occupiers, vector<Member *> requestList,
-             vector <string> occupierComment) : houseID(houseId), startDate(startDate),
-                                                endDate(endDate),
-                                                address(address), description(description),
-                                                consumingPoints(consumingPoints), minOccupierRating(minOccupierRating),
-                                                houseRatings(houseRatings),
-                                                isListed(isListed), status(status), occupiers(occupiers),
-                                                requestList(requestList),
-                                                occupierComment(occupierComment) {
+             vector<string> occupierComment) : houseID(houseId), startDate(startDate),
+                                               endDate(endDate),
+                                               address(address), description(description),
+                                               consumingPoints(consumingPoints), minOccupierRating(minOccupierRating),
+                                               houseRatings(houseRatings),
+                                               isListed(isListed), status(status), occupiers(occupiers),
+                                               requestList(requestList),
+                                               occupierComment(occupierComment) {
     // Check if location is valid or not
     for (const string &loc: locations) {
-        if (strcasecmp(loc.c_str(),location.c_str()) == 0) {
+        if (strcasecmp(loc.c_str(), location.c_str()) == 0) {
             this->location = location;
         }
     }
@@ -90,15 +97,15 @@ void House::showFullHouse() {
         cout << "Description: " << this->description << endl;
         cout << "Consuming Points: " << this->consumingPoints << endl;
         cout << "Minimum Occupier Rating: " << this->minOccupierRating << endl;
-        
+
         cout << "Open For Rent: ";
         if (this->isListed) {
             cout << "Yes" << endl;
         } else {
             cout << "No" << endl;
         }
-
-        if (this->status) {
+        if (!isListed) {
+            cout << "This house has been occupied at this time" << endl;
             if (this->occupiers.empty()) {
                 cout << "House Status: Nobody has rented this house" << endl;
             } else {
@@ -106,16 +113,19 @@ void House::showFullHouse() {
                      << this->occupiers.back()->id
                      << endl;
             }
-
         } else {
-            cout << "House Status: Empty" << endl;
+            cout << "This house is free at the moment" << endl;
+            cout << "Below are previous occupiers" << endl;
+            for (int i = 0; i < this->occupiers.size(); ++i) {
+                cout << occupiers.at(i)->getFullName() << endl;
+            }
         }
+
         cout << "House Rating Score: " << this->avgScore() << endl;
         cout << "Request list: " << endl;
         if (this->requestList.empty()) {
             cout << "Nobody requested this house" << endl;
-        }
-        else {
+        } else {
             for (Member *member: this->requestList) {
                 member->showMiniInfo();
                 cout << endl;

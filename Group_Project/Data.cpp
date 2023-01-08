@@ -773,7 +773,7 @@ bool Data::loadHouseData(string housePath) {
         line.erase(0, line.find(',') + 1);
         line.erase(0, line.find(',') + 1);
         line.erase(0, line.find(',') + 1);
-
+        line.erase(0, line.find(',') + 1);
         // Load the occupiers into a local vector
         readString = line.substr(0, line.find(','));
         line.erase(0, line.find(',') + 1);

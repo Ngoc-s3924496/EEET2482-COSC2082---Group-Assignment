@@ -31,6 +31,7 @@
     }
 
     void Admin::showHouses() {
+    Data::loadFullData();
         if(Data::houseList.empty()) {
             cout << "No data found!" << endl;
             return;
