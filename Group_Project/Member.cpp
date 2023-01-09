@@ -264,8 +264,8 @@ void Member::removeRequest(Member* member, House* house){
     for (auto &i : member->pendingRequests){
         if (i->houseID == house->houseID){
             member->pendingRequests.erase(member->pendingRequests.begin() + index);
-            Data::updateHouseData(*Member::currentMember->myHouse);
-            Data::updateUserData(*Member::currentMember);
+            Data::updateHouseData(*member->myHouse);
+            Data::updateUserData(*member);
             Data::loadFullData();
             break;
         }
@@ -278,8 +278,8 @@ void Member::removeRequest(Member* member, House* house){
         for (int k = 0; k < z.requestList.size(); k++) {
             if (z.requestList.at(k)->username == member->username) {
                 z.requestList.erase(z.requestList.begin() + k);
-                Data::updateHouseData(*Member::currentMember->myHouse);
-                Data::updateUserData(*Member::currentMember);
+                Data::updateHouseData(*z.requestList.at(k)->myHouse);
+                Data::updateUserData(*z.requestList.at(k));
                 Data::loadFullData();
                 break;
             }
