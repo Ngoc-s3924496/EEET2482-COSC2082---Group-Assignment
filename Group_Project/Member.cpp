@@ -4,6 +4,7 @@
 #include <cstring>
 #include <iomanip>
 #include <vector>
+#include <ctime>
 //Constructor
 Member::Member() = default;
 Member::Member(string id, string fullName, string userName, string password, string phoneNumber, std::vector <double> occupierRatings, int creditPoints,vector<string> ownerComment) {
@@ -226,11 +227,38 @@ void Member::listHouse() {
     if (currentMember->myHouse->isListed) {
         unListHouse(1);
     }
+    struct tm time_info {};
     string startDate, endDate, consumingPoint, minRating;
-    cout << "Enter your listing start date (DD/MM/YYYY): ";
-    getline(cin, startDate);
-    cout << "Enter your listing end date  (DD/MM/YYYY): ";
-    getline(cin, endDate);
+
+    // Start time and convert to Epoch format
+    cout << "Enter your listing START date!" << endl;
+    int data;
+    cout << "Enter year: ";
+    cin >> data;
+    time_info.tm_year = data - 1900;
+    cout << "Enter month: ";
+    cin >> data;
+    time_info.tm_mon = data - 1;
+    cout << "Enter day: ";
+    cin >> data;
+    time_info.tm_mday = data;
+    time_t epoch = mktime(&time_info);
+    currentMember->myHouse->startDate = std::to_string(epoch);
+
+    // End time and convert to Epoch format
+    cout << "Enter your listing END date!" << endl;
+    cout << "Enter year: ";
+    cin >> data;
+    time_info.tm_year = data - 1900;
+    cout << "Enter month: ";
+    cin >> data;
+    time_info.tm_mon = data - 1;
+    cout << "Enter day: ";
+    cin >> data;
+    time_info.tm_mday = data;
+    epoch = mktime(&time_info);
+    currentMember->myHouse->endDate = std::to_string(epoch);
+
     cout << "Enter your listing consuming points: ";
     getline(cin, consumingPoint);
     cout << "Do you want to have a occupier rating requirement? (Y): ";
@@ -244,8 +272,6 @@ void Member::listHouse() {
     else{
         currentMember->myHouse->minOccupierRating = 0;
     }
-    currentMember->myHouse->startDate = startDate;
-    currentMember->myHouse->endDate = endDate;
     currentMember->myHouse->consumingPoints = stod(consumingPoint);
     currentMember->myHouse->isListed = true;
     House::listingHouse.push_back(*currentMember->myHouse);
