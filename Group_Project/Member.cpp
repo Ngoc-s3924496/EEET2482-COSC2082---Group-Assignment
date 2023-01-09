@@ -509,6 +509,10 @@ void Member::displayListedHouse(){
         cout << "Name: " << i.houseID << endl;
         cout << "Address: " << i.address << endl;
         cout << "Location: " << i.location << endl;
+        time_t epoch_start = stoi(i.startDate);
+        cout << "Start date: " << ctime(&epoch_start) << endl;
+        time_t epoch_end = stoi(i.endDate);
+        cout << "End date: " << ctime(&epoch_end) << endl;
         cout << "Consuming points: " << i.consumingPoints << endl;
         cout << "Occupier rating requirement: " << i.minOccupierRating << endl;
         cout << " '" << i.description << "'" << endl;
