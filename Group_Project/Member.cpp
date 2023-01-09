@@ -167,13 +167,13 @@ const string & Member::getFullName() const {
 }
 void Member::showFullInfo() {
     // print basic information
+    cout << "--------------------------------------------" << endl;
     cout << "Full name: " << this->fullName << endl;
     cout << "Phone number: " << this->phoneNumber << endl;
     cout << "Credit point: " << this->creditPoint << endl;
     cout << "Occupier rating: " << std::setprecision(2) << std::fixed << this->avgScore() << endl;
-
     if (this->myHouse != nullptr) {
-        this->myHouse->showFullHouse();
+        cout << "Owned House: " << this->myHouse->houseID << endl;
     }
     else {
         cout << "No house registered!" << endl;
@@ -208,6 +208,7 @@ void Member::showFullInfo() {
         cout << "\t" << x << endl;
     }
     // new line
+    cout << "--------------------------------------------" << endl;
     cout << endl;
 }
 void Member::showMiniInfo() {
@@ -215,6 +216,7 @@ void Member::showMiniInfo() {
     cout << "\tPhone number: " << this->phoneNumber << endl;
     cout << "\tCredit point: " << this->creditPoint << endl;
     cout << "\tOccupier rating: " << std::setprecision(2) << std::fixed << this->avgScore() << endl;
+    cout << endl;
 }
 void Member::listHouse() {
     if (currentMember->myHouse == nullptr){
@@ -330,8 +332,9 @@ void Member::acceptRequest() {
         cout << "Your house have no request" << endl;
         return;
     }
+    cout << "Below are members, who are requesting your house: " << endl;
     for (auto &i : currentMember->myHouse->requestList){
-        cout << "Username: " << i->username << " Point: " << i->avgScore() << endl;
+        cout << "\t Username: " << i->username << " Point: " << i->avgScore() << endl;
     }
     cout << "Enter username of request you want to accept: ";
     string username_val;
@@ -340,11 +343,16 @@ void Member::acceptRequest() {
         if (username_val == i->username){
             i->rentHouse = currentMember->myHouse;
             currentMember->myHouse->status = "Rented";
+            currentMember->myHouse->isListed = false;
             removeRequest(i, currentMember->myHouse);
             currentMember->creditPoint += currentMember->myHouse->consumingPoints;
             i->creditPoint -= currentMember->myHouse->consumingPoints;
             currentMember->myHouse->occupiers.push_back(i);
-            cout << i->getFullName() << " have successfully rented your house" << endl;
+            cout << i->id << ": " << i->getFullName() << " have successfully rented your house" << endl;
+            Data::updateHouseData(*currentMember->myHouse);
+            Data::updateUserData(*i);
+            Data::updateUserData(*currentMember);
+            Data::loadFullData();
             return;
         }
     }
@@ -376,9 +384,8 @@ void Member::rateOccupier() {
                 string comment;
                 getline(std::cin,comment);
                 i->ownerComments.push_back(Member::currentMember->username + ": "+ comment);
+                return;
             }
-            Data::updateUserData(*i);
-            Data::loadFullData();
             return;
         }
     }
@@ -436,6 +443,11 @@ void Member::makeRequest() {
                             currentMember->pendingRequests.push_back(&j);
                             j.requestList.push_back(currentMember);
                             Data::updateHouseData(j);
+//                    for (Member &k : Data::userList) {
+//                        if(k.myHouse->houseID == j.houseID) {
+//                            Data::updateUserData(k);
+//                        }
+//                    }
                             Data::updateUserData(*Member::currentMember);
                             Data::loadFullData();
                             cout << "Request successfully!" << endl;

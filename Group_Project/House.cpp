@@ -81,29 +81,40 @@ House::House(string houseId, string startDate, string endDate, string address,
 
 // Show simple version of the house for Guest viewing
 void House::showDemoHouse() {
+    cout << "--------------------------------------------" << endl;
+    cout << "| HOUSE INFORMATION - GUEST VERSION |" << endl;
+    cout << endl;
     cout << "House ID: " << this->houseID << endl;
+    cout << "Address: " << this->address << endl;
     cout << "Location: " << this->location << endl;
-    cout << "Approximate House Rating Score: " << this->avgScore() - 1.5 << " ~ " << this->avgScore() + 1.5 << endl
-         << endl;
+    cout << "Description: " << this->description << endl;
+    cout << endl;
+    cout << "Consuming Points: " << this->consumingPoints << endl;
+    cout << "Minimum Occupier Rating: " << this->minOccupierRating << endl;
+    cout << "Approximate House Rating Score: " << this->avgScore() - 1.5 << " ~ " << this->avgScore() + 1.5 << endl;
+    cout << "--------------------------------------------" << endl;
 }
 
 // Show the full version of the house for Admin / Member viewing
 void House::showFullHouse() {
     if (this != nullptr) {
-        cout << "House Information - Full Version" << endl;
+        cout << "--------------------------------------------" << endl;
+        cout << "| HOUSE INFORMATION - FULL VERSION |" << endl;
+        cout << endl;
         cout << "House ID: " << this->houseID << endl;
         cout << "Address: " << this->address << endl;
         cout << "Location: " << this->location << endl;
         cout << "Description: " << this->description << endl;
+        cout << endl;
         cout << "Consuming Points: " << this->consumingPoints << endl;
         cout << "Minimum Occupier Rating: " << this->minOccupierRating << endl;
-
         cout << "Open For Rent: ";
         if (this->isListed) {
             cout << "Yes" << endl;
         } else {
             cout << "No" << endl;
         }
+        cout << endl;
         if (!isListed) {
             cout << "This house has been occupied at this time" << endl;
             if (this->occupiers.empty()) {
@@ -115,12 +126,16 @@ void House::showFullHouse() {
             }
         } else {
             cout << "This house is free at the moment" << endl;
-            cout << "Below are previous occupiers" << endl;
-            for (int i = 0; i < this->occupiers.size(); ++i) {
-                cout << occupiers.at(i)->getFullName() << endl;
+            if (occupiers.empty()) {
+                cout << "There is no previous occupiers, let's be the first now !!!" << endl;
+            } else {
+                cout << "Below are previous occupiers" << endl;
+                for (int i = 0; i < this->occupiers.size(); ++i) {
+                    occupiers.at(i)->showMiniInfo();
+                }
             }
         }
-
+        cout << endl;
         cout << "House Rating Score: " << this->avgScore() << endl;
         cout << "Request list: " << endl;
         if (this->requestList.empty()) {
@@ -142,6 +157,7 @@ void House::showFullHouse() {
     } else {
         cout << "There is no house to be shown" << endl;
     }
+    cout << "--------------------------------------------" << endl;
     cout << endl;
 }
 

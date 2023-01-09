@@ -873,7 +873,7 @@ bool Data::checkDataExist(string id, string path) {
 
 bool Data::updateUserData(Member member, string memberPath) {
     // Update the latest data
-    Data::loadFullData();   
+    Data::loadUserData();
     // Check the file is able to be opened
     ifstream file(memberPath);
     if (!file) {
@@ -999,7 +999,7 @@ bool Data::updateUserData(Member member, string memberPath) {
 
 bool Data::updateHouseData(House house, string housePath) {
     // Update the latest data
-    Data::loadFullData(); 
+    Data::loadHouseData();
     // Check the file is able to be opened
     ifstream file(housePath);
     if (!file) {

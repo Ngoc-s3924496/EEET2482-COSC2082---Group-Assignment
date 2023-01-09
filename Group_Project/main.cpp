@@ -52,6 +52,7 @@ int main() {
 }
 
 void pageStart() {
+    Data::loadFullData();
     string input;
     cout << "Hello fellow travelers!" << endl;
     cout << "Welcome to" << endl;
@@ -89,6 +90,7 @@ void pageStart() {
 }
 
 void pageGuest() {
+    Data::loadFullData();
     cout << "Welcome guest!" << endl;
     cout << "[1] View available houses" << endl;
     cout << "[2] Register as a member" << endl;
@@ -130,6 +132,7 @@ void pageGuest() {
 }
 
 void pageMember() {
+    Data::loadFullData();
     // Check member username and password
     // Change Test value to Admin predefined attribute
     if (!Member::isLoggedIn) {
@@ -363,6 +366,7 @@ void pageMember() {
 }
 
 void pageAdmin() {
+    Data::loadFullData();
     // Change Test value to Admin predefined attribute
     if (!Admin::isLoggedIn) {
         if (!Admin::login()) {
@@ -477,6 +481,7 @@ void pageAdmin() {
 }
 
 void pageEnd() {
+    Data::loadFullData();
     //if not null
     if (Member::currentMember != nullptr) {
         Data::updateUserData(*Member::currentMember);
