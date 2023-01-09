@@ -376,8 +376,9 @@ void Member::rateOccupier() {
                 string comment;
                 getline(std::cin,comment);
                 i->ownerComments.push_back(Member::currentMember->username + ": "+ comment);
-                return;
             }
+            Data::updateUserData(*i);
+            Data::loadFullData();
             return;
         }
     }
@@ -428,20 +429,14 @@ void Member::makeRequest() {
         for (House &h : Data::houseList) {
             for (House &j : House::listingHouse) {
                 if (j.houseID == h.houseID) {
-                    j.requestList = h.requestList;
                     if (strcasecmp(j.houseID.c_str(),house_id.c_str()) == 0) {
+                        j.requestList = h.requestList;
                         if (currentMember->avgScore() >= j.minOccupierRating) {
                             // assign this house
                             currentMember->pendingRequests.push_back(&j);
                             j.requestList.push_back(currentMember);
-                            j.showFullHouse();
                             Data::updateHouseData(j);
                             Data::updateUserData(*Member::currentMember);
-//                    for (Member &k : Data::userList) {
-//                        if(k.myHouse->houseID == j.houseID) {
-//                            Data::updateUserData(k);
-//                        }
-//                    }
                             Data::loadFullData();
                             cout << "Request successfully!" << endl;
                             return;
