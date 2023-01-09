@@ -232,33 +232,32 @@ void Member::listHouse() {
 
     // Start time and convert to Epoch format
     cout << "Enter your listing START date!" << endl;
-    int data;
+    string data;
     cout << "Enter year: ";
-    cin >> data;
-    time_info.tm_year = data - 1900;
+    getline(cin,data);
+    time_info.tm_year = stoi(data) - 1900;
     cout << "Enter month: ";
-    cin >> data;
-    time_info.tm_mon = data - 1;
+    getline(cin,data);
+    time_info.tm_mon = stoi(data) - 1;
     cout << "Enter day: ";
-    cin >> data;
-    time_info.tm_mday = data;
+    getline(cin,data);
+    time_info.tm_mday = stoi(data);
     time_t epoch = mktime(&time_info);
     currentMember->myHouse->startDate = std::to_string(epoch);
 
     // End time and convert to Epoch format
     cout << "Enter your listing END date!" << endl;
     cout << "Enter year: ";
-    cin >> data;
-    time_info.tm_year = data - 1900;
+    getline(cin,data);
+    time_info.tm_year = stoi(data) - 1900;
     cout << "Enter month: ";
-    cin >> data;
-    time_info.tm_mon = data - 1;
+    getline(cin,data);
+    time_info.tm_mon = stoi(data) - 1;
     cout << "Enter day: ";
-    cin >> data;
-    time_info.tm_mday = data;
+    getline(cin,data);
+    time_info.tm_mday = stoi(data);
     epoch = mktime(&time_info);
     currentMember->myHouse->endDate = std::to_string(epoch);
-
     cout << "Enter your listing consuming points: ";
     getline(cin, consumingPoint);
     cout << "Do you want to have a occupier rating requirement? (Y): ";
@@ -551,5 +550,4 @@ void Member::ratingHouse() {
     Data::updateUserData(*currentMember);
     Data::loadFullData();
     cout << "Thank you for using!" << endl;
-    return;
 }
