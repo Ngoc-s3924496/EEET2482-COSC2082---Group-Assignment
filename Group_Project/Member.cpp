@@ -256,33 +256,26 @@ void Member::listHouse() {
 }
 
 void Member::removeRequest(Member* member, House* house){
-    // Remove House from member pending request
+    // Remove member from house request list
     int index = 0;
-    if (member->pendingRequests.empty() || Data::houseList.empty()) {
-        return;
-    }
-    for (auto &i : member->pendingRequests){
-        if (i->houseID == house->houseID){
-            member->pendingRequests.erase(member->pendingRequests.begin() + index);
-            Data::updateHouseData(*member->myHouse);
-            Data::updateUserData(*member);
-            Data::loadFullData();
+    for (auto &i : house->requestList){
+        if (i->id == member->id){
+            house->requestList.erase(house->requestList.begin() + index);
             break;
         }
         else{
             index++;
         }
     }
-    // remove member from house request list
-    for (auto &z : Data::houseList) {
-        for (int k = 0; k < z.requestList.size(); k++) {
-            if (z.requestList.at(k)->username == member->username) {
-                z.requestList.erase(z.requestList.begin() + k);
-                Data::updateHouseData(*z.requestList.at(k)->myHouse);
-                Data::updateUserData(*z.requestList.at(k));
-                Data::loadFullData();
-                break;
-            }
+    // Remove House from member pending request
+    index = 0;
+    for (auto &i : member->pendingRequests){
+        if (i->houseID == house->houseID){
+            member->pendingRequests.erase(member->pendingRequests.begin() + index);
+            break;
+        }
+        else{
+            index++;
         }
     }
 }
@@ -348,18 +341,27 @@ void Member::acceptRequest() {
     getline(cin,username_val);
     for (auto i : currentMember->myHouse->requestList){
         if (username_val == i->username){
+            if (i->rentHouse != nullptr) {
+                cout << "This person has rented another house" << endl;
+                removeRequest(i, currentMember->myHouse);
+                Data::updateHouseData(*currentMember->myHouse);
+                Data::updateUserData(*i);
+                Data::updateUserData(*currentMember);
+                Data::loadFullData();
+                return;
+            }
             i->rentHouse = currentMember->myHouse;
             currentMember->myHouse->status = "Rented";
             currentMember->myHouse->isListed = false;
+            removeRequest(i, currentMember->myHouse);
             currentMember->creditPoint += currentMember->myHouse->consumingPoints;
             i->creditPoint -= currentMember->myHouse->consumingPoints;
             currentMember->myHouse->occupiers.push_back(i);
-            removeRequest(i, currentMember->myHouse);
-            cout << i->id << ": " << i->getFullName() << " have successfully rented your house" << endl;
             Data::updateHouseData(*currentMember->myHouse);
             Data::updateUserData(*i);
             Data::updateUserData(*currentMember);
             Data::loadFullData();
+            cout << i->id << ": " << i->getFullName() << " have successfully rented your house" << endl;
             return;
         }
     }
@@ -392,8 +394,7 @@ void Member::rateOccupier() {
                 getline(std::cin,comment);
                 i->ownerComments.push_back(Member::currentMember->username + ": "+ comment);
             }
-            Data::updateHouseData(*i->myHouse);
-            Data::updateUserData(*i);
+            Data::updateUserData(*currentMember);
             Data::loadFullData();
             return;
         }
@@ -516,8 +517,12 @@ void Member::ratingHouse() {
         cout << "Type here: ";
         string comment;
         getline(std::cin,comment);
-        currentMember->rentHouse->occupierComment.push_back(comment);
-        return;
+        string result = currentMember->username + ": " + comment;
+        currentMember->rentHouse->occupierComment.push_back(result);
     }
+    Data::updateHouseData(*currentMember->rentHouse);
+    Data::updateUserData(*currentMember);
+    Data::loadFullData();
     cout << "Thank you for using!" << endl;
+    return;
 }
