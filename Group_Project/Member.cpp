@@ -274,7 +274,7 @@ void Member::removeRequest(Member* member, House* house){
     for (auto &z : Data::houseList) {
         for (int k = 0; k < z.requestList.size(); k++) {
             if (z.requestList.at(k)->username == member->username) {
-                z.requestList.erase(z.requestList.begin() + k, z.requestList.begin() + k + 1);
+                z.requestList.erase(z.requestList.begin() + k);
                 break;
             }
         }
