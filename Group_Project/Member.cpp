@@ -264,6 +264,9 @@ void Member::removeRequest(Member* member, House* house){
     for (auto &i : member->pendingRequests){
         if (i->houseID == house->houseID){
             member->pendingRequests.erase(member->pendingRequests.begin() + index);
+            Data::updateHouseData(*Member::currentMember->myHouse);
+            Data::updateUserData(*Member::currentMember);
+            Data::loadFullData();
             break;
         }
         else{
@@ -275,6 +278,9 @@ void Member::removeRequest(Member* member, House* house){
         for (int k = 0; k < z.requestList.size(); k++) {
             if (z.requestList.at(k)->username == member->username) {
                 z.requestList.erase(z.requestList.begin() + k);
+                Data::updateHouseData(*Member::currentMember->myHouse);
+                Data::updateUserData(*Member::currentMember);
+                Data::loadFullData();
                 break;
             }
         }
@@ -386,6 +392,7 @@ void Member::rateOccupier() {
                 getline(std::cin,comment);
                 i->ownerComments.push_back(Member::currentMember->username + ": "+ comment);
             }
+            Data::updateHouseData(*i->myHouse);
             Data::updateUserData(*i);
             Data::loadFullData();
             return;
