@@ -256,19 +256,11 @@ void Member::listHouse() {
 }
 
 void Member::removeRequest(Member* member, House* house){
-    // Remove member from house request list
-    int index = 0;
-    for (auto &i : house->requestList){
-        if (i->id == member->id){
-            house->requestList.erase(house->requestList.begin() + index);
-            break;
-        }
-        else{
-            index++;
-        }
-    }
     // Remove House from member pending request
-    index = 0;
+    int index = 0;
+    if (member->pendingRequests.empty() || Data::houseList.empty()) {
+        return;
+    }
     for (auto &i : member->pendingRequests){
         if (i->houseID == house->houseID){
             member->pendingRequests.erase(member->pendingRequests.begin() + index);
@@ -276,6 +268,15 @@ void Member::removeRequest(Member* member, House* house){
         }
         else{
             index++;
+        }
+    }
+    // remove member from house request list
+    for (auto &z : Data::houseList) {
+        for (int k = 0; k < z.requestList.size(); k++) {
+            if (z.requestList.at(k)->username == member->username) {
+                z.requestList.erase(z.requestList.begin() + k, z.requestList.begin() + k + 1);
+                break;
+            }
         }
     }
 }
@@ -344,10 +345,10 @@ void Member::acceptRequest() {
             i->rentHouse = currentMember->myHouse;
             currentMember->myHouse->status = "Rented";
             currentMember->myHouse->isListed = false;
-            removeRequest(i, currentMember->myHouse);
             currentMember->creditPoint += currentMember->myHouse->consumingPoints;
             i->creditPoint -= currentMember->myHouse->consumingPoints;
             currentMember->myHouse->occupiers.push_back(i);
+            removeRequest(i, currentMember->myHouse);
             cout << i->id << ": " << i->getFullName() << " have successfully rented your house" << endl;
             Data::updateHouseData(*currentMember->myHouse);
             Data::updateUserData(*i);
@@ -384,8 +385,9 @@ void Member::rateOccupier() {
                 string comment;
                 getline(std::cin,comment);
                 i->ownerComments.push_back(Member::currentMember->username + ": "+ comment);
-                return;
             }
+            Data::updateUserData(*i);
+            Data::loadFullData();
             return;
         }
     }
