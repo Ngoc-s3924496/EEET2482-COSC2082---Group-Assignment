@@ -306,7 +306,8 @@ void Member::unListHouse(int i) {
         currentMember->myHouse->isListed = false;
         cout << "Remove house listing successfully" << endl;
     }
-
+    Data::updateHouseData(*currentMember->myHouse);
+    Data::updateUserData(*currentMember);
 }
 
 void Member::viewPendingRequest() {
