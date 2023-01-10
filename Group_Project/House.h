@@ -20,7 +20,7 @@ public:
     friend class Admin;
     friend class Data;
     inline static int houseCounter {1};
-public:
+private:
     string houseID {};
     string startDate {};
     string endDate {};
