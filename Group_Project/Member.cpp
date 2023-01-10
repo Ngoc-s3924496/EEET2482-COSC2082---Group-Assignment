@@ -41,6 +41,7 @@ Member::Member(string id, string fullName, string username, string password, str
 }
 
 bool Member::login() {
+    Member::checkTime();
     string username_val;
     cout << "Enter username: ";
     std::getline(cin, username_val);
@@ -556,25 +557,44 @@ void Member::ratingHouse() {
     cout << "Thank you for using!" << endl;
 }
 void Member::checkTime() {
-    Data::loadFullData();
-    time_t currentTime{};
+
+    cout << "1" << endl;
+    time_t currentTime{0};
     // Current time
     time (&currentTime);
     if (Data::userList.empty()) {
         cout << "Empty!" << endl;
         return;
     }
+    cout << "2" << endl;
     for (auto &i : Data::userList) {
-        if (i.rentHouse != nullptr) {
+        cout << "3" << endl;
+        if (i.rentHouse) {
+            cout << "4" << endl;
+            cout <<stoi(i.rentHouse->endDate) << endl;
             if (currentTime >= stoi(i.rentHouse->endDate)) {
+                cout << "5" << endl;
                 i.rentHouse->status = false;
+                i.rentHouse->isListed = false;
                 i.rentHouse->startDate = "";
                 i.rentHouse->endDate = "";
                 i.rentHouse = nullptr;
                 Data::updateHouseData(*i.rentHouse);
                 Data::updateUserData(i);
+                Data::loadFullData();
             }
         }
     }
-    Data::loadFullData();
+//    for (auto &i : Data::houseList) {
+//        if (currentTime >= stoi(i.endDate)) {
+//            cout << "5" << endl;
+//            i.status = false;
+//            i.isListed = false;
+//            i.startDate = "";
+//            i.endDate = "";
+//            Data::updateHouseData(i);
+//            Data::loadFullData();
+//            cout << "run!" << endl;
+//        }
+//    }
 }
