@@ -602,7 +602,7 @@ void Member::checkTime() {
 void Member::showRemainingTime() {
     time_t today;
     time (&today);
-    string end = currentMember->myHouse->endDate;
+    string end = currentMember->rentHouse->endDate;
     int endInt = std::stoi(end);
     time_t endTime = endInt;
     string final = ctime(&endTime);
