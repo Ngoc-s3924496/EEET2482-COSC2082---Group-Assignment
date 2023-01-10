@@ -1,12 +1,13 @@
 ID,Full Name,Username,Password,Phone Number,Owned House,Occupier Ratings,Credit Points,Pending Requests,Rent House,Comment List
-M1,Hoang Tuan Gia Huy,s3912345,Rmit@3912345,932761567,H1,7; 8.6; 6.8,101,none,none,s3912345: Good; s3912346: Clean and tidy; s3912349: Great person; s3912350: Clean person
-M2,Pham Dinh Duc Huy,s3912346,Rmit@3912346,981127809,H2,6; -1,300,none,H5,s3912352: Responsible; s3912353: Untidy
+M1,Hoang Tuan Gia Huy,s3912345,Rmit@3912345,932761567,H1,7; 8.6; 6.8,201,H3,none,s3912345: Good; s3912346: Clean and tidy; s3912349: Great person; s3912350: Clean person
+M2,Pham Dinh Duc Huy,s3912346,Rmit@3912346,981127809,H2,6; -1,300,none,none,s3912352: Responsible; s3912353: Untidy
 M3,Vo Ha Khanh Linh,s3912347,Rmit@3912347,902680705,H3,7; 9.1,1000,H1; H11,none,s3912352: Thoughful person; s3912353: Caring person; s3912354: Funny person
-M4,Nguyen Quynh Long,s3912348,Rmit@3912348,904254583,H4,-10,50,none,H3,s3912352: Tidy; s3912350: Paying on time
-M5,Huynh Ly Ly,s3912349,Rmit@3912349,904323435,H5,8; 9,190,none,H6,s3912345: Always keep the room clean; s3912346: Have a dog
-M6,Pham Hong Mai,s3912350,Rmit@3912350,908187016,H6,none,59,H4; H9,H11,s3912348: Never clean the room
+M4,Nguyen Quynh Long,s3912348,Rmit@3912348,904254583,H4,-10,350,none,none,s3912352: Tidy; s3912350: Paying on time
+M5,Huynh Ly Ly,s3912349,Rmit@3912349,904323435,H5,8; 9,190,none,none,s3912345: Always keep the room clean; s3912346: Have a dog
+M6,Pham Hong Mai,s3912350,Rmit@3912350,908187016,H6,none,-241,none,H4,s3912348: Never clean the room
 M7,Duong Vu Thanh Ngoc,s3912351,Rmit@3912351,902303453,H7,8; 10,273,H9,none,s3912353: Irresponsible; s3912352: Love to bring cats inside the house
-M8,Ho Minh Nhat,s3912352,Rmit@3912352,931878635,H8,6; 7; 8; 10,324,none,H7,s3912354: Love to eat out; s3912345: Never use the kitchen
-M9,Vu Phuc Thuy Tien,s3912353,Rmit@3912353,328104791,H9,-4; 6; 7,2495,none,H2,s3912346: Never clean the toilet; s3912351: Love to decorate the house; s3912352: Great person
+M8,Ho Minh Nhat,s3912352,Rmit@3912352,931878635,H8,6; 7; 8; 10,324,none,none,s3912354: Love to eat out; s3912345: Never use the kitchen
+M9,Vu Phuc Thuy Tien,s3912353,Rmit@3912353,328104791,H9,-4; 6; 7,2495,none,none,s3912346: Never clean the toilet; s3912351: Love to decorate the house; s3912352: Great person
 M10,Tran Khue Tu,s3912354,Rmit@3912354,971239125,H10,8.5; 8.6,235,none,none,s3912347: Lovely person.
-M11,thach ngo,thach,123,123123,H11,none,850,none,H9,none
+M11,thach ngo,thach,123,123123,H11,10,850,H2,H1,s3912345: Great man
+M56,Quan Nguy Hiem,quannguyhiem47,04072003,0991234567,H45,none,400,none,H11,none

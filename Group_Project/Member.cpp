@@ -174,11 +174,12 @@ void Member::showFullInfo() {
     cout << "Phone number: " << this->phoneNumber << endl;
     cout << "Credit point: " << this->creditPoint << endl;
     cout << "Occupier rating: " << std::setprecision(2) << std::fixed << this->avgScore() << endl;
+    cout << "My House: " << endl;
     if (this->myHouse != nullptr) {
-        cout << "Owned House: " << this->myHouse->houseID << endl;
+        cout << "\t" << this->myHouse->houseID << endl;
     }
     else {
-        cout << "No house registered!" << endl;
+        cout << "\tNo house registered!" << endl;
     }
     // print all pending requests
     cout << "Pending requests: " << endl;
@@ -265,12 +266,12 @@ void Member::listHouse() {
     string choice;
     getline(cin, choice);
     if (choice == "Y" || choice == "y") {
-        cout << "Enter your listing consuming points: ";
+        cout << "Enter your minimum point for occupier to apply: ";
         getline(cin, minRating);
         currentMember->myHouse->minOccupierRating = stod(minRating);
     }
     else{
-        currentMember->myHouse->minOccupierRating = 0;
+        currentMember->myHouse->minOccupierRating = -10;
     }
     currentMember->myHouse->consumingPoints = stod(consumingPoint);
     currentMember->myHouse->isListed = true;
@@ -328,6 +329,8 @@ void Member::unListHouse(int i) {
     for (auto &j : currentMember->myHouse->requestList){
         removeRequest(j, currentMember->myHouse);
     }
+    currentMember->myHouse->startDate = "";
+    currentMember->myHouse->endDate = "";
     if (i == 0){
         currentMember->myHouse->isListed = false;
         cout << "Remove house listing successfully" << endl;
@@ -385,6 +388,15 @@ void Member::acceptRequest() {
             i->creditPoint -= currentMember->myHouse->consumingPoints;
             currentMember->myHouse->occupiers.push_back(i);
             Data::updateHouseData(*currentMember->myHouse);
+            for (Member &m : Data::userList) {
+                for (Member *occ : m.myHouse->requestList) {
+                    if (occ->username == username_val) {
+                        m.removeRequest(occ, m.myHouse);
+                        Data::updateHouseData(*m.myHouse);
+                        break;
+                    }
+                }
+            }
             Data::updateUserData(*i);
             Data::updateUserData(*currentMember);
             Data::loadFullData();
@@ -394,7 +406,6 @@ void Member::acceptRequest() {
     }
     cout << "Username not found" << endl;
 }
-
 void Member::rateOccupier() {
     if (currentMember->myHouse == nullptr) {
         cout << "You have no house!" << endl;
@@ -451,7 +462,6 @@ void Member::searchHouse() {
     }
     cout << "Invalid location!" <<endl;
 }
-
 void Member::makeRequest() {
     Data::loadFullData();
     if (House::listingHouse.empty()) {
@@ -506,20 +516,22 @@ void Member::displayListedHouse(){
         return;
     }
     for (auto& i : House::listingHouse){
-        cout << endl;
+        cout << "~~~~~~~~~~~~~~~~~~~~" << endl;
         cout << "Name: " << i.houseID << endl;
         cout << "Address: " << i.address << endl;
         cout << "Location: " << i.location << endl;
         time_t epoch_start = stoi(i.startDate);
-        cout << "Start date: " << ctime(&epoch_start) << endl;
         time_t epoch_end = stoi(i.endDate);
-        cout << "End date: " << ctime(&epoch_end) << endl;
+        cout << endl;
+        cout << "Start date: " << ctime(&epoch_start);
+        cout << "End date: " << ctime(&epoch_end);
+        cout << endl;
         cout << "Consuming points: " << i.consumingPoints << endl;
         cout << "Occupier rating requirement: " << i.minOccupierRating << endl;
         cout << " '" << i.description << "'" << endl;
+        cout << endl;
     }
 }
-
 void Member::viewRentStatus(){
     if (Member::currentMember->rentHouse == nullptr){
         cout << "You are not renting any house at the moment or they are still pending!" << endl;
@@ -528,6 +540,7 @@ void Member::viewRentStatus(){
     else{
         cout << "Current rented house information" << endl;
         Member::currentMember->rentHouse->showFullHouse();
+        Member::showRemainingTime();
     }
 }
 void Member::ratingHouse() {
@@ -565,7 +578,6 @@ void Member::checkTime() {
     }
     for (auto &i : Data::userList) {
         if (i.rentHouse) {
-            cout <<stoi(i.rentHouse->endDate) << endl;
             if (currentTime >= stoi(i.rentHouse->endDate)) {
                 i.rentHouse = nullptr;
                 Data::updateUserData(i);
@@ -574,13 +586,28 @@ void Member::checkTime() {
         }
     }
     for (auto &i : Data::houseList) {
-        if (currentTime >= stoi(i.endDate)) {
-            i.status = false;
-            i.isListed = false;
-            i.startDate = "";
-            i.endDate = "";
-            Data::updateHouseData(i);
-            Data::loadFullData();
+        if (i.endDate != "") {
+            if (currentTime >= stoi(i.endDate)) {
+                i.status = false;
+                i.isListed = false;
+                i.startDate = "";
+                i.endDate = "";
+                Data::updateHouseData(i);
+                Data::loadFullData();
+            }
         }
     }
+}
+
+void Member::showRemainingTime() {
+    time_t today;
+    time (&today);
+    string end = currentMember->myHouse->endDate;
+    int endInt = std::stoi(end);
+    time_t endTime = endInt;
+    string final = ctime(&endTime);
+    cout << "---\nToday is: " << ctime(&today);
+    cout << "---\nRent house end date is: " << ctime(&endTime);
+    cout << "Please note that your rent house will be automatically canceled if the end-date is over" << endl;
+    cout << "---" << endl;
 }

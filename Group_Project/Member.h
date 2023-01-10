@@ -89,5 +89,6 @@ public:
     static void displayListedHouse();
     static void removeRequest(Member *member, House *house);
     static void checkTime();
+    static void showRemainingTime();
 };
 #endif //MEMBER_H

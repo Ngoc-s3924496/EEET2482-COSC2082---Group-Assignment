@@ -996,7 +996,6 @@ bool Data::updateUserData(Member member, string memberPath) {
     return 1;
 }
 
-
 bool Data::updateHouseData(House house, string housePath) {
     // Update the latest data
     Data::loadHouseData();

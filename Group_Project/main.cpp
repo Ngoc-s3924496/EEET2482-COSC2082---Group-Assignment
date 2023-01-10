@@ -56,7 +56,13 @@ void pageStart() {
     cout << "Hello fellow travelers!" << endl;
     cout << "Welcome to" << endl;
     cout << "TEAM 925 VACATION HOUSE EXCHANGE APPLICATION" << endl;
-    lineBreak();
+    // current epoch time
+    time_t raw_time;
+    // Current time
+    time (&raw_time);
+    string today = ctime(&raw_time);
+    cout << "---\n Today is: " << today;
+    cout << "---" << endl;
     cout << "User the app as:" << endl;
     cout << "[1] Guest" << endl;
     cout << "[2] Member" << endl;
@@ -90,7 +96,9 @@ void pageStart() {
 
 void pageGuest() {
     Data::loadFullData();
-    cout << "Welcome guest!" << endl;
+    cout << "--------------" << endl;
+    cout << "WELCOME GUEST!" << endl;
+    cout << "--------------" << endl;
     cout << "[1] View available houses" << endl;
     cout << "[2] Register as a member" << endl;
     cout << "[3] Login" << endl;
@@ -163,7 +171,17 @@ void pageMember() {
             }
         }
         else {
-            cout << "Hello " << Member::currentMember->getFullName() << " !" << endl;
+            cout << "--------------" << endl;
+            cout << "WELCOME "<< Member::currentMember->getFullName() << " !" << endl;
+            cout << "--------------" << endl;
+            // current epoch time
+            time_t raw_time;
+            // Current time
+            time (&raw_time);
+            string today = ctime(&raw_time);
+            cout << "---\nToday is: " << today;
+            cout << "Please note that your rent house will be automatically canceled if the end-date is over" << endl;
+            cout << "---" << endl;
             cout << "[1] Show account info" << endl;
             cout << "[2] Add new House" << endl;
             cout << "[3] Show all listing house" << endl;
@@ -397,7 +415,9 @@ void pageAdmin() {
             }
         }
         else {
-            cout << "Welcome admin!" << endl;
+            cout << "--------------" << endl;
+            cout << "WELCOME ADMIN!" << endl;
+            cout << "--------------" << endl;
             string input;
             cout << "[1] Show houses information" << endl;
             cout << "[2] Show members information" << endl;

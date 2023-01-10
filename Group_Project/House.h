@@ -52,6 +52,7 @@ public:
     void showDemoHouse();
 
     double avgScore();
+
 };
 
 #endif //HOUSE_H
