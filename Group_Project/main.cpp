@@ -2,7 +2,7 @@
 #include<vector>
 #include<map>
 #include "Member.h"
-#include "House.h"
+#include <ctime>
 #include "Guest.h"
 #include "Admin.h"
 #include "Data.h"
@@ -52,6 +52,7 @@ int main() {
 }
 
 void pageStart() {
+    Data::checkTime();
     Data::loadFullData();
     string input;
     cout << "Hello fellow travelers!" << endl;

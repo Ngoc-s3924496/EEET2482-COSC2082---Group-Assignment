@@ -1127,6 +1127,24 @@ bool Data::updateHouseData(House house, string housePath) {
     }
     return true;
 }
+void Data::checkTime() {
+    time_t currentTime;
+    // Current time
+    time (&currentTime);
+    for (auto &i : Data::userList) {
+        if (i.rentHouse != nullptr) {
+            if (currentTime >= stoi(i.rentHouse->endDate)) {
+                i.rentHouse->status = false;
+                i.rentHouse->startDate = "";
+                i.rentHouse->endDate = "";
+                i.rentHouse = nullptr;
+                Data::updateHouseData(*i.rentHouse);
+                Data::updateUserData(i);
+                Data::loadFullData();
+            }
+        }
+    }
+}
 
 bool Data::loadFullData() {
     Data::preloadHouseData();
