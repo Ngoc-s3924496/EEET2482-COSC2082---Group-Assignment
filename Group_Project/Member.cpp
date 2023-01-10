@@ -557,44 +557,30 @@ void Member::ratingHouse() {
     cout << "Thank you for using!" << endl;
 }
 void Member::checkTime() {
-
-    cout << "1" << endl;
     time_t currentTime{0};
     // Current time
     time (&currentTime);
     if (Data::userList.empty()) {
-        cout << "Empty!" << endl;
         return;
     }
-    cout << "2" << endl;
     for (auto &i : Data::userList) {
-        cout << "3" << endl;
         if (i.rentHouse) {
-            cout << "4" << endl;
             cout <<stoi(i.rentHouse->endDate) << endl;
             if (currentTime >= stoi(i.rentHouse->endDate)) {
-                cout << "5" << endl;
-                i.rentHouse->status = false;
-                i.rentHouse->isListed = false;
-                i.rentHouse->startDate = "";
-                i.rentHouse->endDate = "";
                 i.rentHouse = nullptr;
-                Data::updateHouseData(*i.rentHouse);
                 Data::updateUserData(i);
                 Data::loadFullData();
             }
         }
     }
-//    for (auto &i : Data::houseList) {
-//        if (currentTime >= stoi(i.endDate)) {
-//            cout << "5" << endl;
-//            i.status = false;
-//            i.isListed = false;
-//            i.startDate = "";
-//            i.endDate = "";
-//            Data::updateHouseData(i);
-//            Data::loadFullData();
-//            cout << "run!" << endl;
-//        }
-//    }
+    for (auto &i : Data::houseList) {
+        if (currentTime >= stoi(i.endDate)) {
+            i.status = false;
+            i.isListed = false;
+            i.startDate = "";
+            i.endDate = "";
+            Data::updateHouseData(i);
+            Data::loadFullData();
+        }
+    }
 }
