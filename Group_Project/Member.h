@@ -88,5 +88,6 @@ public:
     static void ratingHouse();
     static void displayListedHouse();
     static void removeRequest(Member *member, House *house);
+    void checkTime();
 };
 #endif //MEMBER_H

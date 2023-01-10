@@ -36,7 +36,6 @@ bool checkExist(vector<string> stringlist, string element);
 
 int main() {
     Data::loadFullData();
-
     // Call constructor for classes
     cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;
     cout << "VACATION HOUSE EXCHANGE APPLICATION" << endl;
@@ -91,7 +90,6 @@ void pageStart() {
 
 void pageGuest() {
     Data::loadFullData();
-    Data::checkTime();
     cout << "Welcome guest!" << endl;
     cout << "[1] View available houses" << endl;
     cout << "[2] Register as a member" << endl;
@@ -134,7 +132,6 @@ void pageGuest() {
 
 void pageMember() {
     Data::loadFullData();
-    Data::checkTime();
     // Check member username and password
     // Change Test value to Admin predefined attribute
     if (!Member::isLoggedIn) {
@@ -369,7 +366,6 @@ void pageMember() {
 
 void pageAdmin() {
     Data::loadFullData();
-    Data::checkTime();
     // Change Test value to Admin predefined attribute
     if (!Admin::isLoggedIn) {
         if (!Admin::login()) {
