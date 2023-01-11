@@ -53,6 +53,7 @@ public:
 
     double avgScore();
 
+
 };
 
 #endif //HOUSE_H

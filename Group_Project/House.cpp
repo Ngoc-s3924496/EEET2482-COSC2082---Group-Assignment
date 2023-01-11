@@ -183,3 +183,5 @@ double House::avgScore() {
     avg = avg / houseRatings.size();
     return avg;
 }
+
+

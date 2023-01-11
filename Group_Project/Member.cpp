@@ -611,3 +611,14 @@ void Member::showRemainingTime() {
     cout << "Please note that your rent house will be automatically canceled if the end-date is over" << endl;
     cout << "---" << endl;
 }
+
+void Member::showRequests() {
+    if (!currentMember->myHouse->requestList.empty()) {
+        cout << "Below are people who are requesting your house: " << endl;
+        for (Member *m : currentMember->myHouse->requestList) {
+            cout << "\t" << m->id << ": " << m->username << endl;
+        }
+    } else {
+        cout << "Your request list is empty at the moment" << endl;
+    }
+}

@@ -66,29 +66,21 @@ public:
     void showFullInfo();
     void showMiniInfo();
     [[nodiscard]] const string &getFullName() const ;
-
     // Ngoc
     static void listHouse();
-
     static void unListHouse(int i);
-
     static void viewPendingRequest();
-
     static void acceptRequest() ;
-
     static void rateOccupier();
-
     // Quoc
     static void searchHouse();
-
     static void makeRequest();
-
     static void viewRentStatus();
-
     static void ratingHouse();
     static void displayListedHouse();
     static void removeRequest(Member *member, House *house);
     static void checkTime();
     static void showRemainingTime();
+    static void showRequests();
 };
 #endif //MEMBER_H
