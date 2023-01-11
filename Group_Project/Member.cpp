@@ -389,11 +389,13 @@ void Member::acceptRequest() {
             currentMember->myHouse->occupiers.push_back(i);
             Data::updateHouseData(*currentMember->myHouse);
             for (Member &m : Data::userList) {
-                for (Member *occ : m.myHouse->requestList) {
-                    if (occ->username == username_val) {
-                        m.removeRequest(occ, m.myHouse);
-                        Data::updateHouseData(*m.myHouse);
-                        break;
+                if (m.myHouse != nullptr) {
+                    for (Member *occ : m.myHouse->requestList) {
+                        if (occ->username == username_val) {
+                            m.removeRequest(occ, m.myHouse);
+                            Data::updateHouseData(*m.myHouse);
+                            break;
+                        }
                     }
                 }
             }
@@ -432,6 +434,7 @@ void Member::rateOccupier() {
                 getline(std::cin,comment);
                 i->ownerComments.push_back(Member::currentMember->username + ": "+ comment);
             }
+            Data::updateUserData(*i);
             Data::updateUserData(*currentMember);
             Data::loadFullData();
             return;
