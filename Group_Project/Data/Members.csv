@@ -1,6 +1,6 @@
 ID,Full Name,Username,Password,Phone Number,Owned House,Occupier Ratings,Credit Points,Pending Requests,Rent House,Comment List
 M1,Hoang Tuan Gia Huy,s3912345,Rmit@3912345,932761567,H1,7; 8.6; 6.8,101,H6,H3,s3912345: Good; s3912346: Clean and tidy; s3912349: Great person; s3912350: Clean person
-M2,Pham Dinh Duc Huy,s3912346,Rmit@3912346,981127809,H2,6; -1; 10,200,none,H6,s3912352: Responsible; s3912353: Untidy; s3912350: ABCDo you love me
+M2,Pham Dinh Duc Huy,s3912346,Rmit@3912346,981127809,H2,6; -1; 10,200,H6,none,s3912352: Responsible; s3912353: Untidy; s3912350: ABCDo you love me
 M3,Vo Ha Khanh Linh,s3912347,Rmit@3912347,902680705,H3,7; 9.1,1100,H1; H11,none,s3912352: Thoughful person; s3912353: Caring person; s3912354: Funny person
 M4,Nguyen Quynh Long,s3912348,Rmit@3912348,904254583,H4,-10,350,none,none,s3912352: Tidy; s3912350: Paying on time
 M5,Huynh Ly Ly,s3912349,Rmit@3912349,904323435,H5,8; 9,190,none,none,s3912345: Always keep the room clean; s3912346: Have a dog

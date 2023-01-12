@@ -1,6 +1,5 @@
 #include<iostream>
 #include<vector>
-#include<map>
 #include "Member.h"
 #include <ctime>
 #include "Guest.h"

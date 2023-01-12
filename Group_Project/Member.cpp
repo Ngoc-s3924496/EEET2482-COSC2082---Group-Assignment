@@ -493,11 +493,6 @@ void Member::makeRequest() {
                             currentMember->pendingRequests.push_back(&j);
                             j.requestList.push_back(currentMember);
                             Data::updateHouseData(j);
-//                    for (Member &k : Data::userList) {
-//                        if(k.myHouse->houseID == j.houseID) {
-//                            Data::updateUserData(k);
-//                        }
-//                    }
                             Data::updateUserData(*Member::currentMember);
                             Data::loadFullData();
                             cout << "Request successfully!" << endl;
